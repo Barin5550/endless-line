@@ -1,0 +1,109 @@
+/* ============================================================
+   ENDLESS LINE — ДИЗАЙН-СИСТЕМА: BOLD ORANGE EDITION
+   ============================================================ */
+:root {
+  /* ── BRAND COLORS ─────────────────────────────────────── */
+  --c-primary:        #FF5A00;       /* Жирный оранжевый */
+  --c-primary-dark:   #CC4400;       /* Тёмный оранжевый */
+  --c-primary-light:  #FF7A30;       /* Светлый оранжевый */
+  --c-primary-glow:   rgba(255, 90, 0, 0.30);
+  --c-accent:         #FFB020;       /* Янтарный акцент */
+  --c-accent-soft:    rgba(255, 176, 32, 0.18);
+
+  /* ── LIGHT BACKGROUND ─────────────────────────────────── */
+  --c-bg:        #FFFFFF;
+  --c-bg-2:      #FAF9F8;     /* warmer, barely-there tint — smooth transition */
+  --c-bg-3:      #F4F2F0;     /* slightly warm grey — subtle depth only */
+  --c-bg-card:   #FFFFFF;
+  --c-bg-glass:  rgba(255, 255, 255, 0.92);
+
+  /* ── BORDERS ──────────────────────────────────────────── */
+  --c-border:       rgba(0, 0, 0, 0.08);
+  --c-border-hover: rgba(255, 90, 0, 0.5);
+  --c-border-orange: rgba(255, 90, 0, 0.25);
+
+  /* ── TEXT ─────────────────────────────────────────────── */
+  --c-text:    #111111;
+  --c-text-2:  #555555;
+  --c-text-3:  #999999;
+  --c-white:   #FFFFFF;
+
+  /* ── STATUS ───────────────────────────────────────────── */
+  --c-success: #22C55E;
+  --c-warning: #F59E0B;
+  --c-error:   #EF4444;
+  --c-info:    #3B82F6;
+
+  /* ── GRADIENTS ────────────────────────────────────────── */
+  --g-primary:   linear-gradient(135deg, #FF5A00 0%, #FF8C00 60%, #FFA500 100%);
+  --g-primary-v: linear-gradient(180deg, #FF5A00 0%, #FF8C00 100%);
+  --g-dark:      linear-gradient(180deg, #F9F9FB 0%, #F4F4F7 50%, #FFFFFF 100%);
+  --g-hero:      linear-gradient(160deg, #FFFFFF 0%, #FFF8F2 30%, #FFF3E8 55%, #FFF8F2 80%, #FFFFFF 100%);
+  --g-card:      linear-gradient(135deg, #FFFFFF 0%, #F8F8FA 100%);
+  --g-orange-glow: radial-gradient(700px circle at 50% 40%, rgba(255,90,0,0.06) 0%, transparent 70%);
+  --g-map:       linear-gradient(180deg, #F0F1F5 0%, #E8EAF0 100%);
+
+  /* ── SHADOWS ──────────────────────────────────────────── */
+  --s-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+  --s-md:    0 4px 16px rgba(0,0,0,0.08);
+  --s-lg:    0 10px 40px rgba(0,0,0,0.10);
+  --s-glow:  0 0 30px rgba(255,90,0,0.18);
+  --s-orange: 0 8px 30px rgba(255,90,0,0.18);
+
+  /* ── TYPOGRAPHY ───────────────────────────────────────── */
+  --f-heading:  'Outfit', sans-serif;
+  --f-body:     'Inter', sans-serif;
+
+  /* ── SPACING ──────────────────────────────────────────── */
+  --sp-xs:  4px;
+  --sp-sm:  8px;
+  --sp-md:  16px;
+  --sp-lg:  24px;
+  --sp-xl:  40px;
+  --sp-2xl: 68px;
+  --sp-3xl: 100px;
+
+  /* ── RADIUS ───────────────────────────────────────────── */
+  --r-sm:   6px;
+  --r-md:   12px;
+  --r-lg:   20px;
+  --r-xl:   32px;
+  --r-full: 9999px;
+
+  /* ── TRANSITIONS ──────────────────────────────────────── */
+  --t-fast: 0.15s ease;
+  --t-base: 0.25s ease;
+  --t-slow: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ── LAYOUT ───────────────────────────────────────────── */
+  --max-w:     1280px;
+  --header-h:  72px;
+  --sidebar-w: 480px;
+
+  /* ── ENHANCED SHADOWS ──────────────────────────────────── */
+  --s-xl:          0 20px 60px rgba(0,0,0,0.10), 0 6px 16px rgba(0,0,0,0.06);
+  --s-card:        0 2px 8px rgba(0,0,0,0.04), 0 10px 28px rgba(0,0,0,0.07);
+  --s-card-hover:  0 8px 28px rgba(0,0,0,0.08), 0 24px 52px rgba(0,0,0,0.10), 0 0 0 1px rgba(255,90,0,0.15);
+  --s-orange-lg:   0 16px 50px rgba(255,90,0,0.24), 0 4px 14px rgba(255,90,0,0.16);
+  --s-glow-sm:     0 0 16px rgba(255,90,0,0.20);
+  --s-header:      0 4px 32px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
+
+  /* ── GLASS MORPHISM ─────────────────────────────────────── */
+  --glass-72:      rgba(255,255,255,0.72);
+  --glass-85:      rgba(255,255,255,0.85);
+  --glass-96:      rgba(255,255,255,0.96);
+  --glass-border:  rgba(255,255,255,0.65);
+  --glass-border-warm: rgba(255,200,150,0.35);
+
+  /* ── EXPANDED GRADIENTS ─────────────────────────────────── */
+  --g-text:        linear-gradient(135deg, #FF5A00 0%, #FF8C00 60%, #FFB020 100%);
+  --g-card-warm:   linear-gradient(160deg, #FFFFFF 0%, #FFFAF5 100%);
+  --g-surface:     linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%);
+  --g-orange-glow-lg: radial-gradient(900px circle at 50% 30%, rgba(255,90,0,0.07) 0%, transparent 70%);
+  --g-shimmer:     linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
+
+  /* ── BACKDROP BLUR ──────────────────────────────────────── */
+  --bd-sm:  blur(8px);
+  --bd-md:  blur(20px);
+  --bd-lg:  blur(40px);
+}
