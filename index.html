@@ -1,0 +1,748 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Endless Line — туристический портал. Туры в 50+ стран: Турция, ОАЭ, Таиланд, Мальдивы и другие направления. Лучшие цены, горящие туры.">
+  <title>Endless Line — Путешествие без границ</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="index-page.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body data-page="home">
+
+  <main id="main-content">
+
+    <!-- ====================================================
+         HERO SECTION
+         ==================================================== -->
+    <section class="hero" id="hero">
+      <div class="hero-bg">
+        <img src="assets/hero_bg.png" alt="" class="hero-bg-img" loading="eager">
+        <div class="hero-overlay"></div>
+        <div class="hero-grain"></div>
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+      </div>
+
+      <div class="hero-inner section-inner">
+        <div class="hero-content">
+          <div class="hero-badge">
+            <span class="badge-dot"></span>
+            Новые туры каждую неделю
+          </div>
+          <h1 class="hero-title">
+            Ваш следующий<br>
+            <span class="hero-title-accent">маршрут</span> ждёт вас
+          </h1>
+          <p class="hero-sub">
+            От Казахстана до Мальдив — откройте мир с Endless Line.<br>
+            50+ стран, 3 200 маршрутов, гарантия лучшей цены.
+          </p>
+
+          <!-- SEARCH WIDGET -->
+          <div class="search-widget hero-search" id="hero-search">
+            <div class="search-tabs" id="search-tabs">
+              <button class="search-tab active" data-tab="tours"><span class="tab-icon">🌍</span> Туры</button>
+              <button class="search-tab" data-tab="hotels"><span class="tab-icon">🏨</span> Отели</button>
+              <button class="search-tab" data-tab="flights"><span class="tab-icon">✈️</span> Авиа</button>
+              <button class="search-tab" data-tab="trains"><span class="tab-icon">🚂</span> Поезда</button>
+              <button class="search-tab" data-tab="cruises"><span class="tab-icon">🚢</span> Круизы</button>
+            </div>
+            <div class="search-body" id="search-body">
+              <!-- TOURS TAB -->
+              <div class="search-row tab-panel" id="panel-tours">
+                <div class="s-field s-field-wide">
+                  <label>Откуда</label>
+                  <input type="text" class="s-input" id="s-from" placeholder="Алматы" value="Алматы">
+                </div>
+                <button class="swap-btn" id="swap-btn" title="Поменять">⇄</button>
+                <div class="s-field s-field-wide">
+                  <label>Куда</label>
+                  <input type="text" class="s-input" id="s-to" placeholder="Страна или город" list="dest-list">
+                  <datalist id="dest-list">
+                    <option value="Турция"><option value="Дубай"><option value="Египет">
+                    <option value="Греция"><option value="Таиланд"><option value="Мальдивы">
+                    <option value="Япония"><option value="Барселона"><option value="Бали">
+                    <option value="Вьетнам"><option value="Мексика"><option value="Португалия">
+                    <option value="Черногория"><option value="Марокко"><option value="Шри-Ланка">
+                    <option value="Южная Корея"><option value="Австралия"><option value="Нью-Йорк">
+                  </datalist>
+                </div>
+                <div class="s-field">
+                  <label>Отлёт</label>
+                  <input type="date" class="s-input" id="s-date-from">
+                </div>
+                <div class="s-field">
+                  <label>Возврат</label>
+                  <input type="date" class="s-input" id="s-date-to">
+                </div>
+                <div class="s-field">
+                  <label>Туристы</label>
+                  <div class="pass-control">
+                    <button class="pass-btn" id="pass-minus">−</button>
+                    <span class="pass-count" id="pass-count">2</span>
+                    <button class="pass-btn" id="pass-plus">+</button>
+                  </div>
+                </div>
+                <button class="btn-search-main" id="btn-search" onclick="doSearch()">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+                  Найти
+                </button>
+              </div>
+
+              <!-- HOTELS TAB -->
+              <div class="search-row tab-panel" id="panel-hotels" style="display:none">
+                <div class="s-field s-field-wide">
+                  <label>Город или отель</label>
+                  <input type="text" class="s-input" id="h-dest" placeholder="Дубай, Анталья, Бали..." list="hotel-list">
+                  <datalist id="hotel-list">
+                    <option value="Дубай"><option value="Анталья"><option value="Бали">
+                    <option value="Пхукет"><option value="Мальдивы"><option value="Канкун">
+                    <option value="Шарм-эль-Шейх"><option value="Барселона"><option value="Рим">
+                    <option value="Париж"><option value="Нью-Йорк"><option value="Нячанг">
+                  </datalist>
+                </div>
+                <div class="s-field">
+                  <label>Заезд</label>
+                  <input type="date" class="s-input" id="h-checkin">
+                </div>
+                <div class="s-field">
+                  <label>Выезд</label>
+                  <input type="date" class="s-input" id="h-checkout">
+                </div>
+                <div class="s-field">
+                  <label>Гости</label>
+                  <div class="pass-control">
+                    <button class="pass-btn" onclick="changeGuests(-1)">−</button>
+                    <span class="pass-count" id="h-guests">2</span>
+                    <button class="pass-btn" onclick="changeGuests(1)">+</button>
+                  </div>
+                </div>
+                <div class="s-field">
+                  <label>Звёзды</label>
+                  <select class="s-input" id="h-stars">
+                    <option value="any">Любые</option>
+                    <option value="3">3★</option>
+                    <option value="4">4★</option>
+                    <option value="5" selected>5★</option>
+                  </select>
+                </div>
+                <button class="btn-search-main" onclick="doHotelSearch()">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+                  Найти отель
+                </button>
+              </div>
+
+              <!-- FLIGHTS TAB -->
+              <div class="search-row tab-panel" id="panel-flights" style="display:none">
+                <div class="s-field s-field-wide">
+                  <label>Откуда</label>
+                  <input type="text" class="s-input" id="f-from" placeholder="Алматы (ALA)" value="Алматы">
+                </div>
+                <button class="swap-btn" onclick="swapFlights(this)">⇄</button>
+                <div class="s-field s-field-wide">
+                  <label>Куда</label>
+                  <input type="text" class="s-input" id="f-to" placeholder="Город или аэропорт" list="flight-list">
+                  <datalist id="flight-list">
+                    <option value="Стамбул (IST)"><option value="Дубай (DXB)"><option value="Бангкок (BKK)">
+                    <option value="Москва (SVO)"><option value="Лондон (LHR)"><option value="Нью-Йорк (JFK)">
+                    <option value="Париж (CDG)"><option value="Рим (FCO)"><option value="Токио (NRT)">
+                    <option value="Сеул (ICN)"><option value="Пекин (PEK)"><option value="Бали (DPS)">
+                  </datalist>
+                </div>
+                <div class="s-field">
+                  <label>Туда</label>
+                  <input type="date" class="s-input" id="f-date-go">
+                </div>
+                <div class="s-field">
+                  <label>Обратно</label>
+                  <input type="date" class="s-input" id="f-date-back">
+                </div>
+                <div class="s-field">
+                  <label>Класс</label>
+                  <select class="s-input" id="f-class">
+                    <option value="economy">Эконом</option>
+                    <option value="business">Бизнес</option>
+                    <option value="first">Первый</option>
+                  </select>
+                </div>
+                <button class="btn-search-main" onclick="doFlightSearch()">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+                  Найти
+                </button>
+              </div>
+
+              <!-- TRAINS TAB -->
+              <div class="search-row tab-panel" id="panel-trains" style="display:none">
+                <div class="s-field s-field-wide">
+                  <label>Откуда</label>
+                  <input type="text" class="s-input" id="t-from" placeholder="Алматы" value="Алматы">
+                </div>
+                <button class="swap-btn" onclick="swapFlights(this)">⇄</button>
+                <div class="s-field s-field-wide">
+                  <label>Куда</label>
+                  <input type="text" class="s-input" id="t-to" placeholder="Город" list="train-list">
+                  <datalist id="train-list">
+                    <option value="Астана"><option value="Шымкент"><option value="Актобе">
+                    <option value="Караганда"><option value="Павлодар"><option value="Семей">
+                    <option value="Атырау"><option value="Усть-Каменогорск"><option value="Тараз">
+                    <option value="Кызылорда"><option value="Петропавловск"><option value="Актау">
+                  </datalist>
+                </div>
+                <div class="s-field">
+                  <label>Дата</label>
+                  <input type="date" class="s-input" id="t-date">
+                </div>
+                <div class="s-field">
+                  <label>Пассажиры</label>
+                  <select class="s-input" id="t-pass">
+                    <option>1</option><option selected>2</option><option>3</option><option>4</option>
+                  </select>
+                </div>
+                <button class="btn-search-main" onclick="doTrainSearch()">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+                  Найти
+                </button>
+              </div>
+
+              <!-- CRUISES TAB -->
+              <div class="search-row tab-panel" id="panel-cruises" style="display:none">
+                <div class="s-field s-field-wide">
+                  <label>Регион</label>
+                  <select class="s-input" id="cr-region">
+                    <option value="Средиземное море">Средиземное море</option>
+                    <option value="Карибы">Карибы</option>
+                    <option value="Юго-Восточная Азия">Юго-Восточная Азия</option>
+                    <option value="Скандинавия">Скандинавия</option>
+                    <option value="Аляска">Аляска</option>
+                  </select>
+                </div>
+                <div class="s-field">
+                  <label>Месяц</label>
+                  <select class="s-input" id="cr-month">
+                    <option>Июнь 2026</option><option>Июль 2026</option>
+                    <option>Август 2026</option><option>Сентябрь 2026</option>
+                    <option>Октябрь 2026</option>
+                  </select>
+                </div>
+                <div class="s-field">
+                  <label>Длительность</label>
+                  <select class="s-input" id="cr-dur">
+                    <option value="4">3–5 ночей</option>
+                    <option value="7">7 ночей</option>
+                    <option value="12">10–14 ночей</option>
+                  </select>
+                </div>
+                <div class="s-field">
+                  <label>Пассажиры</label>
+                  <select class="s-input" id="cr-pass">
+                    <option>1</option><option selected>2</option><option>3</option><option>4</option>
+                  </select>
+                </div>
+                <button class="btn-search-main" onclick="doCruiseSearch()">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
+                  Найти круиз
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Quick filters -->
+          <div class="hero-quick-filters">
+            <span class="qf-label">Популярно:</span>
+            <button class="qf-btn" onclick="quickSearch('Анталья')">🇹🇷 Анталья</button>
+            <button class="qf-btn" onclick="quickSearch('Дубай')">🇦🇪 Дубай</button>
+            <button class="qf-btn" onclick="quickSearch('Хургада')">🇪🇬 Хургада</button>
+            <button class="qf-btn" onclick="quickSearch('Пхукет')">🇹🇭 Пхукет</button>
+            <button class="qf-btn" onclick="quickSearch('Мальдивы')">🇲🇻 Мальдивы</button>
+            <button class="qf-btn" onclick="quickSearch('Бали')">🇮🇩 Бали</button>
+            <button class="qf-btn" onclick="quickSearch('Канкун')">🇲🇽 Канкун</button>
+            <button class="qf-btn" onclick="quickSearch('Нячанг')">🇻🇳 Нячанг</button>
+          </div>
+        </div>
+
+        <!-- Hero stats -->
+        <div class="hero-stats">
+          <div class="hero-stat">
+            <div class="hero-stat-num">500K+</div>
+            <div class="hero-stat-lbl">Путешественников</div>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">50+</div>
+            <div class="hero-stat-lbl">Стран мира</div>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">4.9★</div>
+            <div class="hero-stat-lbl">Рейтинг</div>
+          </div>
+          <div class="hero-stat-divider"></div>
+          <div class="hero-stat">
+            <div class="hero-stat-num">-40%</div>
+            <div class="hero-stat-lbl">Скидки сейчас</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         POPULAR DESTINATIONS
+         ==================================================== -->
+    <section class="section destinations-section" id="destinations">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Направления</span>
+          <h2 class="section-title">Популярные <span>направления</span></h2>
+          <p class="section-subtitle">Самые востребованные туры этого сезона по лучшим ценам</p>
+        </div>
+
+        <div class="dest-grid">
+
+          <a href="tours.html?dest=turkey" class="dest-card dest-large" id="dcard-turkey">
+            <img src="assets/city_turkey.png" alt="Турция" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">Турция</div>
+              <div class="dest-city">Стамбул, Анталья, Каппадокия</div>
+              <div class="dest-price">от <strong>189 000 ₸</strong></div>
+            </div>
+            <div class="dest-badge">Хит продаж</div>
+          </a>
+
+          <a href="tours.html?dest=uae" class="dest-card" id="dcard-uae">
+            <img src="assets/city_uae.png" alt="ОАЭ" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">ОАЭ</div>
+              <div class="dest-city">Дубай, Абу-Даби</div>
+              <div class="dest-price">от <strong>265 000 ₸</strong></div>
+            </div>
+          </a>
+
+          <a href="tours.html?dest=egypt" class="dest-card" id="dcard-egypt">
+            <img src="assets/city_egypt.png" alt="Египет" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">Египет</div>
+              <div class="dest-city">Хургада, Шарм-эль-Шейх, Каир</div>
+              <div class="dest-price">от <strong>155 000 ₸</strong></div>
+            </div>
+            <div class="dest-badge dest-badge-sale">−28%</div>
+          </a>
+
+          <a href="tours.html?dest=greece" class="dest-card" id="dcard-greece">
+            <img src="assets/city_greece.png" alt="Греция" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">Греция</div>
+              <div class="dest-city">Санторини, Миконос, Крит</div>
+              <div class="dest-price">от <strong>265 000 ₸</strong></div>
+            </div>
+          </a>
+
+          <a href="tours.html?dest=thailand" class="dest-card dest-large" id="dcard-thailand">
+            <img src="assets/city_thailand.png" alt="Таиланд" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">Таиланд</div>
+              <div class="dest-city">Пхукет, Бангкок, острова Пхи-Пхи</div>
+              <div class="dest-price">от <strong>195 000 ₸</strong></div>
+            </div>
+            <div class="dest-badge">Летний сезон</div>
+          </a>
+
+          <a href="tours.html?dest=maldives" class="dest-card dest-tall" id="dcard-maldives">
+            <img src="assets/city_maldives.png" alt="Мальдивы" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">Мальдивы</div>
+              <div class="dest-city">Атоллы, бунгало над водой</div>
+              <div class="dest-price">от <strong>285 000 ₸</strong></div>
+            </div>
+            <div class="dest-badge dest-badge-luxury">💎 Люкс</div>
+          </a>
+
+          <a href="tours.html?dest=japan" class="dest-card" id="dcard-japan">
+            <img src="assets/city_japan.png" alt="Япония" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">Япония</div>
+              <div class="dest-city">Токио, Киото, Осака</div>
+              <div class="dest-price">от <strong>378 000 ₸</strong></div>
+            </div>
+          </a>
+
+          <a href="tours.html?dest=france" class="dest-card" id="dcard-france">
+            <img src="assets/city_france.png" alt="Франция" class="dest-img" loading="lazy">
+            <div class="dest-overlay"></div>
+            <div class="dest-content">
+              <div class="dest-country">Франция</div>
+              <div class="dest-city">Париж, Ницца, Версаль</div>
+              <div class="dest-price">от <strong>380 000 ₸</strong></div>
+            </div>
+          </a>
+
+        </div>
+
+        <div style="text-align:center;margin-top:var(--sp-xl)">
+          <a href="map.html" class="btn-outline">Все направления на карте →</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         HOT DEALS
+         ==================================================== -->
+    <section class="section hot-deals-section" id="hot-deals">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag section-tag-fire">🔥 Горящие туры</span>
+          <h2 class="section-title">Успейте <span>забронировать</span></h2>
+          <p class="section-subtitle">Эксклюзивные предложения со скидками до 40%. Мест осталось мало!</p>
+        </div>
+
+        <div class="deals-timer-bar">
+          <div class="dtb-label">До конца акции:</div>
+          <div class="dtb-timer">
+            <div class="dtb-block"><span id="dt-h">00</span><span>ч</span></div>
+            <div class="dtb-sep">:</div>
+            <div class="dtb-block"><span id="dt-m">00</span><span>мин</span></div>
+            <div class="dtb-block"><span id="dt-s">00</span><span>сек</span></div>
+          </div>
+          <a href="deals.html" class="btn-primary" style="margin-left:auto">Все акции →</a>
+        </div>
+
+        <div class="deals-cards-row">
+          <div class="deal-card" id="deal-1">
+            <div class="deal-card-img">
+              <img src="assets/city_maldives.png" alt="Мальдивы" loading="lazy">
+              <div class="deal-discount">−40%</div>
+              <div class="deal-hot-badge">🔥 Горящий</div>
+            </div>
+            <div class="deal-card-body">
+              <div class="deal-dest">🇲🇻 Мальдивы</div>
+              <h3 class="deal-name">Бунгало над водой, 14 ночей</h3>
+              <div class="deal-features">
+                <span>✈️ Перелёт вкл.</span>
+                <span>⭐⭐⭐⭐⭐</span>
+                <span>🍽 All-inclusive</span>
+              </div>
+              <div class="deal-footer">
+                <div class="deal-prices">
+                  <s class="deal-old">920 000 ₸</s>
+                  <span class="deal-new">550 000 ₸</span>
+                </div>
+                <button class="deal-book-btn" onclick="bookDeal('Мальдивы')">Бронировать</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="deal-card" id="deal-2">
+            <div class="deal-card-img">
+              <img src="assets/city_thailand.png" alt="Таиланд" loading="lazy">
+              <div class="deal-discount">−35%</div>
+            </div>
+            <div class="deal-card-body">
+              <div class="deal-dest">🇹🇭 Таиланд</div>
+              <h3 class="deal-name">Пхукет 5★, 10 ночей</h3>
+              <div class="deal-features">
+                <span>✈️ Перелёт вкл.</span>
+                <span>⭐⭐⭐⭐⭐</span>
+                <span>🍽 All-inclusive</span>
+              </div>
+              <div class="deal-footer">
+                <div class="deal-prices">
+                  <s class="deal-old">382 000 ₸</s>
+                  <span class="deal-new">248 000 ₸</span>
+                </div>
+                <button class="deal-book-btn" onclick="bookDeal('Таиланд')">Бронировать</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="deal-card" id="deal-3">
+            <div class="deal-card-img">
+              <img src="assets/city_egypt.png" alt="Египет" loading="lazy">
+              <div class="deal-discount">−28%</div>
+            </div>
+            <div class="deal-card-body">
+              <div class="deal-dest">🇪🇬 Египет</div>
+              <h3 class="deal-name">Хургада, 7 ночей</h3>
+              <div class="deal-features">
+                <span>✈️ Перелёт вкл.</span>
+                <span>⭐⭐⭐⭐⭐</span>
+                <span>🍽 All-inclusive</span>
+              </div>
+              <div class="deal-footer">
+                <div class="deal-prices">
+                  <s class="deal-old">215 000 ₸</s>
+                  <span class="deal-new">155 000 ₸</span>
+                </div>
+                <button class="deal-book-btn" onclick="bookDeal('Египет')">Бронировать</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="deal-card" id="deal-4">
+            <div class="deal-card-img">
+              <img src="assets/city_turkey.png" alt="Турция" loading="lazy">
+              <div class="deal-discount">−25%</div>
+            </div>
+            <div class="deal-card-body">
+              <div class="deal-dest">🇹🇷 Турция</div>
+              <h3 class="deal-name">Анталья 5★, 7 ночей</h3>
+              <div class="deal-features">
+                <span>✈️ Перелёт вкл.</span>
+                <span>⭐⭐⭐⭐⭐</span>
+                <span>🍽 All-inclusive</span>
+              </div>
+              <div class="deal-footer">
+                <div class="deal-prices">
+                  <s class="deal-old">326 000 ₸</s>
+                  <span class="deal-new">245 000 ₸</span>
+                </div>
+                <button class="deal-book-btn" onclick="bookDeal('Турция')">Бронировать</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         WHY US
+         ==================================================== -->
+    <section class="section why-section" id="why">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Наши преимущества</span>
+          <h2 class="section-title">Почему <span>Endless Line</span>?</h2>
+        </div>
+        <div class="why-grid">
+          <div class="why-card" id="wc-1">
+            <div class="why-card-img-wrap">
+              <img src="assets/why_price.png" alt="Гарантия лучшей цены" class="why-card-img" loading="lazy">
+            </div>
+            <div class="why-card-content">
+              <div class="why-icon-badge">💰</div>
+              <h3 class="why-title">Гарантия лучшей цены</h3>
+              <p class="why-text">Найдёте дешевле — вернём разницу. Мы работаем напрямую с авиакомпаниями и отелями.</p>
+            </div>
+          </div>
+          <div class="why-card" id="wc-2">
+            <div class="why-card-img-wrap">
+              <img src="assets/why_support.png" alt="Поддержка 24/7" class="why-card-img" loading="lazy">
+            </div>
+            <div class="why-card-content">
+              <div class="why-icon-badge">🎧</div>
+              <h3 class="why-title">Поддержка 24/7</h3>
+              <p class="why-text">Наши эксперты готовы помочь в любой момент — звоните, пишите, мы всегда на связи.</p>
+            </div>
+          </div>
+          <div class="why-card" id="wc-3">
+            <div class="why-card-img-wrap">
+              <img src="assets/why_safety.png" alt="Безопасное бронирование" class="why-card-img" loading="lazy">
+            </div>
+            <div class="why-card-content">
+              <div class="why-icon-badge">🔒</div>
+              <h3 class="why-title">Безопасное бронирование</h3>
+              <p class="why-text">Ваши данные защищены. Оплата через SSL, деньги возвращаем при отмене.</p>
+            </div>
+          </div>
+          <div class="why-card" id="wc-4">
+            <div class="why-card-img-wrap">
+              <img src="assets/why_world.png" alt="50+ стран" class="why-card-img" loading="lazy">
+            </div>
+            <div class="why-card-content">
+              <div class="why-icon-badge">🌍</div>
+              <h3 class="why-title">50+ стран мира</h3>
+              <p class="why-text">Европа, Азия, Америка, Ближний Восток — мы бронируем туры по всему миру.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         MAP PROMO
+         ==================================================== -->
+    <section class="section map-promo-section" id="map-promo">
+      <div class="section-inner">
+        <div class="map-promo-inner">
+          <div class="map-promo-text">
+            <span class="section-tag">Интерактивная карта</span>
+            <h2 class="section-title">Выберите страну<br><span>на карте мира</span></h2>
+            <p style="color:var(--c-text-2);margin-top:14px;line-height:1.7">
+              Кликните на любую страну — и мы сразу покажем лучшие туры, достопримечательности, климат, визовые требования и цены.
+            </p>
+            <div class="map-promo-features">
+              <div class="mpf-item"><span>🗺</span> 15 стран с подробными данными</div>
+              <div class="mpf-item"><span>📸</span> Фото достопримечательностей</div>
+              <div class="mpf-item"><span>💰</span> Актуальные цены на туры</div>
+              <div class="mpf-item"><span>🛂</span> Визовые требования</div>
+            </div>
+            <a href="map.html" class="btn-primary" style="margin-top:24px">Открыть карту мира</a>
+          </div>
+          <div class="map-promo-visual">
+            <div class="map-dots-bg">
+              <div class="map-globe-icon">🌍</div>
+              <div class="map-country-pins">
+                <a href="map.html?country=turkey" class="map-pin pin-tr" title="Турция">🇹🇷</a>
+                <a href="map.html?country=uae" class="map-pin pin-ae" title="ОАЭ">🇦🇪</a>
+                <a href="map.html?country=greece" class="map-pin pin-gr" title="Греция">🇬🇷</a>
+                <a href="map.html?country=japan" class="map-pin pin-jp" title="Япония">🇯🇵</a>
+                <a href="map.html?country=thailand" class="map-pin pin-th" title="Таиланд">🇹🇭</a>
+                <a href="map.html?country=maldives" class="map-pin pin-mv" title="Мальдивы">🇲🇻</a>
+                <a href="map.html?country=brazil" class="map-pin pin-br" title="Бразилия">🇧🇷</a>
+                <a href="map.html?country=france" class="map-pin pin-fr" title="Франция">🇫🇷</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         SERVICES
+         ==================================================== -->
+    <section class="section services-section" id="services">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Услуги</span>
+          <h2 class="section-title">Всё для <span>вашего путешествия</span></h2>
+        </div>
+        <div class="services-grid">
+          <a href="tours.html" class="svc-card" id="sv-1">
+            <div class="svc-img-wrap">
+              <img src="assets/city_turkey.png" alt="Туры" class="svc-img">
+            </div>
+            <div class="svc-body">
+              <div class="svc-icon">🌍</div>
+              <h3 class="svc-title">Туры</h3>
+              <p class="svc-text">Пляжный отдых, экскурсии, приключения — любой формат</p>
+              <span class="svc-link">Смотреть туры →</span>
+            </div>
+          </a>
+          <a href="tours.html?type=hotel" class="svc-card" id="sv-2">
+            <div class="svc-img-wrap">
+              <img src="assets/city_uae.png" alt="Отели" class="svc-img">
+            </div>
+            <div class="svc-body">
+              <div class="svc-icon">🏨</div>
+              <h3 class="svc-title">Отели</h3>
+              <p class="svc-text">5-звёздочные курорты и бутик-отели по лучшим ценам</p>
+              <span class="svc-link">Найти отель →</span>
+            </div>
+          </a>
+          <a href="tours.html?type=flights" class="svc-card" id="sv-3">
+            <div class="svc-img-wrap">
+              <img src="assets/city_japan.png" alt="Авиабилеты" class="svc-img">
+            </div>
+            <div class="svc-body">
+              <div class="svc-icon">✈️</div>
+              <h3 class="svc-title">Авиабилеты</h3>
+              <p class="svc-text">Прямые рейсы и стыковки из Алматы и Астаны</p>
+              <span class="svc-link">Найти рейс →</span>
+            </div>
+          </a>
+          <a href="deals.html" class="svc-card svc-card-orange" id="sv-4">
+            <div class="svc-img-wrap">
+              <img src="assets/city_maldives.png" alt="Горящие туры" class="svc-img">
+            </div>
+            <div class="svc-body">
+              <div class="svc-icon">🔥</div>
+              <h3 class="svc-title">Горящие туры</h3>
+              <p class="svc-text">Скидки до 40% на лучшие направления прямо сейчас</p>
+              <span class="svc-link">Смотреть акции →</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         REVIEWS
+         ==================================================== -->
+    <section class="section reviews-section" id="reviews">
+      <div class="section-inner">
+        <div class="section-header">
+          <span class="section-tag">Отзывы</span>
+          <h2 class="section-title">Что говорят наши <span>клиенты</span></h2>
+          <p class="section-subtitle">Более 12 000 отзывов. Рейтинг 4.9 из 5.</p>
+        </div>
+        <div class="reviews-grid">
+          <div class="review-card" id="rv-1">
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">«Путешествовали в Дубай с семьёй — всё было идеально. Перелёт, отель, экскурсии — всё включено. Менеджеры всегда на связи. Рекомендую всем!»</p>
+            <div class="rv-author">
+              <div class="rv-avatar-img">
+                <img src="assets/reviewer_1.png" alt="Алия Сейткали" loading="lazy">
+              </div>
+              <div>
+                <div class="rv-name">Алия Сейткали</div>
+                <div class="rv-trip">🇦🇪 ОАЭ, Дубай • Январь 2026</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card" id="rv-2">
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">«Мальдивы — это просто рай! Бронировали через Endless Line, сделали всё быстро и без лишних вопросов. Цена оказалась ниже чем в других агентствах.»</p>
+            <div class="rv-author">
+              <div class="rv-avatar-img">
+                <img src="assets/reviewer_2.png" alt="Диана Петрова" loading="lazy">
+              </div>
+              <div>
+                <div class="rv-name">Диана Петрова</div>
+                <div class="rv-trip">🇲🇻 Мальдивы • Март 2026</div>
+              </div>
+            </div>
+          </div>
+          <div class="review-card" id="rv-3">
+            <div class="rv-stars">★★★★★</div>
+            <p class="rv-text">«Турция — Анталья 5★ всё включено. Дети в восторге! Организация безупречная, водители встретили в аэропорту с табличкой. Спасибо огромное!»</p>
+            <div class="rv-author">
+              <div class="rv-avatar-img">
+                <img src="assets/reviewer_3.png" alt="Марат Ахметов" loading="lazy">
+              </div>
+              <div>
+                <div class="rv-name">Марат Ахметов</div>
+                <div class="rv-trip">🇹🇷 Турция, Анталья • Август 2025</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ====================================================
+         NEWSLETTER
+         ==================================================== -->
+    <section class="nl-section" id="newsletter">
+      <div class="section-inner">
+        <div class="nl-inner">
+          <div class="nl-left">
+            <h2 class="nl-title">Первыми узнавайте о <span>горящих турах</span></h2>
+            <p class="nl-sub">Подпишитесь на рассылку и получайте эксклюзивные скидки прямо в inbox</p>
+          </div>
+          <form class="nl-form" id="nl-form" onsubmit="handleNL(event)">
+            <input type="email" class="s-input nl-input" placeholder="ваш@email.com" required>
+            <button type="submit" class="btn-primary">Подписаться 🔔</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="auth.js"></script>
+  <script src="index-page.js"></script>
+</body>
+</html>
