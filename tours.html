@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Каталог туров Endless Line. Туры в Турцию, ОАЭ, Египет, Таиланд и другие страны. Фильтрация по цене, длительности, типу.">
+  <title>Каталог туров — Endless Line</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="tours-page.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body data-page="tours">
+
+  <main id="main-content" style="padding-top: calc(var(--header-h) + 44px);">
+
+    <!-- Page Header -->
+    <div class="page-hero tours-hero">
+      <div class="section-inner">
+        <span class="section-tag">Каталог</span>
+        <h1 class="page-hero-title">Все <span>туры</span></h1>
+        <p class="page-hero-sub">Выберите идеальное путешествие из нашей коллекции</p>
+
+        <!-- Mini Search -->
+        <div class="search-widget tours-search" id="tours-search">
+          <div class="search-body">
+            <div class="search-row search-row-compact">
+              <div class="s-field">
+                <label>Куда</label>
+                <input type="text" class="s-input" id="ts-dest" placeholder="Страна или город">
+              </div>
+              <div class="s-field">
+                <label>Отлёт</label>
+                <input type="date" class="s-input" id="ts-date">
+              </div>
+              <div class="s-field">
+                <label>Ночей</label>
+                <select class="s-input" id="ts-nights">
+                  <option value="">Любое</option>
+                  <option value="5">до 5 ночей</option>
+                  <option value="7">7 ночей</option>
+                  <option value="10">10 ночей</option>
+                  <option value="14">14+ ночей</option>
+                </select>
+              </div>
+              <div class="s-field">
+                <label>Туристы</label>
+                <div class="pass-control">
+                  <button class="pass-btn" data-pass-minus data-pass-target="ts-pass">−</button>
+                  <span class="pass-count" id="ts-pass">2</span>
+                  <button class="pass-btn" data-pass-plus data-pass-target="ts-pass">+</button>
+                </div>
+              </div>
+              <button class="btn-search-main" onclick="searchTours()">🔍 Найти</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="section-inner tours-layout">
+
+      <!-- Sidebar Filters -->
+      <aside class="filters-panel" id="filters-panel">
+        <div class="filters-header">
+          <h2 class="filters-title">Фильтры</h2>
+          <button class="filters-reset" onclick="resetFilters()">Сбросить</button>
+        </div>
+
+        <!-- Region Filter -->
+        <div class="filter-group" id="fg-region">
+          <div class="filter-group-title">🌍 Регион</div>
+          <div class="filter-options">
+            <label class="f-check"><input type="checkbox" value="europe" class="region-filter"> Европа</label>
+            <label class="f-check"><input type="checkbox" value="asia" class="region-filter"> Азия</label>
+            <label class="f-check"><input type="checkbox" value="mena" class="region-filter"> Ближний Восток</label>
+            <label class="f-check"><input type="checkbox" value="seas" class="region-filter"> Острова</label>
+            <label class="f-check"><input type="checkbox" value="americas" class="region-filter"> Америка</label>
+          </div>
+        </div>
+
+        <!-- Price Range -->
+        <div class="filter-group" id="fg-price">
+          <div class="filter-group-title">💰 Цена (₸)</div>
+          <div class="price-range-labels">
+            <span id="price-min-lbl">0 ₸</span>
+            <span id="price-max-lbl">700 000 ₸</span>
+          </div>
+          <input type="range" id="price-range" min="0" max="700000" value="700000" step="10000" class="price-slider">
+        </div>
+
+        <!-- Duration -->
+        <div class="filter-group" id="fg-duration">
+          <div class="filter-group-title">📅 Длительность</div>
+          <div class="filter-options">
+            <label class="f-check"><input type="radio" name="dur" value="short" class="dur-filter"> До 5 ночей</label>
+            <label class="f-check"><input type="radio" name="dur" value="medium" class="dur-filter"> 6–9 ночей</label>
+            <label class="f-check"><input type="radio" name="dur" value="long" class="dur-filter"> 10+ ночей</label>
+            <label class="f-check"><input type="radio" name="dur" value="" class="dur-filter" checked> Любая</label>
+          </div>
+        </div>
+
+        <!-- Stars -->
+        <div class="filter-group" id="fg-stars">
+          <div class="filter-group-title">⭐ Отель</div>
+          <div class="filter-options">
+            <label class="f-check"><input type="checkbox" value="5" class="stars-filter"> ★★★★★ 5 звёзд</label>
+            <label class="f-check"><input type="checkbox" value="4" class="stars-filter"> ★★★★ 4 звезды</label>
+            <label class="f-check"><input type="checkbox" value="3" class="stars-filter"> ★★★ 3 звезды</label>
+          </div>
+        </div>
+
+        <!-- Meal -->
+        <div class="filter-group" id="fg-meal">
+          <div class="filter-group-title">🍽 Питание</div>
+          <div class="filter-options">
+            <label class="f-check"><input type="checkbox" value="ai" class="meal-filter"> Всё включено</label>
+            <label class="f-check"><input type="checkbox" value="bb" class="meal-filter"> Завтраки</label>
+            <label class="f-check"><input type="checkbox" value="ro" class="meal-filter"> Без питания</label>
+          </div>
+        </div>
+
+        <button class="btn-primary" style="width:100%;justify-content:center" onclick="applyFilters()">Применить фильтры</button>
+      </aside>
+
+      <!-- Tours Grid -->
+      <div class="tours-main">
+        <div class="tours-toolbar">
+          <div class="tours-count" id="tours-count">Показано 18 туров</div>
+          <div class="tours-sort">
+            <label>Сортировка:</label>
+            <select id="tours-sort" class="sort-select">
+              <option value="popular">По популярности</option>
+              <option value="price-asc">Цена: от низкой</option>
+              <option value="price-desc">Цена: от высокой</option>
+              <option value="nights">По длительности</option>
+            </select>
+          </div>
+          <div class="view-toggle">
+            <button class="view-btn active" id="view-grid" title="Сетка">⊞</button>
+            <button class="view-btn" id="view-list" title="Список">☰</button>
+          </div>
+        </div>
+
+        <div class="tours-grid" id="tours-grid">
+          <!-- Filled by JS -->
+        </div>
+
+        <div class="pagination" id="pagination">
+          <button class="page-btn active">1</button>
+          <button class="page-btn">2</button>
+          <button class="page-btn">3</button>
+          <button class="page-btn">→</button>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="auth.js"></script>
+  <script src="map-data.js"></script>
+  <script src="tours-page.js"></script>
+</body>
+</html>

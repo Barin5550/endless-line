@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Endless Line — интерактивная карта мира. Выберите страну и узнайте всё о турах, достопримечательностях и ценах.">
+  <title>Карта мира — Endless Line</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="map-page.css">
+  <link rel="stylesheet" href="auth.css">
+</head>
+<body data-page="map">
+
+  <main id="main-content" style="padding-top: calc(var(--header-h) + 44px);">
+
+    <!-- ===== MAP HEADER ===== -->
+    <div class="map-page-header">
+      <div class="section-inner">
+        <div class="map-page-title-row">
+          <div>
+            <span class="section-tag">Интерактивная карта</span>
+            <h1 class="map-page-title">Карта мира <span>Endless Line</span></h1>
+            <p class="map-page-sub">Выберите страну на карте, чтобы увидеть туры, достопримечательности и всю необходимую информацию</p>
+          </div>
+          <div class="map-legend">
+            <div class="legend-item"><span class="legend-dot legend-available"></span> Есть туры</div>
+            <div class="legend-item"><span class="legend-dot legend-hover"></span> Наведите мышь</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== MAP CONTAINER ===== -->
+    <div class="map-container" id="map-container">
+
+      <!-- D3 World Map -->
+      <div class="map-svg-wrap" id="map-svg-wrap">
+        <div class="map-zoom-controls">
+          <button class="zoom-btn" id="zoom-in" title="Приблизить">+</button>
+          <button class="zoom-btn" id="zoom-reset" title="Сбросить">⌂</button>
+          <button class="zoom-btn" id="zoom-out" title="Отдалить">−</button>
+        </div>
+        <div class="map-tip" id="map-tip">🖱 Нажмите на выделенную страну для просмотра туров</div>
+        <div id="map-tooltip-html" class="map-tooltip-html" style="display:none"></div>
+        <!-- SVG injected by D3 -->
+        <svg id="world-map" class="world-svg"></svg>
+      </div>
+
+      <!-- COUNTRY SIDEBAR PANEL -->
+      <div class="country-sidebar" id="country-sidebar">
+        <div class="sidebar-inner" id="sidebar-inner">
+          <div class="sidebar-placeholder" id="sidebar-placeholder">
+            <div class="placeholder-icon">🌍</div>
+            <h3>Выберите страну</h3>
+            <p>Нажмите на любую выделенную страну на карте, чтобы увидеть подробную информацию, достопримечательности и доступные туры</p>
+            <div class="available-countries" id="available-countries">
+              <div class="ac-title">Доступные направления:</div>
+              <div class="ac-grid" id="ac-grid">
+                <!-- filled by JS -->
+              </div>
+            </div>
+          </div>
+          <div class="sidebar-content" id="sidebar-content" style="display:none">
+            <!-- filled by JS -->
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /map-container -->
+
+  </main>
+
+  <!-- D3 + TopoJSON from CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/d3@7/dist/d3.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/topojson@3/dist/topojson.min.js"></script>
+
+  <script src="nav.js"></script>
+  <script src="auth.js"></script>
+  <script src="map-data.js"></script>
+  <script src="map-page.js"></script>
+</body>
+</html>

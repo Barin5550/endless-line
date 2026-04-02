@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Отели мира — Endless Line. Лучшие отели в популярных направлениях: Турция, ОАЭ, Таиланд, Мальдивы.">
+  <title>Отели — Endless Line</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="auth.css">
+  <style>
+    .hotels-hero {
+      padding: 120px 0 80px;
+      background: var(--g-hero);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hotels-hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 80px;
+      background: linear-gradient(to bottom, transparent, var(--c-bg));
+      pointer-events: none;
+      z-index: 1;
+    }
+    .hotels-hero h1 {
+      font-family: var(--f-heading);
+      font-size: 2.4rem;
+      font-weight: 800;
+      color: var(--c-text);
+      margin-bottom: 8px;
+    }
+    .hotels-hero p {
+      color: var(--c-text-2);
+      font-size: 1.05rem;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+    .hotels-filters {
+      max-width: var(--max-w);
+      margin: -20px auto 0;
+      padding: 0 20px;
+      position: relative;
+      z-index: 2;
+    }
+    .hotels-filter-bar {
+      background: var(--c-bg);
+      border-radius: var(--r-lg);
+      padding: 20px 24px;
+      box-shadow: var(--s-md);
+      display: flex;
+      gap: 12px;
+      align-items: flex-end;
+      flex-wrap: wrap;
+    }
+    .hf-field { flex: 1; min-width: 150px; }
+    .hf-field label {
+      display: block;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--c-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      margin-bottom: 6px;
+    }
+    .hf-field .s-input {
+      width: 100%;
+      padding: 10px 12px;
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-sm);
+      background: var(--c-bg-2);
+      color: var(--c-text);
+      font-family: var(--f-body);
+      font-size: 0.9rem;
+      box-sizing: border-box;
+    }
+    .hf-field .s-input:focus {
+      outline: none;
+      border-color: var(--c-primary);
+      box-shadow: 0 0 0 3px var(--c-primary-glow);
+    }
+    .hf-search {
+      padding: 10px 28px;
+      border: none;
+      background: var(--g-primary);
+      color: #fff;
+      border-radius: var(--r-sm);
+      font-weight: 700;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: var(--t-base);
+      white-space: nowrap;
+    }
+    .hf-search:hover { box-shadow: var(--s-orange); transform: translateY(-1px); }
+    .hotels-grid-wrap {
+      max-width: var(--max-w);
+      margin: 40px auto;
+      padding: 0 20px;
+    }
+    .hotels-count {
+      font-size: 0.9rem;
+      color: var(--c-text-2);
+      margin-bottom: 20px;
+    }
+    .hotels-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 24px;
+    }
+    .hotel-card {
+      background: var(--c-bg-card);
+      border-radius: var(--r-lg);
+      border: 1px solid var(--c-border);
+      overflow: hidden;
+      box-shadow: var(--s-sm);
+      transition: transform 0.32s cubic-bezier(0.25,0.46,0.45,0.94), border-color 0.25s ease, box-shadow 0.32s ease;
+      animation: hotelCardIn 0.4s ease both;
+    }
+    @keyframes hotelCardIn {
+      from { opacity:0; transform:translateY(14px); }
+      to   { opacity:1; transform:none; }
+    }
+    .hotel-card:hover {
+      box-shadow: 0 18px 48px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,107,53,0.1);
+      transform: translateY(-7px);
+      border-color: rgba(255,107,53,0.35);
+    }
+    .hotel-img {
+      height: 200px;
+      position: relative;
+      overflow: hidden;
+      background: var(--c-bg-3);
+    }
+    .hotel-img img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.55s cubic-bezier(0.25,0.46,0.45,0.94);
+    }
+    .hotel-card:hover .hotel-img img { transform: scale(1.08); }
+    .hotel-img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(0,0,0,0.25) 0%, transparent 50%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .hotel-card:hover .hotel-img-overlay { opacity: 1; }
+    .hotel-stars {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(0,0,0,0.5);
+      color: #FFB020;
+      font-size: 0.8rem;
+      padding: 4px 10px;
+      border-radius: var(--r-full);
+      backdrop-filter: blur(4px);
+    }
+    .hotel-rating {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: var(--c-primary);
+      color: #fff;
+      font-weight: 800;
+      font-size: 0.85rem;
+      padding: 4px 10px;
+      border-radius: var(--r-sm);
+    }
+    .hotel-body { padding: 18px; }
+    .hotel-name {
+      font-family: var(--f-heading);
+      font-weight: 700;
+      font-size: 1.1rem;
+      color: var(--c-text);
+      margin-bottom: 4px;
+    }
+    .hotel-loc {
+      font-size: 0.85rem;
+      color: var(--c-text-3);
+      margin-bottom: 12px;
+    }
+    .hotel-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+    .hotel-tag {
+      font-size: 0.75rem;
+      padding: 4px 10px;
+      border-radius: var(--r-full);
+      background: var(--c-bg-2);
+      color: var(--c-text-2);
+      font-weight: 500;
+    }
+    .hotel-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .hotel-price-from {
+      font-size: 0.75rem;
+      color: var(--c-text-3);
+    }
+    .hotel-price {
+      font-family: var(--f-heading);
+      font-weight: 800;
+      font-size: 1.2rem;
+      color: var(--c-primary);
+    }
+    .hotel-book-btn {
+      padding: 8px 20px;
+      border: none;
+      background: var(--g-primary);
+      color: #fff;
+      border-radius: var(--r-sm);
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      transition: var(--t-fast);
+    }
+    .hotel-book-btn:hover { box-shadow: var(--s-orange); }
+    @media (max-width: 600px) {
+      .hotels-filter-bar { flex-direction: column; }
+      .hotels-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body data-page="hotels">
+
+  <main id="main-content">
+    <section class="hotels-hero">
+      <div class="section-inner">
+        <h1>Лучшие отели <span style="color:var(--c-primary)">мира</span></h1>
+        <p>Более 500 проверенных отелей в 25+ странах с гарантией лучшей цены</p>
+      </div>
+    </section>
+
+    <div class="hotels-filters">
+      <div class="hotels-filter-bar">
+        <div class="hf-field" style="flex:2">
+          <label>Город или отель</label>
+          <input type="text" class="s-input" id="h-search" placeholder="Дубай, Анталья, Hilton..." list="h-list">
+          <datalist id="h-list">
+            <option value="Дубай"><option value="Анталья"><option value="Бали">
+            <option value="Пхукет"><option value="Мальдивы"><option value="Шарм-эль-Шейх">
+            <option value="Барселона"><option value="Рим"><option value="Париж">
+            <option value="Нячанг"><option value="Канкун"><option value="Санторини">
+          </datalist>
+        </div>
+        <div class="hf-field">
+          <label>Заезд</label>
+          <input type="date" class="s-input" id="h-cin">
+        </div>
+        <div class="hf-field">
+          <label>Выезд</label>
+          <input type="date" class="s-input" id="h-cout">
+        </div>
+        <div class="hf-field" style="flex:0.5">
+          <label>Звёзды</label>
+          <select class="s-input" id="h-filter-stars" onchange="filterHotels()">
+            <option value="0">Все</option>
+            <option value="3">3★+</option>
+            <option value="4">4★+</option>
+            <option value="5">5★</option>
+          </select>
+        </div>
+        <button class="hf-search" onclick="filterHotels()">Найти</button>
+      </div>
+    </div>
+
+    <div class="hotels-grid-wrap">
+      <div class="hotels-count" id="hotels-count"></div>
+      <div class="hotels-grid" id="hotels-grid"></div>
+    </div>
+  </main>
+
+  <script src="nav.js"></script>
+  <script src="auth.js"></script>
+  <script>
+    const HOTELS = [
+      { name: 'Atlantis The Palm', city: 'Дубай', country: 'ОАЭ', stars: 5, rating: 9.2, price: 185000, nights: 7, icon: '🏝', tags: ['Аквапарк', 'Пляж', 'Спа', 'All Inclusive'] },
+      { name: 'Jumeirah Beach Hotel', city: 'Дубай', country: 'ОАЭ', stars: 5, rating: 9.0, price: 165000, nights: 7, icon: '🌊', tags: ['Пляж', 'Бассейн', 'Ресторан'] },
+      { name: 'Burj Al Arab', city: 'Дубай', country: 'ОАЭ', stars: 5, rating: 9.8, price: 350000, nights: 7, icon: '⛵', tags: ['Люкс', 'Бассейн', 'Спа', 'Ресторан'] },
+      { name: 'Rixos Premium Belek', city: 'Анталья', country: 'Турция', stars: 5, rating: 9.1, price: 145000, nights: 7, icon: '🌴', tags: ['All Inclusive', 'Пляж', 'Гольф', 'Детский клуб'] },
+      { name: 'Calista Luxury Resort', city: 'Белек', country: 'Турция', stars: 5, rating: 9.3, price: 175000, nights: 7, icon: '🏰', tags: ['Ultra All Inclusive', 'Спа', 'Пляж'] },
+      { name: 'Titanic Mardan Palace', city: 'Анталья', country: 'Турция', stars: 5, rating: 8.9, price: 155000, nights: 7, icon: '👑', tags: ['All Inclusive', 'Бассейн', 'Пляж'] },
+      { name: 'Voyage Belek Golf & Spa', city: 'Белек', country: 'Турция', stars: 5, rating: 8.8, price: 125000, nights: 7, icon: '⛳', tags: ['All Inclusive', 'Гольф', 'Спа'] },
+      { name: 'Hilton Istanbul Bosphorus', city: 'Стамбул', country: 'Турция', stars: 5, rating: 8.7, price: 95000, nights: 5, icon: '🕌', tags: ['Завтрак', 'Бассейн', 'Центр'] },
+      { name: 'Banyan Tree Phuket', city: 'Пхукет', country: 'Таиланд', stars: 5, rating: 9.4, price: 210000, nights: 10, icon: '🌺', tags: ['Вилла', 'Спа', 'Бассейн'] },
+      { name: 'Centara Grand Beach', city: 'Пхукет', country: 'Таиланд', stars: 5, rating: 8.6, price: 135000, nights: 10, icon: '🏖', tags: ['Пляж', 'Бассейн', 'Ресторан'] },
+      { name: 'Anantara Riverside Bangkok', city: 'Бангкок', country: 'Таиланд', stars: 5, rating: 8.5, price: 85000, nights: 7, icon: '🏯', tags: ['Бассейн', 'Спа', 'Ресторан'] },
+      { name: 'Soneva Fushi', city: 'Мальдивы', country: 'Мальдивы', stars: 5, rating: 9.7, price: 485000, nights: 7, icon: '🐚', tags: ['Вилла на воде', 'Снорклинг', 'Спа'] },
+      { name: 'Baglioni Resort', city: 'Мальдивы', country: 'Мальдивы', stars: 5, rating: 9.5, price: 420000, nights: 7, icon: '🏝', tags: ['Люкс', 'Бассейн', 'Дайвинг'] },
+      { name: 'Constance Halaveli', city: 'Мальдивы', country: 'Мальдивы', stars: 5, rating: 9.3, price: 380000, nights: 7, icon: '🐠', tags: ['All Inclusive', 'Вилла', 'Дайвинг'] },
+      { name: 'Rixos Sharm El Sheikh', city: 'Шарм-эль-Шейх', country: 'Египет', stars: 5, rating: 8.8, price: 95000, nights: 7, icon: '🐪', tags: ['All Inclusive', 'Пляж', 'Риф'] },
+      { name: 'Steigenberger Aldau', city: 'Хургада', country: 'Египет', stars: 5, rating: 8.5, price: 75000, nights: 7, icon: '☀️', tags: ['All Inclusive', 'Аквапарк', 'Пляж'] },
+      { name: 'Four Seasons Giza', city: 'Каир', country: 'Египет', stars: 5, rating: 9.0, price: 120000, nights: 5, icon: '🏛', tags: ['Люкс', 'Вид на пирамиды', 'Спа'] },
+      { name: 'AYANA Resort Bali', city: 'Бали', country: 'Индонезия', stars: 5, rating: 9.1, price: 165000, nights: 10, icon: '🌋', tags: ['Бассейн', 'Спа', 'Пляж'] },
+      { name: 'The Mulia Bali', city: 'Бали', country: 'Индонезия', stars: 5, rating: 9.3, price: 195000, nights: 10, icon: '🌺', tags: ['Люкс', 'Пляж', 'Ресторан'] },
+      { name: 'W Barcelona', city: 'Барселона', country: 'Испания', stars: 5, rating: 8.8, price: 145000, nights: 5, icon: '🏖', tags: ['Пляж', 'Бассейн', 'Ночная жизнь'] },
+      { name: 'Vincci Selección Posada del Patio', city: 'Малага', country: 'Испания', stars: 5, rating: 8.6, price: 85000, nights: 5, icon: '🌞', tags: ['Бассейн', 'Центр', 'Терраса'] },
+      { name: 'InterContinental Danang', city: 'Дананг', country: 'Вьетнам', stars: 5, rating: 9.2, price: 125000, nights: 10, icon: '🏖', tags: ['Пляж', 'Бассейн', 'Спа'] },
+      { name: 'Vinpearl Resort Nha Trang', city: 'Нячанг', country: 'Вьетнам', stars: 5, rating: 8.5, price: 95000, nights: 10, icon: '🎡', tags: ['Аквапарк', 'Пляж', 'Парк развлечений'] },
+      { name: 'Hyatt Ziva Cancun', city: 'Канкун', country: 'Мексика', stars: 5, rating: 9.0, price: 220000, nights: 7, icon: '🌮', tags: ['All Inclusive', 'Пляж', 'Спа'] },
+      { name: 'Belmond Hotel Splendido', city: 'Портофино', country: 'Италия', stars: 5, rating: 9.5, price: 280000, nights: 5, icon: '🍝', tags: ['Люкс', 'Вид на море', 'Ресторан'] },
+      { name: 'Novotel Phuket Resort', city: 'Пхукет', country: 'Таиланд', stars: 4, rating: 8.2, price: 65000, nights: 10, icon: '🏖', tags: ['Бассейн', 'Пляж', 'Завтрак'] },
+      { name: 'Ibis Styles Dubai', city: 'Дубай', country: 'ОАЭ', stars: 3, rating: 7.8, price: 55000, nights: 7, icon: '🏢', tags: ['Бюджет', 'Центр', 'Завтрак'] },
+      { name: 'Holiday Inn Antalya', city: 'Анталья', country: 'Турция', stars: 4, rating: 8.0, price: 75000, nights: 7, icon: '🌴', tags: ['Пляж', 'Бассейн', 'All Inclusive'] },
+      { name: 'Movenpick Resort Sharm', city: 'Шарм-эль-Шейх', country: 'Египет', stars: 4, rating: 8.1, price: 65000, nights: 7, icon: '🏊', tags: ['Бассейн', 'Пляж', 'Завтрак'] },
+    ];
+
+    /* ── Unique image per hotel ───────────────────────────── */
+    const HOTEL_NAME_IMAGES = {
+      /* UAE / Dubai — 4 unique images */
+      'Atlantis The Palm':              'hotel_atlantis_waterpark.png',
+      'Jumeirah Beach Hotel':           'hotel_beach_resort.png',
+      'Burj Al Arab':                   'hotel_dubai_tower.png',
+      'Ibis Styles Dubai':              'hotel_dubai_marina.png',
+
+      /* Turkey — 6 unique images */
+      'Rixos Premium Belek':            'hotel_turkey_resort.png',
+      'Calista Luxury Resort':          'hotel_calista_luxury.png',
+      'Titanic Mardan Palace':          'hotel_palace_pool.png',
+      'Voyage Belek Golf & Spa':        'hotel_golf_resort.png',
+      'Hilton Istanbul Bosphorus':      'hotel_istanbul.png',
+      'Holiday Inn Antalya':            'city_turkey_coast.png',
+
+      /* Thailand — 4 unique images */
+      'Banyan Tree Phuket':             'hotel_thailand_spa.png',
+      'Centara Grand Beach':            'hotel_phuket_hillside.png',
+      'Anantara Riverside Bangkok':     'hotel_bangkok_river.png',
+      'Novotel Phuket Resort':          'city_thailand_beach.png',
+
+      /* Maldives — 3 unique images */
+      'Soneva Fushi':                   'hotel_water_villa.png',
+      'Baglioni Resort':                'hotel_maldives_sunset.png',
+      'Constance Halaveli':             'city_maldives.png',
+
+      /* Egypt — 4 unique images */
+      'Rixos Sharm El Sheikh':          'hotel_sharm_reef.png',
+      'Steigenberger Aldau':            'hotel_hurghada_pool.png',
+      'Four Seasons Giza':              'hotel_egypt_luxury.png',
+      'Movenpick Resort Sharm':         'city_egypt_redsea.png',
+
+      /* Indonesia / Bali — 2 unique images */
+      'AYANA Resort Bali':              'hotel_pool_villa.png',
+      'The Mulia Bali':                 'hotel_bali_rice.png',
+
+      /* Spain — 2 unique images */
+      'W Barcelona':                    'hotel_barcelona_rooftop.png',
+      'Vincci Selección Posada del Patio':'hotel_spain_pool.png',
+
+      /* Vietnam — 2 unique images */
+      'InterContinental Danang':        'hotel_vietnam_coast.png',
+      'Vinpearl Resort Nha Trang':      'hotel_nha_trang.png',
+
+      /* Mexico */
+      'Hyatt Ziva Cancun':              'hotel_cancun_caribbean.png',
+
+      /* Italy */
+      'Belmond Hotel Splendido':        'hotel_italy_coast.png',
+    };
+
+    /* Country fallback for unregistered hotels */
+    const HOTEL_COUNTRY_IMAGES = {
+      'ОАЭ':       'city_uae_desert.png',
+      'Турция':    'city_turkey.png',
+      'Таиланд':   'city_thailand.png',
+      'Мальдивы':  'city_maldives.png',
+      'Египет':    'city_egypt.png',
+      'Индонезия': 'city_indonesia.png',
+      'Испания':   'city_spain.png',
+      'Вьетнам':   'city_vietnam.png',
+      'Мексика':   'city_mexico.png',
+      'Италия':    'city_italy.png',
+      'Греция':    'hotel_greece_cliff.png',
+      'Япония':    'hotel_japan_ryokan.png',
+      'Франция':   'hotel_france_chateau.png',
+      'Португалия':'city_portugal.png',
+      'Марокко':   'city_morocco.png',
+    };
+
+
+
+    function filterHotels() {
+      const search = (document.getElementById('h-search')?.value || '').toLowerCase();
+      const minStars = parseInt(document.getElementById('h-filter-stars')?.value || '0');
+      let filtered = HOTELS.filter(h => {
+        if (minStars && h.stars < minStars) return false;
+        if (search && !h.name.toLowerCase().includes(search) && !h.city.toLowerCase().includes(search) && !h.country.toLowerCase().includes(search)) return false;
+        return true;
+      });
+      const grid = document.getElementById('hotels-grid');
+      const count = document.getElementById('hotels-count');
+      count.textContent = 'Найдено ' + filtered.length + ' отелей';
+      grid.innerHTML = filtered.map((h, i) => {
+        const imgFile = HOTEL_NAME_IMAGES[h.name] || HOTEL_COUNTRY_IMAGES[h.country] || 'hotel_generic.png';
+        const img = 'assets/' + imgFile;
+
+        const stars = Array(h.stars).fill('★').join('');
+        const tags = h.tags.map(t => '<span class="hotel-tag">' + t + '</span>').join('');
+        const name = h.name.replace(/'/g, "\\'");
+        return '<div class="hotel-card" style="animation-delay:' + Math.min(i,8)*0.05 + 's">'
+          + '<div class="hotel-img">'
+          + '<img src="' + img + '" alt="' + h.city + '" loading="lazy" onerror="this.src=\'assets/hotel_generic.png\'">'
+          + '<div class="hotel-img-overlay"></div>'
+          + '<div class="hotel-stars">' + stars + '</div>'
+          + '<div class="hotel-rating">' + h.rating + '</div>'
+          + '</div>'
+          + '<div class="hotel-body">'
+          + '<div class="hotel-name">' + h.name + '</div>'
+          + '<div class="hotel-loc">📍 ' + h.city + ', ' + h.country + '</div>'
+          + '<div class="hotel-tags">' + tags + '</div>'
+          + '<div class="hotel-footer">'
+          + '<div><div class="hotel-price-from">от / ' + h.nights + ' ночей</div>'
+          + '<div class="hotel-price">' + h.price.toLocaleString('ru-RU') + ' ₸</div></div>'
+          + '<button class="hotel-book-btn" onclick="openBookingModal(\'' + name + '\',' + h.price + ',' + h.nights + ',\'' + h.city + ', ' + h.country + '\',\'' + name + ' ' + h.stars + '★\')">Забронировать</button>'
+          + '</div></div></div>';
+      }).join('');
+    }
+
+    // Set default dates
+    document.addEventListener('DOMContentLoaded', () => {
+      const today = new Date();
+      const cin = new Date(today); cin.setDate(today.getDate() + 7);
+      const cout = new Date(cin); cout.setDate(cin.getDate() + 7);
+      const fmt = d => d.toISOString().split('T')[0];
+      const cinEl = document.getElementById('h-cin');
+      const coutEl = document.getElementById('h-cout');
+      if (cinEl) cinEl.value = fmt(cin);
+      if (coutEl) coutEl.value = fmt(cout);
+      filterHotels();
+    });
+  </script>
+</body>
+</html>
