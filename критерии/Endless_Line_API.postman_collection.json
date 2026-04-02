@@ -1,0 +1,323 @@
+{
+  "info": {
+    "name": "Endless Line API",
+    "_postman_id": "endless-line-api-collection",
+    "description": "Полное тестирование REST API туристической компании Endless Line",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api", "type": "string" },
+    { "key": "token", "value": "", "type": "string" }
+  ],
+  "item": [
+    {
+      "name": "Auth",
+      "item": [
+        {
+          "name": "POST Register",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/register",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Тест Пользователь\",\n  \"email\": \"test@mail.com\",\n  \"password\": \"123456\",\n  \"phone\": \"+7 700 000-00-00\"\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                "const json = pm.response.json();",
+                "pm.test('Has token', () => pm.expect(json.token).to.be.a('string'));",
+                "pm.collectionVariables.set('token', json.token);"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "POST Login",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@mail.com\",\n  \"password\": \"123456\"\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                "const json = pm.response.json();",
+                "pm.test('Token received', () => pm.expect(json.token).to.be.a('string'));",
+                "pm.collectionVariables.set('token', json.token);"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "POST Login — Wrong password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/auth/login",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"test@mail.com\",\n  \"password\": \"wrongpass\"\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 401', () => pm.response.to.have.status(401));",
+                "pm.test('Error message', () => pm.expect(pm.response.json().message).to.be.a('string'));"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "GET Me (профиль)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/auth/me"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                "const json = pm.response.json();",
+                "pm.test('Has user fields', () => {",
+                "  pm.expect(json.name).to.be.a('string');",
+                "  pm.expect(json.email).to.be.a('string');",
+                "});"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "PUT Profile (обновление имени)",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/auth/profile",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Обновлённое Имя\",\n  \"phone\": \"+7 701 111-11-11\"\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                "pm.test('Name updated', () => pm.expect(pm.response.json().name).to.equal('Обновлённое Имя'));"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "PUT Password",
+          "request": {
+            "method": "PUT",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/auth/password",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"currentPassword\": \"123456\",\n  \"newPassword\": \"newpass123\"\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));"
+              ]
+            }
+          }]
+        }
+      ]
+    },
+    {
+      "name": "Bookings — CRUD",
+      "item": [
+        {
+          "name": "GET All Bookings",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/bookings"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                "pm.test('Is array', () => pm.expect(pm.response.json()).to.be.an('array'));"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "POST Create Booking",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/bookings",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"type\": \"air\",\n  \"from\": \"Алматы\",\n  \"to\": \"Мальдивы\",\n  \"departDate\": \"2026-06-01\",\n  \"returnDate\": \"2026-06-15\",\n  \"passengers\": 2\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 201', () => pm.response.to.have.status(201));",
+                "const json = pm.response.json();",
+                "pm.test('Has _id', () => pm.expect(json._id).to.be.a('string'));",
+                "pm.collectionVariables.set('bookingId', json._id);"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "DELETE Cancel Booking",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{token}}" }],
+            "url": "{{baseUrl}}/bookings/{{bookingId}}"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));"
+              ]
+            }
+          }]
+        }
+      ]
+    },
+    {
+      "name": "Reviews",
+      "item": [
+        {
+          "name": "GET All Reviews",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/reviews"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                "pm.test('Is array', () => pm.expect(pm.response.json()).to.be.an('array'));"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "POST Create Review",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{token}}" }
+            ],
+            "url": "{{baseUrl}}/reviews",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"rating\": 5,\n  \"text\": \"Отличный сервис! Рекомендую всем.\",\n  \"destination\": \"Мальдивы\"\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 201', () => pm.response.to.have.status(201));"
+              ]
+            }
+          }]
+        }
+      ]
+    },
+    {
+      "name": "Contacts",
+      "item": [
+        {
+          "name": "POST Send Message",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "url": "{{baseUrl}}/contacts",
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Иван Иванов\",\n  \"email\": \"ivan@mail.com\",\n  \"message\": \"Хочу узнать подробнее о турах на Мальдивы\"\n}"
+            }
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 2xx', () => pm.expect(pm.response.code).to.be.oneOf([200, 201]));"
+              ]
+            }
+          }]
+        }
+      ]
+    },
+    {
+      "name": "Health Check",
+      "item": [
+        {
+          "name": "GET Health",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/health"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 200', () => pm.response.to.have.status(200));",
+                "pm.test('Status ok', () => pm.expect(pm.response.json().status).to.equal('ok'));"
+              ]
+            }
+          }]
+        },
+        {
+          "name": "GET 404 — Unknown route",
+          "request": {
+            "method": "GET",
+            "url": "{{baseUrl}}/nonexistent-route-xyz"
+          },
+          "event": [{
+            "listen": "test",
+            "script": {
+              "exec": [
+                "pm.test('Status 404', () => pm.response.to.have.status(404));"
+              ]
+            }
+          }]
+        }
+      ]
+    }
+  ]
+}
