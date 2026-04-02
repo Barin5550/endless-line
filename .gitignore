@@ -1,0 +1,27 @@
+# Node
+node_modules/
+server/node_modules/
+client/node_modules/
+npm-debug.log*
+
+# Env
+.env
+server/.env
+client/.env
+
+# Build
+dist/
+client/dist/
+build/
+
+# DB (NeDB data files — regenerated on server start)
+server/data/*.db
+
+# OS
+.DS_Store
+Thumbs.db
+*.log
+
+# IDE
+.vscode/
+.idea/
