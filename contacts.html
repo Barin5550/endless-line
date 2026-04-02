@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Связаться с нами | Endless Line</title>
+  <meta name="description" content="Контакты туристической компании Endless Line. Телефон, WhatsApp, офис в Алматы.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="support-pages.css">
+  <style>
+    .contacts-layout { display: grid; grid-template-columns: 1fr 1fr; gap: var(--sp-2xl); margin-bottom: var(--sp-2xl); }
+    @media (max-width: 720px) { .contacts-layout { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body data-page="contacts">
+
+<main class="sp-main" id="main-content">
+  <div class="sp-hero">
+    <div class="sp-hero-inner">
+      <span class="section-tag">Поддержка</span>
+      <h1>📞 Связаться <span>с нами</span></h1>
+      <p>На связи ежедневно с 9:00 до 21:00 — выберите удобный способ</p>
+    </div>
+  </div>
+
+  <div class="sp-body">
+    <div class="contacts-layout">
+      <div>
+        <div class="sp-section-h2" style="margin-top:0">Каналы связи</div>
+        <div class="sp-contact-cards">
+          <a href="tel:+77001234567" class="sp-contact-card">
+            <div class="sp-c-icon">📞</div>
+            <div class="sp-c-info">
+              <strong>Телефон</strong>
+              <em>+7 (700) 123-45-67</em>
+              <span>Пн–Вс 9:00–21:00</span>
+            </div>
+          </a>
+          <a href="https://wa.me/77001234567" target="_blank" class="sp-contact-card">
+            <div class="sp-c-icon">💬</div>
+            <div class="sp-c-info">
+              <strong>WhatsApp</strong>
+              <em>Написать</em>
+              <span>Ответ за 5–10 минут</span>
+            </div>
+          </a>
+          <a href="https://t.me/endlessline_kz" target="_blank" class="sp-contact-card">
+            <div class="sp-c-icon">✈️</div>
+            <div class="sp-c-info">
+              <strong>Telegram</strong>
+              <em>@endlessline_kz</em>
+              <span>Бот-помощник 24/7</span>
+            </div>
+          </a>
+          <a href="mailto:info@endlessline.kz" class="sp-contact-card">
+            <div class="sp-c-icon">✉️</div>
+            <div class="sp-c-info">
+              <strong>Email</strong>
+              <em>info@endlessline.kz</em>
+              <span>Ответ за 2 часа</span>
+            </div>
+          </a>
+          <a href="https://instagram.com/endlessline.kz" target="_blank" class="sp-contact-card">
+            <div class="sp-c-icon">📸</div>
+            <div class="sp-c-info">
+              <strong>Instagram</strong>
+              <em>@endlessline.kz</em>
+              <span>Акции и вдохновение</span>
+            </div>
+          </a>
+        </div>
+      </div>
+
+      <div>
+        <div class="sp-section-h2" style="margin-top:0">Написать нам</div>
+        <div class="sp-form-wrap">
+          <form id="contact-form" onsubmit="submitContact(event)">
+            <div class="sp-form-row">
+              <div class="sp-fg"><label>Имя *</label><input type="text" id="c-name" placeholder="Азамат" required></div>
+              <div class="sp-fg"><label>Телефон *</label><input type="tel" id="c-phone" placeholder="+7 (777) 000-00-00" required></div>
+            </div>
+            <div class="sp-fg"><label>Email</label><input type="email" id="c-email" placeholder="your@email.com"></div>
+            <div class="sp-fg">
+              <label>Тема</label>
+              <select id="c-topic">
+                <option>Бронирование тура</option>
+                <option>Вопрос по отелю</option>
+                <option>Визовая помощь</option>
+                <option>Страхование</option>
+                <option>Возврат средств</option>
+                <option>Другое</option>
+              </select>
+            </div>
+            <div class="sp-fg"><label>Сообщение</label><textarea id="c-msg" placeholder="Расскажите подробнее о вашем запросе..."></textarea></div>
+            <button type="submit" class="btn-primary" style="width:100%;justify-content:center" id="c-submit">Отправить сообщение</button>
+            <p class="sp-form-note">Нажимая кнопку, вы соглашаетесь на обработку персональных данных</p>
+          </form>
+          <div class="sp-success" id="success-msg">✅ <strong>Отправлено!</strong> Ответим в течение часа.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="sp-section-h2">Наши офисы</div>
+    <div class="sp-grid sp-grid-2">
+      <div class="sp-office">
+        <div class="sp-office-map">🏢</div>
+        <div class="sp-office-info">
+          <h3>Алматы — Главный офис</h3>
+          <p>пр. Достык, 148, БЦ «Алматинский», офис 412<br>Алматы, Казахстан 050051</p>
+          <span class="sp-office-hours">⏰ Пн–Вс 9:00 – 21:00</span>
+        </div>
+      </div>
+      <div class="sp-office">
+        <div class="sp-office-map">🏙</div>
+        <div class="sp-office-info">
+          <h3>Астана — Представительство</h3>
+          <p>пр. Мангилик Эл, 55/17, БЦ «Capital», офис 210<br>Астана, Казахстан 010000</p>
+          <span class="sp-office-hours">⏰ Пн–Пт 10:00 – 19:00</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script>
+function submitContact(e) {
+  e.preventDefault();
+  const btn = document.getElementById('c-submit');
+  btn.textContent = 'Отправляем...';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('success-msg').classList.add('show');
+    if (typeof showToast === 'function') showToast('Сообщение отправлено! Ответим в течение часа.', 'success');
+  }, 1200);
+}
+</script>
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

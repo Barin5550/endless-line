@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Вакансии | Endless Line</title>
+  <meta name="description" content="Открытые вакансии в туристической компании Endless Line. Присоединяйтесь к команде!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="support-pages.css">
+</head>
+<body data-page="jobs">
+
+<main class="sp-main" id="main-content">
+  <div class="sp-hero">
+    <div class="sp-hero-inner">
+      <span class="section-tag">Компания</span>
+      <h1>Работа в <span>Endless Line</span></h1>
+      <p>Присоединяйтесь к команде, которая меняет взгляд людей на путешествия</p>
+      <div class="sp-stats">
+        <div class="sp-stat"><strong>45+</strong><span>Сотрудников</span></div>
+        <div class="sp-stat"><strong>6</strong><span>Вакансий</span></div>
+        <div class="sp-stat"><strong>4.8 ★</strong><span>Рейтинг работодателя</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp-body">
+
+    <div class="sp-section-h2" style="margin-top:0">Что мы предлагаем</div>
+    <div class="sp-grid sp-grid-3" style="margin-bottom:var(--sp-2xl)">
+      <div class="sp-card" style="text-align:center">
+        <span class="sp-icon">✈️</span>
+        <h3>Бесплатные туры</h3>
+        <p>2 тура в год для сотрудника и его семьи</p>
+      </div>
+      <div class="sp-card" style="text-align:center">
+        <span class="sp-icon">💰</span>
+        <h3>Конкурентная ЗП</h3>
+        <p>Оклад + % от продаж без ограничений</p>
+      </div>
+      <div class="sp-card" style="text-align:center">
+        <span class="sp-icon">📚</span>
+        <h3>Обучение</h3>
+        <p>Курсы, тренинги, IATA-сертификация</p>
+      </div>
+      <div class="sp-card" style="text-align:center">
+        <span class="sp-icon">🏥</span>
+        <h3>ДМС</h3>
+        <p>Медицинская страховка для сотрудника</p>
+      </div>
+      <div class="sp-card" style="text-align:center">
+        <span class="sp-icon">🕐</span>
+        <h3>Гибкий график</h3>
+        <p>Гибрид или удалёнка по договорённости</p>
+      </div>
+      <div class="sp-card" style="text-align:center">
+        <span class="sp-icon">🌍</span>
+        <h3>Карьерный рост</h3>
+        <p>Путь от стажёра до директора реален</p>
+      </div>
+    </div>
+
+    <div class="sp-section-h2">Открытые вакансии</div>
+    <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:var(--sp-2xl)">
+      <div class="sp-job-card">
+        <span class="sp-job-emoji">🌍</span>
+        <div class="sp-job-info">
+          <h3>Менеджер по туризму</h3>
+          <div class="sp-job-tags">
+            <span class="sp-job-tag">Продажи</span>
+            <span class="sp-job-tag">Туры</span>
+            <span class="sp-job-tag loc">📍 Алматы</span>
+            <span class="sp-job-tag loc">Полная</span>
+          </div>
+        </div>
+        <span class="sp-job-salary">от 250 000 ₸</span>
+        <button class="btn-primary" style="padding:10px 20px;font-size:.85rem" onclick="openApplyModal('Менеджер по туризму')">Откликнуться</button>
+      </div>
+      <div class="sp-job-card">
+        <span class="sp-job-emoji">💻</span>
+        <div class="sp-job-info">
+          <h3>Frontend-разработчик</h3>
+          <div class="sp-job-tags">
+            <span class="sp-job-tag">JavaScript</span>
+            <span class="sp-job-tag">React</span>
+            <span class="sp-job-tag loc">📍 Удалённо</span>
+          </div>
+        </div>
+        <span class="sp-job-salary">от 450 000 ₸</span>
+        <button class="btn-primary" style="padding:10px 20px;font-size:.85rem" onclick="openApplyModal('Frontend-разработчик')">Откликнуться</button>
+      </div>
+      <div class="sp-job-card">
+        <span class="sp-job-emoji">📱</span>
+        <div class="sp-job-info">
+          <h3>SMM-специалист</h3>
+          <div class="sp-job-tags">
+            <span class="sp-job-tag">Instagram</span>
+            <span class="sp-job-tag">Контент</span>
+            <span class="sp-job-tag loc">📍 Гибрид</span>
+          </div>
+        </div>
+        <span class="sp-job-salary">от 180 000 ₸</span>
+        <button class="btn-primary" style="padding:10px 20px;font-size:.85rem" onclick="openApplyModal('SMM-специалист')">Откликнуться</button>
+      </div>
+      <div class="sp-job-card">
+        <span class="sp-job-emoji">🛂</span>
+        <div class="sp-job-info">
+          <h3>Визовый специалист</h3>
+          <div class="sp-job-tags">
+            <span class="sp-job-tag">Шенген</span>
+            <span class="sp-job-tag">США</span>
+            <span class="sp-job-tag loc">📍 Алматы</span>
+          </div>
+        </div>
+        <span class="sp-job-salary">от 230 000 ₸</span>
+        <button class="btn-primary" style="padding:10px 20px;font-size:.85rem" onclick="openApplyModal('Визовый специалист')">Откликнуться</button>
+      </div>
+      <div class="sp-job-card">
+        <span class="sp-job-emoji">📊</span>
+        <div class="sp-job-info">
+          <h3>Руководитель отдела продаж</h3>
+          <div class="sp-job-tags">
+            <span class="sp-job-tag">Управление</span>
+            <span class="sp-job-tag">B2C/B2B</span>
+            <span class="sp-job-tag loc">📍 Алматы</span>
+          </div>
+        </div>
+        <span class="sp-job-salary">от 500 000 ₸</span>
+        <button class="btn-primary" style="padding:10px 20px;font-size:.85rem" onclick="openApplyModal('Руководитель отдела продаж')">Откликнуться</button>
+      </div>
+      <div class="sp-job-card">
+        <span class="sp-job-emoji">🎨</span>
+        <div class="sp-job-info">
+          <h3>Графический дизайнер</h3>
+          <div class="sp-job-tags">
+            <span class="sp-job-tag">Figma</span>
+            <span class="sp-job-tag">Реклама</span>
+            <span class="sp-job-tag loc">📍 Удалённо</span>
+          </div>
+        </div>
+        <span class="sp-job-salary">от 200 000 ₸</span>
+        <button class="btn-primary" style="padding:10px 20px;font-size:.85rem" onclick="openApplyModal('Графический дизайнер')">Откликнуться</button>
+      </div>
+    </div>
+
+    <div class="sp-cta">
+      <h3>Нет подходящей вакансии?</h3>
+      <p>Отправьте резюме — рассматриваем инициативных людей с горящими глазами</p>
+      <a href="mailto:hr@endlessline.kz" class="btn-white">Отправить резюме</a>
+    </div>
+  </div>
+</main>
+
+<!-- Apply Modal -->
+<div class="sp-modal-overlay" id="apply-modal" onclick="if(event.target===this)closeApplyModal()">
+  <div class="sp-modal">
+    <h3>Откликнуться: <span id="modal-job-name" style="color:var(--c-primary)"></span></h3>
+    <form onsubmit="submitApply(event)">
+      <div class="sp-form-row">
+        <div class="sp-fg"><label>Имя и фамилия *</label><input type="text" required placeholder="Азамат Нуров"></div>
+        <div class="sp-fg"><label>Телефон *</label><input type="tel" required placeholder="+7 (777) 000-00-00"></div>
+      </div>
+      <div class="sp-fg"><label>Email *</label><input type="email" required placeholder="your@email.com"></div>
+      <div class="sp-fg"><label>Ссылка на резюме или портфолио</label><input type="url" placeholder="https://hh.kz/..."></div>
+      <div class="sp-fg"><label>Почему хотите работать в Endless Line?</label><textarea placeholder="Расскажите о себе..."></textarea></div>
+      <div class="sp-modal-footer">
+        <button type="button" class="sp-modal-cancel" onclick="closeApplyModal()">Отмена</button>
+        <button type="submit" class="btn-primary" style="flex:2;justify-content:center">Отправить</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+function openApplyModal(title) {
+  document.getElementById('modal-job-name').textContent = title;
+  document.getElementById('apply-modal').classList.add('open');
+}
+function closeApplyModal() {
+  document.getElementById('apply-modal').classList.remove('open');
+}
+function submitApply(e) {
+  e.preventDefault();
+  closeApplyModal();
+  if (typeof showToast === 'function') showToast('Отклик отправлен! Свяжемся в течение 2 рабочих дней.', 'success', 4000);
+}
+</script>
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

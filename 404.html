@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>404 — Страница не найдена | Endless Line</title>
+  <meta name="description" content="Страница не найдена. Вернитесь на главную страницу Endless Line.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="auth.css">
+  <style>
+    .err-page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: calc(var(--header-h) + 60px) var(--sp-xl) var(--sp-3xl);
+      background: var(--c-bg);
+      position: relative;
+      overflow: hidden;
+    }
+    .err-page::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: var(--g-orange-glow);
+      pointer-events: none;
+    }
+    .err-plane {
+      font-size: 6rem;
+      line-height: 1;
+      margin-bottom: 16px;
+      animation: planeFly 4s ease-in-out infinite;
+      display: block;
+    }
+    @keyframes planeFly {
+      0%,100% { transform: translateY(0) rotate(-3deg); }
+      50%      { transform: translateY(-20px) rotate(3deg); }
+    }
+    .err-code {
+      font-family: var(--f-heading);
+      font-size: clamp(5rem, 15vw, 10rem);
+      font-weight: 900;
+      letter-spacing: -0.05em;
+      line-height: 1;
+      background: var(--g-text);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 12px;
+    }
+    .err-title {
+      font-family: var(--f-heading);
+      font-size: clamp(1.2rem, 3vw, 1.75rem);
+      font-weight: 800;
+      color: var(--c-text);
+      margin-bottom: 12px;
+      letter-spacing: -0.02em;
+    }
+    .err-sub {
+      color: var(--c-text-2);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      max-width: 480px;
+      margin: 0 auto 32px;
+    }
+    .err-actions {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .err-popular {
+      margin-top: 60px;
+      width: 100%;
+      max-width: 720px;
+    }
+    .err-popular-title {
+      font-family: var(--f-heading);
+      font-weight: 700;
+      font-size: 0.9rem;
+      color: var(--c-text-3);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 16px;
+    }
+    .err-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+    }
+    .err-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--c-bg-card);
+      border: 1px solid var(--c-border);
+      border-radius: var(--r-full);
+      padding: 9px 20px;
+      font-size: 0.875rem;
+      font-weight: 500;
+      color: var(--c-text-2);
+      text-decoration: none;
+      transition: all var(--t-fast);
+    }
+    .err-link:hover {
+      border-color: var(--c-primary);
+      color: var(--c-primary);
+      background: rgba(255,90,0,0.05);
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+<body data-page="">
+
+<main class="err-page" id="main-content">
+  <span class="err-plane">✈️</span>
+  <div class="err-code">404</div>
+  <h1 class="err-title">Страница улетела...</h1>
+  <p class="err-sub">Кажется, этой страницы не существует или она была перемещена. Возможно, вы перешли по устаревшей ссылке.</p>
+  <div class="err-actions">
+    <a href="index.html" class="btn-primary">🏠 На главную</a>
+    <a href="tours.html" class="btn-secondary">🌍 Все туры</a>
+  </div>
+  <div class="err-popular">
+    <div class="err-popular-title">Популярные разделы</div>
+    <div class="err-links">
+      <a href="tours.html" class="err-link">🏖 Каталог туров</a>
+      <a href="map.html" class="err-link">🗺 Карта мира</a>
+      <a href="hotels.html" class="err-link">🏨 Отели</a>
+      <a href="deals.html" class="err-link">🔥 Акции</a>
+      <a href="faq.html" class="err-link">❓ FAQ</a>
+      <a href="contacts.html" class="err-link">📞 Контакты</a>
+    </div>
+  </div>
+</main>
+
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>

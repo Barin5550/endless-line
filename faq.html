@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FAQ — Часто задаваемые вопросы | Endless Line</title>
+  <meta name="description" content="Ответы на часто задаваемые вопросы о бронировании туров, отелей и авиабилетов в Endless Line.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="variables.css">
+  <link rel="stylesheet" href="shared.css">
+  <link rel="stylesheet" href="auth.css">
+  <link rel="stylesheet" href="support-pages.css">
+</head>
+<body data-page="faq">
+
+<main class="sp-main" id="main-content">
+  <div class="sp-hero">
+    <div class="sp-hero-inner">
+      <span class="section-tag">Поддержка</span>
+      <h1>Часто задаваемые <span>вопросы</span></h1>
+      <p>Нашли ответы на большинство вопросов. Не нашли — напишите нам!</p>
+      <div class="sp-search-bar">
+        <input type="text" id="faq-search-input" placeholder="Введите вопрос..." oninput="filterFAQ(this.value)">
+        <button>Найти</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="sp-body sp-body-narrow">
+
+    <div data-cat="бронирование">
+      <div class="sp-cat-title">🗓 Бронирование</div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Как забронировать тур? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Выберите тур на странице <a href="tours.html">Туры</a>, нажмите «Забронировать» и заполните форму. Менеджер свяжется в течение 30 минут для подтверждения и оплаты.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Нужно ли платить сразу? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">При бронировании достаточно предоплаты 20–30%. Остаток — за 14 дней до вылета. Для горящих туров — полная оплата сразу.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Можно ли изменить даты после бронирования? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Да, при наличии мест. Обратитесь к менеджеру за 7+ дней до вылета. Возможен сбор за изменение от 2 000 ₸ в зависимости от тарифа.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Как долго действует бронь без оплаты? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Бронь без оплаты удерживается 24 часа, затем места освобождаются. В сезон рекомендуем оплачивать сразу.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Есть ли скидки для детей? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Дети до 2 лет (без места) — перелёт бесплатно. Дети 2–11 лет — скидка 20–30% в зависимости от направления.</div>
+      </div>
+    </div>
+
+    <div data-cat="оплата">
+      <div class="sp-cat-title">💳 Оплата</div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Какие способы оплаты принимаете? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Visa/Mastercard, Kaspi Pay, банковский перевод, наличные в офисе. Рассрочка Kaspi на 3–12 месяцев для туров от 200 000 ₸.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Безопасно ли платить онлайн? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Да. Используем SSL-шифрование и шлюз Kaspi (PCI DSS). Данные карты не хранятся на наших серверах.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          В какой валюте указаны цены? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Все цены в тенге (₸). Конвертация при оплате картой — по курсу вашего банка.</div>
+      </div>
+    </div>
+
+    <div data-cat="отмена возврат">
+      <div class="sp-cat-title">↩️ Отмена и возврат</div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Что если мне нужно отменить тур? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">За 30+ дней — 100% минус 5 000 ₸. За 14–30 дней — 70%. За 7–14 дней — 50%. Менее 7 дней — 30%. Подробнее: <a href="refund.html">политика возврата</a>.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Что если тур отменяет компания? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">100% возврат за 5 рабочих дней или бесплатный перенос на другую дату/направление.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Сколько времени занимает возврат? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Карта — 5–10 рабочих дней. Kaspi — 1–3 дня. Перевод — 3–5 дней. Наличные — в день обращения.</div>
+      </div>
+    </div>
+
+    <div data-cat="виза документы">
+      <div class="sp-cat-title">🛂 Визы и документы</div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Помогаете с оформлением визы? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Да! Шенген, США, Великобритания, Китай, Япония и другие. Подробнее на странице <a href="visa.html">Визовая помощь</a>.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Куда можно поехать без визы из Казахстана? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">70+ стран: Турция, ОАЭ, Таиланд, Вьетнам, Индонезия, Мальдивы, Марокко, Грузия, Черногория и другие. Полный список: <a href="visa.html">Визовая помощь</a>.</div>
+      </div>
+    </div>
+
+    <div data-cat="страхование">
+      <div class="sp-cat-title">🛡 Страхование</div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Обязательно ли страхование? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Для шенгенских стран — обязательно. Для остальных — настоятельно рекомендуем. Подробнее: <a href="insurance.html">Страхование</a>.</div>
+      </div>
+      <div class="sp-faq-item">
+        <button class="sp-faq-btn" onclick="toggleFAQ(this)">
+          Что входит в базовый страховой пакет? <span class="sp-faq-icon">+</span>
+        </button>
+        <div class="sp-faq-answer">Медрасходы до $30 000, экстренная эвакуация, юридическая помощь, потеря багажа. Расширенный пакет включает отмену тура, задержку рейса и спорт.</div>
+      </div>
+    </div>
+
+    <div class="sp-cta">
+      <h3>Не нашли ответ?</h3>
+      <p>Наши менеджеры на связи ежедневно с 9:00 до 21:00</p>
+      <a href="contacts.html" class="btn-white">Связаться с нами</a>
+    </div>
+
+  </div>
+</main>
+
+<script>
+function toggleFAQ(btn) {
+  const item = btn.closest('.sp-faq-item');
+  const wasOpen = item.classList.contains('open');
+  document.querySelectorAll('.sp-faq-item.open').forEach(i => i.classList.remove('open'));
+  if (!wasOpen) item.classList.add('open');
+}
+function filterFAQ(q) {
+  const query = q.toLowerCase();
+  document.querySelectorAll('.sp-faq-item').forEach(item => {
+    item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
+  });
+  document.querySelectorAll('[data-cat]').forEach(sec => {
+    const vis = [...sec.querySelectorAll('.sp-faq-item')].some(i => i.style.display !== 'none');
+    sec.style.display = vis ? '' : 'none';
+  });
+}
+</script>
+<script src="nav.js"></script>
+<script src="auth.js"></script>
+</body>
+</html>
