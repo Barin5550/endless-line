@@ -5,11 +5,17 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 function initTimer() {
+  // Persistent target: stored in localStorage so timer doesn't reset on reload
+  const KEY = 'el_deals_target';
+  let target = parseInt(localStorage.getItem(KEY) || '0');
+  const now = Date.now();
+  // If no target or target already passed, set new one 24h from now
+  if (!target || target < now) {
+    target = now + 24 * 3600 * 1000;
+    localStorage.setItem(KEY, target);
+  }
   function update() {
-    const now = new Date();
-    const midnight = new Date(now);
-    midnight.setHours(23, 59, 59, 999);
-    const diff = midnight - now;
+    const diff = Math.max(0, target - Date.now());
     const h = Math.floor(diff / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
@@ -20,6 +26,12 @@ function initTimer() {
     if (hEl) hEl.textContent = pad(h);
     if (mEl) mEl.textContent = pad(m);
     if (sEl) sEl.textContent = pad(s);
+    if (diff === 0) {
+      // Reset timer for next 24h
+      const newTarget = Date.now() + 24 * 3600 * 1000;
+      localStorage.setItem(KEY, newTarget);
+      target = newTarget;
+    }
   }
   update();
   setInterval(update, 1000);

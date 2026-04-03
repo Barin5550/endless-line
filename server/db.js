@@ -8,6 +8,8 @@ const db = {
   bookings: new Datastore({ filename: path.join(dbDir, 'bookings.db'), autoload: true }),
   reviews: new Datastore({ filename: path.join(dbDir, 'reviews.db'), autoload: true }),
   contacts: new Datastore({ filename: path.join(dbDir, 'contacts.db'), autoload: true }),
+  favorites: new Datastore({ filename: path.join(dbDir, 'favorites.db'), autoload: true }),
+  jobs: new Datastore({ filename: path.join(dbDir, 'jobs.db'), autoload: true }),
 }
 
 // Indexes
@@ -15,6 +17,8 @@ db.users.ensureIndex({ fieldName: 'email', unique: true })
 db.bookings.ensureIndex({ fieldName: 'userId' })
 db.reviews.ensureIndex({ fieldName: 'userId' })
 db.contacts.ensureIndex({ fieldName: 'createdAt' })
+db.favorites.ensureIndex({ fieldName: 'userId' })
+db.jobs.ensureIndex({ fieldName: 'createdAt' })
 
 // Promisify helpers
 const promisify = (store) => ({
@@ -31,4 +35,6 @@ module.exports = {
   bookings: promisify(db.bookings),
   reviews: promisify(db.reviews),
   contacts: promisify(db.contacts),
+  favorites: promisify(db.favorites),
+  jobs: promisify(db.jobs),
 }

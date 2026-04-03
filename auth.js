@@ -344,19 +344,16 @@ async function handleRegister(e) {
 
 /* ── BOOKING MODAL ──────────────────────────────────────── */
 function openBookingModal(tourName, price, nights, country, hotel) {
-  if (!isLoggedIn()) {
-    openAuthModal('login');
-    showToast('Сначала войдите в аккаунт, чтобы забронировать', 'warning');
-    return;
-  }
   closeAllModals();
   const user = getUser();
+  const isGuest = !isLoggedIn();
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay open';
   overlay.id = 'booking-modal';
   overlay.innerHTML = `
     <div class="modal booking-modal">
       <button class="modal-close" onclick="closeAllModals()">×</button>
+      ${ isGuest ? `<div style="background:rgba(255,140,0,0.1);border:1px solid rgba(255,140,0,0.35);border-radius:10px;padding:10px 14px;margin-bottom:16px;font-size:0.82rem;color:#ffb020;display:flex;align-items:center;gap:8px"><span style="font-size:1.1rem">⚠️</span><span>Вы не вошли. Для оплаты нужна <a href="#" onclick="event.preventDefault();closeAllModals();openAuthModal('login')" style="color:var(--c-primary);font-weight:700">авторизация</a>.</span></div>` : ''}
       <h2 class="bm-title">Бронирование тура</h2>
       <div class="bm-tour-info">
         <div class="bm-tour-name">${tourName}</div>
@@ -367,10 +364,12 @@ function openBookingModal(tourName, price, nights, country, hotel) {
         <input type="hidden" id="bk-price-base" value="${price}">
         <input type="hidden" id="bk-country" value="${country}">
         <input type="hidden" id="bk-nights" value="${nights || 7}">
+        <input type="hidden" id="bk-is-guest" value="${isGuest ? '1' : '0'}">
         <div class="auth-field">
           <label>Имя</label>
-          <input type="text" class="s-input" value="${user?.name || ''}" required id="bk-name">
+          <input type="text" class="s-input" value="${user?.name || ''}" required id="bk-name" placeholder="Имя и фамилия">
         </div>
+        ${isGuest ? `<div class="auth-field"><label>Email</label><input type="email" class="s-input" id="bk-guest-email" placeholder="Ваш email для подтверждения" required></div>` : ''}
         <div class="bm-row">
           <div class="auth-field">
             <label>Дата заезда</label>
@@ -426,12 +425,23 @@ function updateBookingPrice() {
 
 function handleBooking(e) {
   e.preventDefault();
+  const isGuest = document.getElementById('bk-is-guest')?.value === '1';
   const base = parseInt(document.getElementById('bk-price-base')?.value || 0);
   const pass = parseInt(document.getElementById('bk-passengers')?.value || 1);
   const total = base * pass;
   const tourName = document.getElementById('bk-tour')?.value;
   const country = document.getElementById('bk-country')?.value;
   const nights = parseInt(document.getElementById('bk-nights')?.value || 7);
+
+  if (isGuest && !isLoggedIn()) {
+    // Guest path: show login/register prompt before payment
+    const guestEmail = document.getElementById('bk-guest-email')?.value;
+    closeAllModals();
+    showToast('Для оплаты необходимо войти в аккаунт', 'warning');
+    setTimeout(() => openAuthModal('login'), 400);
+    return;
+  }
+
   openPaymentModal(total, tourName, country, pass, document.getElementById('bk-date-from')?.value, nights);
 }
 
@@ -998,4 +1008,13 @@ async function submitContactForm(e) {
 /* ── INIT ───────────────────────────────────────────────── */
 document.addEventListener('DOMContentLoaded', () => {
   updateHeaderAuth();
+
+  // Wire up login button (uses data-action to avoid CSP issues with inline onclick)
+  document.addEventListener('click', (e) => {
+    const btn = e.target.closest('[data-action="open-auth"]');
+    if (btn) {
+      e.preventDefault();
+      openAuthModal('login');
+    }
+  });
 });

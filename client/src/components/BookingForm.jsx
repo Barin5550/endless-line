@@ -35,6 +35,8 @@ export default function BookingForm() {
     if (!form.departDate) e.departDate = 'Укажите дату отправления'
     if (form.from.trim().toLowerCase() === form.to.trim().toLowerCase() && form.from.trim())
       e.to = 'Города отправления и назначения должны различаться'
+    if (form.returnDate && form.departDate && form.returnDate < form.departDate)
+      e.returnDate = 'Дата возврата не может быть раньше отправления'
     return e
   }
 
@@ -117,17 +119,20 @@ export default function BookingForm() {
 
               <div className="field-group">
                 <label className="field-label">{t('field-return')}</label>
-                <input type="date" id="field-return" className="field-input"
+                <input type="date" id="field-return" className={`field-input ${errors.returnDate ? 'field-input--error' : ''}`}
                   value={form.returnDate} min={form.departDate} onChange={set('returnDate')} />
+                {errors.returnDate && <span className="field-error">{errors.returnDate}</span>}
               </div>
 
               <div className="field-group field-group--narrow">
                 <label className="field-label">{t('field-passengers')}</label>
                 <div className="passengers-control">
                   <button type="button" className="pass-btn" id="pass-minus"
+                    disabled={form.passengers <= 1}
                     onClick={() => setForm(f => ({ ...f, passengers: Math.max(1, f.passengers - 1) }))}>−</button>
                   <span className="pass-count" id="pass-count">{form.passengers}</span>
                   <button type="button" className="pass-btn" id="pass-plus"
+                    disabled={form.passengers >= 9}
                     onClick={() => setForm(f => ({ ...f, passengers: Math.min(9, f.passengers + 1) }))}>+</button>
                 </div>
               </div>

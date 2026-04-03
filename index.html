@@ -34,13 +34,13 @@
         <div class="hero-content">
           <div class="hero-badge">
             <span class="badge-dot"></span>
-            Новые туры каждую неделю
+            <span data-i18n="hero.badge">Новые туры каждую неделю</span>
           </div>
           <h1 class="hero-title">
-            Ваш следующий<br>
-            <span class="hero-title-accent">маршрут</span> ждёт вас
+            <span data-i18n="hero.title1">Ваш следующий</span><br>
+            <span class="hero-title-accent" data-i18n="hero.accent">маршрут</span> <span data-i18n="hero.title2">ждёт вас</span>
           </h1>
-          <p class="hero-sub">
+          <p class="hero-sub" data-i18n="hero.sub">
             От Казахстана до Мальдив — откройте мир с Endless Line.<br>
             50+ стран, 3 200 маршрутов, гарантия лучшей цены.
           </p>
@@ -48,23 +48,23 @@
           <!-- SEARCH WIDGET -->
           <div class="search-widget hero-search" id="hero-search">
             <div class="search-tabs" id="search-tabs">
-              <button class="search-tab active" data-tab="tours"><span class="tab-icon">🌍</span> Туры</button>
-              <button class="search-tab" data-tab="hotels"><span class="tab-icon">🏨</span> Отели</button>
-              <button class="search-tab" data-tab="flights"><span class="tab-icon">✈️</span> Авиа</button>
-              <button class="search-tab" data-tab="trains"><span class="tab-icon">🚂</span> Поезда</button>
-              <button class="search-tab" data-tab="cruises"><span class="tab-icon">🚢</span> Круизы</button>
+              <button class="search-tab active" data-tab="tours" data-i18n="search.tab.tours"><span class="tab-icon">🌍</span> Туры</button>
+              <button class="search-tab" data-tab="hotels" data-i18n="search.tab.hotels"><span class="tab-icon">🏨</span> Отели</button>
+              <button class="search-tab" data-tab="flights" data-i18n="search.tab.flights"><span class="tab-icon">✈️</span> Авиа</button>
+              <button class="search-tab" data-tab="trains" data-i18n="search.tab.trains"><span class="tab-icon">🚂</span> Поезда</button>
+              <button class="search-tab" data-tab="cruises" data-i18n="search.tab.cruises"><span class="tab-icon">🚢</span> Круизы</button>
             </div>
             <div class="search-body" id="search-body">
               <!-- TOURS TAB -->
               <div class="search-row tab-panel" id="panel-tours">
                 <div class="s-field s-field-wide">
-                  <label>Откуда</label>
+                  <label data-i18n="search.label.from">Откуда</label>
                   <input type="text" class="s-input" id="s-from" placeholder="Алматы" value="Алматы">
                 </div>
                 <button class="swap-btn" id="swap-btn" title="Поменять">⇄</button>
                 <div class="s-field s-field-wide">
-                  <label>Куда</label>
-                  <input type="text" class="s-input" id="s-to" placeholder="Страна или город" list="dest-list">
+                  <label data-i18n="search.label.to">Куда</label>
+                  <input type="text" class="s-input" id="s-to" data-i18n-ph="search.ph.to" placeholder="Страна или город" list="dest-list">
                   <datalist id="dest-list">
                     <option value="Турция"><option value="Дубай"><option value="Египет">
                     <option value="Греция"><option value="Таиланд"><option value="Мальдивы">
@@ -75,15 +75,15 @@
                   </datalist>
                 </div>
                 <div class="s-field">
-                  <label>Отлёт</label>
+                  <label data-i18n="search.label.depart">Отлёт</label>
                   <input type="date" class="s-input" id="s-date-from">
                 </div>
                 <div class="s-field">
-                  <label>Возврат</label>
+                  <label data-i18n="search.label.return">Возврат</label>
                   <input type="date" class="s-input" id="s-date-to">
                 </div>
                 <div class="s-field">
-                  <label>Туристы</label>
+                  <label data-i18n="search.label.tourists">Туристы</label>
                   <div class="pass-control">
                     <button class="pass-btn" id="pass-minus">−</button>
                     <span class="pass-count" id="pass-count">2</span>
@@ -92,15 +92,15 @@
                 </div>
                 <button class="btn-search-main" id="btn-search" onclick="doSearch()">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-                  Найти
+                  <span data-i18n="search.btn.tours">Найти</span>
                 </button>
               </div>
 
               <!-- HOTELS TAB -->
               <div class="search-row tab-panel" id="panel-hotels" style="display:none">
                 <div class="s-field s-field-wide">
-                  <label>Город или отель</label>
-                  <input type="text" class="s-input" id="h-dest" placeholder="Дубай, Анталья, Бали..." list="hotel-list">
+                  <label data-i18n="search.label.hotel">Город или отель</label>
+                  <input type="text" class="s-input" id="h-dest" data-i18n-ph="search.ph.hotel" placeholder="Дубай, Анталья, Бали..." list="hotel-list">
                   <datalist id="hotel-list">
                     <option value="Дубай"><option value="Анталья"><option value="Бали">
                     <option value="Пхукет"><option value="Мальдивы"><option value="Канкун">
@@ -109,15 +109,15 @@
                   </datalist>
                 </div>
                 <div class="s-field">
-                  <label>Заезд</label>
+                  <label data-i18n="search.label.checkin">Заезд</label>
                   <input type="date" class="s-input" id="h-checkin">
                 </div>
                 <div class="s-field">
-                  <label>Выезд</label>
+                  <label data-i18n="search.label.checkout">Выезд</label>
                   <input type="date" class="s-input" id="h-checkout">
                 </div>
                 <div class="s-field">
-                  <label>Гости</label>
+                  <label data-i18n="search.label.guests">Гости</label>
                   <div class="pass-control">
                     <button class="pass-btn" onclick="changeGuests(-1)">−</button>
                     <span class="pass-count" id="h-guests">2</span>
@@ -125,7 +125,7 @@
                   </div>
                 </div>
                 <div class="s-field">
-                  <label>Звёзды</label>
+                  <label data-i18n="search.label.stars">Звёзды</label>
                   <select class="s-input" id="h-stars">
                     <option value="any">Любые</option>
                     <option value="3">3★</option>
@@ -135,20 +135,20 @@
                 </div>
                 <button class="btn-search-main" onclick="doHotelSearch()">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-                  Найти отель
+                  <span data-i18n="search.btn.hotels">Найти отель</span>
                 </button>
               </div>
 
               <!-- FLIGHTS TAB -->
               <div class="search-row tab-panel" id="panel-flights" style="display:none">
                 <div class="s-field s-field-wide">
-                  <label>Откуда</label>
+                  <label data-i18n="search.label.from">Откуда</label>
                   <input type="text" class="s-input" id="f-from" placeholder="Алматы (ALA)" value="Алматы">
                 </div>
                 <button class="swap-btn" onclick="swapFlights(this)">⇄</button>
                 <div class="s-field s-field-wide">
-                  <label>Куда</label>
-                  <input type="text" class="s-input" id="f-to" placeholder="Город или аэропорт" list="flight-list">
+                  <label data-i18n="search.label.to">Куда</label>
+                  <input type="text" class="s-input" id="f-to" data-i18n-ph="search.ph.flight" placeholder="Город или аэропорт" list="flight-list">
                   <datalist id="flight-list">
                     <option value="Стамбул (IST)"><option value="Дубай (DXB)"><option value="Бангкок (BKK)">
                     <option value="Москва (SVO)"><option value="Лондон (LHR)"><option value="Нью-Йорк (JFK)">
@@ -157,15 +157,15 @@
                   </datalist>
                 </div>
                 <div class="s-field">
-                  <label>Туда</label>
+                  <label data-i18n="search.label.godate">Туда</label>
                   <input type="date" class="s-input" id="f-date-go">
                 </div>
                 <div class="s-field">
-                  <label>Обратно</label>
+                  <label data-i18n="search.label.backdate">Обратно</label>
                   <input type="date" class="s-input" id="f-date-back">
                 </div>
                 <div class="s-field">
-                  <label>Класс</label>
+                  <label data-i18n="search.label.class">Класс</label>
                   <select class="s-input" id="f-class">
                     <option value="economy">Эконом</option>
                     <option value="business">Бизнес</option>
@@ -174,20 +174,20 @@
                 </div>
                 <button class="btn-search-main" onclick="doFlightSearch()">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-                  Найти
+                  <span data-i18n="search.btn.flights">Найти</span>
                 </button>
               </div>
 
               <!-- TRAINS TAB -->
               <div class="search-row tab-panel" id="panel-trains" style="display:none">
                 <div class="s-field s-field-wide">
-                  <label>Откуда</label>
+                  <label data-i18n="search.label.from">Откуда</label>
                   <input type="text" class="s-input" id="t-from" placeholder="Алматы" value="Алматы">
                 </div>
                 <button class="swap-btn" onclick="swapFlights(this)">⇄</button>
                 <div class="s-field s-field-wide">
-                  <label>Куда</label>
-                  <input type="text" class="s-input" id="t-to" placeholder="Город" list="train-list">
+                  <label data-i18n="search.label.to">Куда</label>
+                  <input type="text" class="s-input" id="t-to" data-i18n-ph="search.ph.train" placeholder="Город" list="train-list">
                   <datalist id="train-list">
                     <option value="Астана"><option value="Шымкент"><option value="Актобе">
                     <option value="Караганда"><option value="Павлодар"><option value="Семей">
@@ -196,25 +196,25 @@
                   </datalist>
                 </div>
                 <div class="s-field">
-                  <label>Дата</label>
+                  <label data-i18n="search.label.date">Дата</label>
                   <input type="date" class="s-input" id="t-date">
                 </div>
                 <div class="s-field">
-                  <label>Пассажиры</label>
+                  <label data-i18n="search.label.passengers">Пассажиры</label>
                   <select class="s-input" id="t-pass">
                     <option>1</option><option selected>2</option><option>3</option><option>4</option>
                   </select>
                 </div>
                 <button class="btn-search-main" onclick="doTrainSearch()">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-                  Найти
+                  <span data-i18n="search.btn.trains">Найти</span>
                 </button>
               </div>
 
               <!-- CRUISES TAB -->
               <div class="search-row tab-panel" id="panel-cruises" style="display:none">
                 <div class="s-field s-field-wide">
-                  <label>Регион</label>
+                  <label data-i18n="search.label.region">Регион</label>
                   <select class="s-input" id="cr-region">
                     <option value="Средиземное море">Средиземное море</option>
                     <option value="Карибы">Карибы</option>
@@ -224,7 +224,7 @@
                   </select>
                 </div>
                 <div class="s-field">
-                  <label>Месяц</label>
+                  <label data-i18n="search.label.month">Месяц</label>
                   <select class="s-input" id="cr-month">
                     <option>Июнь 2026</option><option>Июль 2026</option>
                     <option>Август 2026</option><option>Сентябрь 2026</option>
@@ -232,7 +232,7 @@
                   </select>
                 </div>
                 <div class="s-field">
-                  <label>Длительность</label>
+                  <label data-i18n="search.label.duration">Длительность</label>
                   <select class="s-input" id="cr-dur">
                     <option value="4">3–5 ночей</option>
                     <option value="7">7 ночей</option>
@@ -240,14 +240,14 @@
                   </select>
                 </div>
                 <div class="s-field">
-                  <label>Пассажиры</label>
+                  <label data-i18n="search.label.passengers">Пассажиры</label>
                   <select class="s-input" id="cr-pass">
                     <option>1</option><option selected>2</option><option>3</option><option>4</option>
                   </select>
                 </div>
                 <button class="btn-search-main" onclick="doCruiseSearch()">
                   <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg>
-                  Найти круиз
+                  <span data-i18n="search.btn.cruises">Найти круиз</span>
                 </button>
               </div>
             </div>
@@ -255,7 +255,7 @@
 
           <!-- Quick filters -->
           <div class="hero-quick-filters">
-            <span class="qf-label">Популярно:</span>
+            <span class="qf-label" data-i18n="search.popular">Популярно:</span>
             <button class="qf-btn" onclick="quickSearch('Анталья')">🇹🇷 Анталья</button>
             <button class="qf-btn" onclick="quickSearch('Дубай')">🇦🇪 Дубай</button>
             <button class="qf-btn" onclick="quickSearch('Хургада')">🇪🇬 Хургада</button>
@@ -298,9 +298,9 @@
     <section class="section destinations-section" id="destinations">
       <div class="section-inner">
         <div class="section-header">
-          <span class="section-tag">Направления</span>
-          <h2 class="section-title">Популярные <span>направления</span></h2>
-          <p class="section-subtitle">Самые востребованные туры этого сезона по лучшим ценам</p>
+          <span class="section-tag" data-i18n="section.dest.tag">Направления</span>
+          <h2 class="section-title"><span data-i18n="section.dest.title1">Популярные</span> <span data-i18n="section.dest.title2">направления</span></h2>
+          <p class="section-subtitle" data-i18n="section.dest.sub">Самые востребованные туры этого сезона по лучшим ценам</p>
         </div>
 
         <div class="dest-grid">
@@ -403,9 +403,9 @@
     <section class="section hot-deals-section" id="hot-deals">
       <div class="section-inner">
         <div class="section-header">
-          <span class="section-tag section-tag-fire">🔥 Горящие туры</span>
-          <h2 class="section-title">Успейте <span>забронировать</span></h2>
-          <p class="section-subtitle">Эксклюзивные предложения со скидками до 40%. Мест осталось мало!</p>
+          <span class="section-tag section-tag-fire" data-i18n="section.deals.tag">🔥 Горящие туры</span>
+          <h2 class="section-title"><span data-i18n="section.deals.title1">Лучшие</span> <span data-i18n="section.deals.title2">предложения</span></h2>
+          <p class="section-subtitle" data-i18n="section.deals.sub">Ограниченные предложения — бронируйте сейчас</p>
         </div>
 
         <div class="deals-timer-bar">
@@ -522,8 +522,8 @@
     <section class="section why-section" id="why">
       <div class="section-inner">
         <div class="section-header">
-          <span class="section-tag">Наши преимущества</span>
-          <h2 class="section-title">Почему <span>Endless Line</span>?</h2>
+          <span class="section-tag" data-i18n="section.why.tag">Наши преимущества</span>
+          <h2 class="section-title"><span data-i18n="section.why.title1">Почему</span> <span data-i18n="section.why.title2">Endless Line</span>?</h2>
         </div>
         <div class="why-grid">
           <div class="why-card" id="wc-1">
@@ -577,8 +577,8 @@
       <div class="section-inner">
         <div class="map-promo-inner">
           <div class="map-promo-text">
-            <span class="section-tag">Интерактивная карта</span>
-            <h2 class="section-title">Выберите страну<br><span>на карте мира</span></h2>
+            <span class="section-tag" data-i18n="section.map.tag">Интерактивная карта</span>
+            <h2 class="section-title"><span data-i18n="section.map.title1">Выберите страну</span><br><span data-i18n="section.map.title2">на карте мира</span></h2>
             <p style="color:var(--c-text-2);margin-top:14px;line-height:1.7">
               Кликните на любую страну — и мы сразу покажем лучшие туры, достопримечательности, климат, визовые требования и цены.
             </p>
@@ -588,20 +588,13 @@
               <div class="mpf-item"><span>💰</span> Актуальные цены на туры</div>
               <div class="mpf-item"><span>🛂</span> Визовые требования</div>
             </div>
-            <a href="map.html" class="btn-primary" style="margin-top:24px">Открыть карту мира</a>
+            <a href="map.html" class="btn-primary" style="margin-top:24px" data-i18n="section.map.btn">Открыть карту мира</a>
           </div>
           <div class="map-promo-visual">
-            <div class="map-dots-bg">
-              <div class="map-globe-icon">🌍</div>
-              <div class="map-country-pins">
-                <a href="map.html?country=turkey" class="map-pin pin-tr" title="Турция">🇹🇷</a>
-                <a href="map.html?country=uae" class="map-pin pin-ae" title="ОАЭ">🇦🇪</a>
-                <a href="map.html?country=greece" class="map-pin pin-gr" title="Греция">🇬🇷</a>
-                <a href="map.html?country=japan" class="map-pin pin-jp" title="Япония">🇯🇵</a>
-                <a href="map.html?country=thailand" class="map-pin pin-th" title="Таиланд">🇹🇭</a>
-                <a href="map.html?country=maldives" class="map-pin pin-mv" title="Мальдивы">🇲🇻</a>
-                <a href="map.html?country=brazil" class="map-pin pin-br" title="Бразилия">🇧🇷</a>
-                <a href="map.html?country=france" class="map-pin pin-fr" title="Франция">🇫🇷</a>
+            <div class="globe-wrapper" style="position:relative;display:flex;align-items:center;justify-content:center;">
+              <canvas id="earth-canvas" style="display:block;border-radius:50%;"></canvas>
+              <div class="map-promo-badge" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);">
+                <span style="color:var(--c-primary);">✅</span> 50+ стран на карте
               </div>
             </div>
           </div>
@@ -673,11 +666,12 @@
     <section class="section reviews-section" id="reviews">
       <div class="section-inner">
         <div class="section-header">
-          <span class="section-tag">Отзывы</span>
-          <h2 class="section-title">Что говорят наши <span>клиенты</span></h2>
-          <p class="section-subtitle">Более 12 000 отзывов. Рейтинг 4.9 из 5.</p>
+          <span class="section-tag" data-i18n="section.reviews.tag">Отзывы</span>
+          <h2 class="section-title"><span data-i18n="section.reviews.title1">Что говорят наши</span> <span data-i18n="section.reviews.title2">клиенты</span></h2>
+          <p class="section-subtitle" id="reviews-subtitle">Более 12 000 отзывов. Рейтинг 4.9 из 5.</p>
+          <button class="btn-primary" style="margin-top:16px" data-i18n="btn.write-review" onclick="if(typeof openReviewModal==='function')openReviewModal();else{window.location.href='index.html#reviews'}">✍️ Написать отзыв</button>
         </div>
-        <div class="reviews-grid">
+        <div id="reviews-grid" class="reviews-grid">
           <div class="review-card" id="rv-1">
             <div class="rv-stars">★★★★★</div>
             <p class="rv-text">«Путешествовали в Дубай с семьёй — всё было идеально. Перелёт, отель, экскурсии — всё включено. Менеджеры всегда на связи. Рекомендую всем!»</p>
@@ -728,12 +722,12 @@
       <div class="section-inner">
         <div class="nl-inner">
           <div class="nl-left">
-            <h2 class="nl-title">Первыми узнавайте о <span>горящих турах</span></h2>
-            <p class="nl-sub">Подпишитесь на рассылку и получайте эксклюзивные скидки прямо в inbox</p>
+            <h2 class="nl-title"><span data-i18n="section.nl.title1">Первыми узнавайте о</span> <span data-i18n="section.nl.title2">горящих турах</span></h2>
+            <p class="nl-sub" data-i18n="section.nl.sub">Подпишитесь на рассылку и получайте эксклюзивные скидки прямо в inbox</p>
           </div>
           <form class="nl-form" id="nl-form" onsubmit="handleNL(event)">
             <input type="email" class="s-input nl-input" placeholder="ваш@email.com" required>
-            <button type="submit" class="btn-primary">Подписаться 🔔</button>
+            <button type="submit" class="btn-primary" data-i18n="section.nl.btn">Подписаться 🔔</button>
           </form>
         </div>
       </div>
@@ -742,7 +736,233 @@
   </main>
 
   <script src="nav.js"></script>
+  <script src="translations.js"></script>
   <script src="auth.js"></script>
   <script src="index-page.js"></script>
+  <script>
+  // Load real reviews from DB and prepend to grid
+  (async function loadReviews() {
+    try {
+      const res = await fetch('http://localhost:5000/api/reviews');
+      if (!res.ok) return;
+      const reviews = await res.json();
+      if (!Array.isArray(reviews) || reviews.length === 0) return;
+      const grid = document.getElementById('reviews-grid');
+      if (!grid) return;
+
+      const stars = n => '★'.repeat(Math.min(5, Math.max(1, n))) + '☆'.repeat(5 - Math.min(5, Math.max(1, n)));
+      const initials = name => (name || '?').split(' ').map(w => w[0]).join('').toUpperCase().slice(0, 2);
+      const dateStr = d => { try { return new Date(d).toLocaleDateString('ru-RU', { month: 'long', year: 'numeric' }); } catch { return ''; } };
+
+      const html = reviews.slice(0, 6).map(r => `
+        <div class="review-card">
+          <div class="rv-stars">${stars(r.rating)}</div>
+          <p class="rv-text">«${r.text}»</p>
+          <div class="rv-author">
+            <div class="rv-avatar-img" style="display:flex;align-items:center;justify-content:center;background:var(--g-primary);color:#fff;font-weight:700;font-size:1rem;border-radius:50%">${initials(r.userName)}</div>
+            <div>
+              <div class="rv-name">${r.userName}</div>
+              <div class="rv-trip">${r.destination ? '🌍 ' + r.destination + ' • ' : ''}${dateStr(r.createdAt)}</div>
+            </div>
+          </div>
+        </div>`).join('');
+
+      // Prepend real reviews before static ones
+      grid.insertAdjacentHTML('afterbegin', html);
+
+      // Update subtitle with real count
+      const sub = document.getElementById('reviews-subtitle');
+      if (sub && reviews.length > 0) {
+        const avg = (reviews.reduce((s, r) => s + r.rating, 0) / reviews.length).toFixed(1);
+        sub.textContent = `${reviews.length} ${reviews.length === 1 ? 'отзыв' : reviews.length < 5 ? 'отзыва' : 'отзывов'} от реальных путешественников. Рейтинг ${avg} из 5.`;
+      }
+    } catch (e) {}
+  })();
+  </script>
+
+  <!-- ── CANVAS EARTH GLOBE — PHOTOREALISTIC TEXTURE ── -->
+  <script>
+  (function() {
+    var canvas = document.getElementById('earth-canvas');
+    if (!canvas) return;
+    var ctx = canvas.getContext('2d');
+    var SIZE = 320;
+    canvas.width  = SIZE;
+    canvas.height = SIZE;
+    canvas.style.width  = '290px';
+    canvas.style.height = '290px';
+    var W = SIZE, H = SIZE;
+    var R = SIZE / 2 - 4;
+    var cx = W / 2, cy = H / 2;
+    var angle = 1.5;
+    var speed = 0.0022;
+
+    /* Sun direction — front-right, slightly above */
+    var SUN = (function(){
+      var v = [0.3, -0.4, 0.9];
+      var l = Math.sqrt(v[0]*v[0]+v[1]*v[1]+v[2]*v[2]);
+      return [v[0]/l, v[1]/l, v[2]/l];
+    })();
+
+    var texData = null, texW = 0, texH = 0;
+    var tex = new Image();
+    /* No crossOrigin needed — same server */
+
+    tex.onload = function() {
+      try {
+        var off = document.createElement('canvas');
+        off.width = tex.naturalWidth; off.height = tex.naturalHeight;
+        var octx = off.getContext('2d');
+        octx.drawImage(tex, 0, 0);
+        var id = octx.getImageData(0, 0, off.width, off.height);
+        texData = id.data; texW = off.width; texH = off.height;
+      } catch(e) {}
+    };
+    tex.onerror = function(){};
+    tex.src = 'assets/earth_texture.jpg';
+
+    function sampleTex(u, v) {
+      var fx = ((u % 1) + 1) % 1 * (texW - 1);
+      var fy = v * (texH - 1);
+      var ix = fx|0, iy = fy|0;
+      var dx = fx-ix, dy = fy-iy;
+      var ix1 = Math.min(ix+1, texW-1), iy1 = Math.min(iy+1, texH-1);
+      var i00=(iy*texW+ix)*4, i10=(iy*texW+ix1)*4, i01=(iy1*texW+ix)*4, i11=(iy1*texW+ix1)*4;
+      var omx=1-dx, omy=1-dy;
+      return [
+        texData[i00]*omx*omy + texData[i10]*dx*omy + texData[i01]*omx*dy + texData[i11]*dx*dy,
+        texData[i00+1]*omx*omy + texData[i10+1]*dx*omy + texData[i01+1]*omx*dy + texData[i11+1]*dx*dy,
+        texData[i00+2]*omx*omy + texData[i10+2]*dx*omy + texData[i01+2]*omx*dy + texData[i11+2]*dx*dy
+      ];
+    }
+
+    function renderTextured() {
+      var id = ctx.createImageData(W, H);
+      var px = id.data;
+      var cosA = Math.cos(angle), sinA = Math.sin(angle);
+      var S0=SUN[0], S1=SUN[1], S2=SUN[2];
+      var hx=(S0+0)*0.5, hy=(S1+0)*0.5, hz=(S2+1)*0.5;
+      var hl=Math.sqrt(hx*hx+hy*hy+hz*hz);
+      hx/=hl; hy/=hl; hz/=hl;
+
+      for (var py = 0; py < H; py++) {
+        var dy = (py - cy) / R;
+        var dy2 = dy*dy;
+        if (dy2 > 1) continue;
+        for (var pdx = -(R|0); pdx <= (R|0); pdx++) {
+          var dx = pdx / R;
+          var d2 = dx*dx + dy2;
+          if (d2 > 1) continue;
+          var nz = Math.sqrt(1 - d2);
+          var nx = dx, ny = -dy;
+          /* Y-axis rotation */
+          var nx2 =  nx*cosA + nz*sinA;
+          var nz2 = -nx*sinA + nz*cosA;
+          var ny2 = ny;
+          /* UV */
+          var lon = Math.atan2(nx2, nz2);
+          var lat = Math.asin(ny2 < -1 ? -1 : ny2 > 1 ? 1 : ny2);
+          var u = lon/(2*Math.PI) + 0.5;
+          var v = 0.5 - lat/Math.PI;
+          var c = sampleTex(u, v);
+          /* Lighting */
+          var diff = nx2*S0 + ny2*S1 + nz2*S2;
+          if (diff < 0) diff = 0;
+          var isOcean = (c[1] < 100 && c[2] > c[1]);
+          var specDot = nx*hx + ny*hy + nz*hz;
+          if (specDot < 0) specDot = 0;
+          var spec = isOcean ? Math.pow(specDot, 38) * 0.5 : 0;
+          var lit = 0.22 + diff * 0.78;
+          /* Night glow */
+          var nf = diff < 0.08 ? (0.08 - diff) * 6 : 0;
+          var i = (py*W + (pdx + (cx|0))) * 4;
+          px[i]   = Math.min(255, c[0]*lit + spec*255 + nf*28);
+          px[i+1] = Math.min(255, c[1]*lit + spec*200 + nf*14);
+          px[i+2] = Math.min(255, c[2]*lit + spec*255 + nf*6);
+          px[i+3] = 255;
+        }
+      }
+      ctx.putImageData(id, 0, 0);
+
+      /* Atmosphere rim */
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.clip();
+      var atm=ctx.createRadialGradient(cx,cy,R*0.75,cx,cy,R);
+      atm.addColorStop(0,'rgba(70,130,255,0)');
+      atm.addColorStop(0.72,'rgba(60,120,255,0.08)');
+      atm.addColorStop(0.9,'rgba(80,160,255,0.22)');
+      atm.addColorStop(1,'rgba(110,190,255,0.48)');
+      ctx.fillStyle=atm; ctx.fillRect(0,0,W,H);
+      /* Specular highlight */
+      var shine=ctx.createRadialGradient(cx-R*0.36,cy-R*0.36,0,cx-R*0.12,cy-R*0.08,R*0.62);
+      shine.addColorStop(0,'rgba(255,255,255,0.20)');
+      shine.addColorStop(0.45,'rgba(255,255,255,0.05)');
+      shine.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.fillStyle=shine; ctx.fillRect(0,0,W,H);
+      ctx.restore();
+
+      /* Orange halo */
+      var halo=ctx.createRadialGradient(cx,cy,R*0.92,cx,cy,R*1.3);
+      halo.addColorStop(0,'rgba(255,85,0,0.30)');
+      halo.addColorStop(0.5,'rgba(255,110,0,0.10)');
+      halo.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.beginPath(); ctx.arc(cx,cy,R*1.3,0,Math.PI*2);
+      ctx.fillStyle=halo; ctx.fill();
+    }
+
+    function renderFallback() {
+      ctx.save();
+      ctx.beginPath(); ctx.arc(cx,cy,R,0,Math.PI*2); ctx.clip();
+      var og=ctx.createRadialGradient(cx-R*.2,cy-R*.25,R*.05,cx,cy,R);
+      og.addColorStop(0,'#1a6fae'); og.addColorStop(0.5,'#0d4d78'); og.addColorStop(1,'#051830');
+      ctx.fillStyle=og; ctx.fillRect(0,0,W,H);
+      var land=[
+        {c:'#2d6a4f',p:[[71,28],[62,28],[55,38],[44,33],[44,8],[51,2],[60,5],[65,14],[71,28]]},
+        {c:'#40916c',p:[[37,10],[10,17],[0,10],[-18,-12],[-30,32],[-24,35],[10,44],[30,33],[37,10]]},
+        {c:'#52b788',p:[[72,50],[65,145],[42,130],[10,100],[10,44],[22,57],[40,44],[55,38],[72,50]]},
+        {c:'#2d6a4f',p:[[72,-80],[65,-141],[44,-125],[22,-105],[38,-76],[72,-80]]},
+        {c:'#c8d5b9',p:[[-68,-180],[-68,180],[-90,180],[-90,-180],[-68,-180]]}
+      ];
+      var PI=Math.PI;
+      for (var s=0;s<land.length;s++) {
+        var sh=land[s], vis=0;
+        var proj=sh.p.map(function(pt){
+          var phi=(90-pt[0])*PI/180;
+          var theta=(pt[1]+angle*180/PI)*PI/180;
+          var x3=R*Math.sin(phi)*Math.cos(theta);
+          var y3=R*Math.cos(phi);
+          var z3=R*Math.sin(phi)*Math.sin(theta);
+          if(z3>=0)vis++;
+          return{x:cx+x3,y:cy-y3,z:z3};
+        });
+        if(vis<2)continue;
+        ctx.beginPath();
+        var pen=false;
+        for(var i=0;i<proj.length;i++){
+          var p=proj[i];
+          if(p.z<-R*0.15){pen=false;continue;}
+          if(!pen){ctx.moveTo(p.x,p.y);pen=true;}else ctx.lineTo(p.x,p.y);
+        }
+        ctx.closePath(); ctx.fillStyle=sh.c; ctx.fill();
+      }
+      var oa=ctx.createRadialGradient(cx,cy,R*0.8,cx,cy,R);
+      oa.addColorStop(0,'rgba(80,160,255,0)'); oa.addColorStop(1,'rgba(100,190,255,0.28)');
+      ctx.fillStyle=oa; ctx.fillRect(0,0,W,H);
+      ctx.restore();
+      var halo=ctx.createRadialGradient(cx,cy,R*0.94,cx,cy,R*1.28);
+      halo.addColorStop(0,'rgba(255,85,0,0.26)'); halo.addColorStop(1,'rgba(0,0,0,0)');
+      ctx.beginPath(); ctx.arc(cx,cy,R*1.28,0,Math.PI*2); ctx.fillStyle=halo; ctx.fill();
+    }
+
+    function draw() {
+      ctx.clearRect(0,0,W,H);
+      if (texData) renderTextured(); else renderFallback();
+      angle += speed;
+      requestAnimationFrame(draw);
+    }
+    draw();
+  })();
+  </script>
 </body>
 </html>
+

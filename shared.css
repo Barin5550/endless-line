@@ -17,7 +17,50 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   animation: pageIn 0.4s ease both;
+  background-attachment: fixed;
+  position: relative;
 }
+
+/* ── GLOBAL ANIMATED BACKGROUND ORBS ───────────────────── */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 80vw 60vh at 85% 8%,  rgba(255,130,0,0.045) 0%, transparent 60%),
+    radial-gradient(ellipse 65vw 55vh at 10% 88%, rgba(255,90,0, 0.035) 0%, transparent 60%),
+    radial-gradient(ellipse 50vw 45vh at 50% 50%, rgba(255,176,32,0.020) 0%, transparent 65%),
+    radial-gradient(ellipse 40vw 35vh at 20% 20%, rgba(255,140,0,0.025) 0%, transparent 55%);
+  animation: bgOrbsDrift 22s ease-in-out infinite alternate;
+}
+body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 55vw 45vh at 75% 90%, rgba(255,90,0,0.030) 0%, transparent 60%),
+    radial-gradient(ellipse 45vw 40vh at 30% 45%, rgba(255,176,32,0.018) 0%, transparent 55%);
+  animation: bgOrbsDrift2 28s ease-in-out infinite alternate;
+}
+@keyframes bgOrbsDrift {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.7; }
+  33%  { transform: translate(2vw, -1.5vh) scale(1.04); opacity: 0.9; }
+  66%  { transform: translate(-1.5vw, 2vh) scale(0.97); opacity: 0.8; }
+  100% { transform: translate(1vw, 1vh) scale(1.02); opacity: 1; }
+}
+@keyframes bgOrbsDrift2 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.8; }
+  50%  { transform: translate(-2vw, 2vh) scale(1.05); opacity: 1; }
+  100% { transform: translate(1.5vw, -1vh) scale(0.96); opacity: 0.75; }
+}
+
+/* All content above pseudo-elements */
+#main-content, .site-header, .site-footer,
+.toast-container, .back-to-top, .modal-overlay { position: relative; z-index: 1; }
 @keyframes pageIn {
   from { opacity: 0; }
   to   { opacity: 1; }
@@ -68,12 +111,46 @@ body {
   gap: var(--sp-xl);
 }
 
-/* Logo */
-.logo-link { text-decoration: none; display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.logo-img { height: 36px; width: 36px; object-fit: contain; }
+/* Logo — white background always */
+.logo-link { text-decoration: none; display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+.logo-img {
+  height: 44px; width: 44px;
+  object-fit: contain;
+  background: #ffffff;
+  border-radius: 50%;
+  padding: 4px;
+  box-shadow: 0 2px 12px rgba(255,90,0,0.18), 0 0 0 1px rgba(255,90,0,0.10);
+  filter: none;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.logo-link:hover .logo-img { transform: rotate(-6deg) scale(1.1); box-shadow: 0 4px 20px rgba(255,90,0,0.35), 0 0 0 2px rgba(255,90,0,0.2); }
 .logo-text { display: flex; flex-direction: column; line-height: 1; }
-.logo-name { font-family: var(--f-heading); font-weight: 700; font-size: 1.1rem; color: var(--c-text); letter-spacing: -0.02em; }
-.logo-name-accent { font-family: var(--f-heading); font-weight: 800; font-size: 1.1rem; color: var(--c-primary); letter-spacing: -0.02em; }
+.logo-brand-row { display: flex; align-items: baseline; gap: 3px; }
+.logo-name {
+  font-family: var(--f-heading);
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: var(--c-text);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.logo-name-accent {
+  font-family: var(--f-heading);
+  font-weight: 900;
+  font-size: 1.25rem;
+  color: var(--c-primary);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.logo-tagline {
+  font-size: 0.64rem;
+  color: var(--c-text-3);
+  font-weight: 500;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-top: 3px;
+  line-height: 1;
+}
 
 /* Main Nav */
 .main-nav { flex: 1; }
@@ -304,13 +381,83 @@ body {
 .section { padding: var(--sp-3xl) 0; }
 .section-inner { max-width: var(--max-w); margin: 0 auto; padding: 0 var(--sp-xl); }
 
-/* Smooth section bg transitions — no harsh lines */
-.section + .section,
-section + section,
-div[class*="-section"] + div[class*="-section"],
-div[class*="-section"] + section {
+/* ══════════════════════════════════════════════════════
+   SMOOTH SECTION BACKGROUND TRANSITIONS
+   ══════════════════════════════════════════════════════ */
+
+.section,
+section,
+[class*="-section"],
+[class*="-hero"],
+.deals-hero,
+.hotels-hero {
   position: relative;
 }
+
+/* Specific named sections — smooth edge fades */
+.destinations-section::before,
+.hot-deals-section::before,
+.why-section::before,
+.reviews-section::before,
+.nl-section::before,
+.services-section::before,
+.map-promo-section::before,
+.deals-section::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 90px;
+  background: linear-gradient(to bottom, var(--c-bg) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+.destinations-section::after,
+.hot-deals-section::after,
+.why-section::after,
+.reviews-section::after,
+.nl-section::after,
+.services-section::after,
+.map-promo-section::after,
+.deals-section::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 90px;
+  background: linear-gradient(to top, var(--c-bg) 0%, transparent 100%);
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* ── Explicit fade helpers (manual override) ── */
+.fade-top { position: relative; }
+.fade-top::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, var(--c-bg), transparent);
+  pointer-events: none;
+  z-index: 4;
+}
+.fade-bottom { position: relative; }
+.fade-bottom::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 100px;
+  background: linear-gradient(to bottom, transparent, var(--c-bg));
+  pointer-events: none;
+  z-index: 4;
+}
+
+/* ── Subtle section background tints for depth ── */
+.destinations-section { background: linear-gradient(180deg, rgba(255,90,0,0.018) 0%, transparent 100%); }
+.hot-deals-section    { background: linear-gradient(180deg, rgba(20,9,2,0.55) 0%, rgba(18,8,0,0.80) 50%, rgba(20,9,2,0.55) 100%); }
+.why-section          { background: linear-gradient(180deg, transparent 0%, rgba(255,120,0,0.012) 50%, transparent 100%); }
+.reviews-section      { background: linear-gradient(180deg, rgba(255,90,0,0.012) 0%, rgba(15,6,0,0.25) 100%); }
+.nl-section           { background: linear-gradient(135deg, #1e0e02 0%, #271104 50%, #1a0a01 100%); }
+.services-section     { background: linear-gradient(180deg, transparent 0%, rgba(255,140,0,0.014) 50%, transparent 100%); }
+
 
 .section-header { text-align: center; margin-bottom: var(--sp-2xl); }
 .section-tag {
@@ -465,6 +612,50 @@ div[class*="-section"] + section {
 }
 .btn-outline:hover::before { opacity: 1; }
 .btn-outline span, .btn-outline > * { position: relative; z-index: 1; }
+
+/* Search action button (hero + tours search bar) */
+.btn-search-main {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--g-primary);
+  color: #fff;
+  border: none;
+  padding: 13px 26px;
+  border-radius: var(--r-full);
+  font-family: var(--f-body);
+  font-size: 0.95rem;
+  font-weight: 700;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+  flex-shrink: 0;
+}
+.btn-search-main:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--s-orange-lg);
+}
+.btn-search-main:active { transform: translateY(0); }
+
+/* Deal / tour book buttons */
+.deal-book-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--g-primary);
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: var(--r-full);
+  font-weight: 700;
+  font-size: 0.875rem;
+  cursor: pointer;
+  transition: transform var(--t-fast), box-shadow var(--t-fast);
+}
+.deal-book-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(255,90,0,0.35);
+}
 
 /* ============================================================
    CARDS (shared)

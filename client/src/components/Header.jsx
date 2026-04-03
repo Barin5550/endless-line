@@ -157,7 +157,7 @@ export default function Header() {
                 </div>
               </div>
               <button className="btn-primary" style={{ width: '100%', marginTop: 12 }} onClick={handleLogout}>
-                Выйти
+                {t('nav-logout')}
               </button>
             </div>
           ) : (

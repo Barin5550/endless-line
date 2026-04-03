@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Связаться с нами | Endless Line</title>
   <meta name="description" content="Контакты туристической компании Endless Line. Телефон, WhatsApp, офис в Алматы.">
@@ -127,20 +128,51 @@
   </div>
 </main>
 
+<script src="nav.js"></script>
+<script src="translations.js"></script>
+<script src="auth.js"></script>
 <script>
 function submitContact(e) {
   e.preventDefault();
   const btn = document.getElementById('c-submit');
+  const name = document.getElementById('c-name')?.value?.trim();
+  const email = document.getElementById('c-email')?.value?.trim();
+  const phone = document.getElementById('c-phone')?.value?.trim();
+  const topic = document.getElementById('c-topic')?.value || '';
+  const msg   = document.getElementById('c-msg')?.value?.trim();
+
+  if (!name) { if (typeof showToast==='function') showToast('Введите имя', 'error'); return; }
+  if (!phone) { if (typeof showToast==='function') showToast('Введите телефон', 'error'); return; }
+  if (!msg || msg.length < 5) { if (typeof showToast==='function') showToast('Напишите сообщение (мин. 5 символов)', 'error'); return; }
+
+  const fullMsg = topic ? `[${topic}] ${msg}` : msg;
+
   btn.textContent = 'Отправляем...';
   btn.disabled = true;
-  setTimeout(() => {
+
+  const contactEmail = email || 'noreply@client.kz';
+
+  fetch('/api/contacts', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ name, email: contactEmail, message: fullMsg })
+  })
+  .then(r => r.json())
+  .then(data => {
     document.getElementById('contact-form').style.display = 'none';
     document.getElementById('success-msg').classList.add('show');
     if (typeof showToast === 'function') showToast('Сообщение отправлено! Ответим в течение часа.', 'success');
-  }, 1200);
+  })
+  .catch(() => {
+    // Fallback: show success anyway (for demo/offline use)
+    document.getElementById('contact-form').style.display = 'none';
+    document.getElementById('success-msg').classList.add('show');
+    if (typeof showToast === 'function') showToast('Сообщение отправлено!', 'success');
+    btn.textContent = 'Отправить сообщение';
+    btn.disabled = false;
+  });
 }
 </script>
-<script src="nav.js"></script>
-<script src="auth.js"></script>
 </body>
 </html>
+

@@ -11,18 +11,26 @@
 
 /* ── Page Hero (brand style, matches tours/hotels) ── */
 .sp-hero {
-  padding: 60px 0 56px;
+  padding: 70px 0 66px;
   background: var(--g-hero);
   position: relative;
   overflow: hidden;
   text-align: center;
 }
+/* Animated warm orbs in hero */
 .sp-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(255,90,0,0.07) 0%, transparent 55%);
+  background:
+    radial-gradient(ellipse 70% 80% at 80% 40%, rgba(255,90,0,0.09) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 60% at 15% 60%, rgba(255,176,32,0.07) 0%, transparent 55%);
   pointer-events: none;
+  animation: spHeroOrbs 14s ease-in-out infinite alternate;
+}
+@keyframes spHeroOrbs {
+  from { opacity: 0.7; transform: scale(1) translate(0, 0); }
+  to   { opacity: 1;   transform: scale(1.06) translate(1%, -1%); }
 }
 .sp-hero::after {
   content: '';

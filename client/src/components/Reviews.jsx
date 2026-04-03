@@ -189,7 +189,9 @@ export default function Reviews() {
                       placeholder="Расскажите о вашем путешествии с Endless Line..."
                       value={form.text}
                       onChange={e => { setForm(f => ({...f, text: e.target.value})); setErrors(p => ({...p, text: null})) }} />
-                    <div className="field-hint">{form.text.trim().length}/10 минимум символов</div>
+                    <div className="field-hint" style={{ color: form.text.trim().length >= 10 ? '#27ae60' : undefined }}>
+                      {form.text.trim().length >= 10 ? `${form.text.trim().length} символов ✓` : `${form.text.trim().length}/10 символов минимум`}
+                    </div>
                     {errors.text && <span className="field-error">{errors.text}</span>}
                   </div>
                   <button type="submit" className="btn-primary btn-send" id="review-submit" disabled={submitting}>

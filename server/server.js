@@ -11,14 +11,49 @@ fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true })
 
 const app = express()
 
-// Security headers
-app.use(helmet({ crossOriginEmbedderPolicy: false }))
+// Security headers — relaxed CSP to allow inline scripts/styles and external CDNs
+app.use(helmet({
+  crossOriginEmbedderPolicy: false,
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "'unsafe-eval'",
+        "https://cdn.jsdelivr.net",
+        "https://cdnjs.cloudflare.com",
+        "https://unpkg.com",
+        "https://d3js.org",
+      ],
+      scriptSrcAttr: ["'unsafe-inline'"],   // ← разрешает onclick="..." атрибуты
+      styleSrc: [
+        "'self'",
+        "'unsafe-inline'",
+        "https://fonts.googleapis.com",
+        "https://cdn.jsdelivr.net",
+      ],
+      fontSrc: [
+        "'self'",
+        "https://fonts.gstatic.com",
+        "data:",
+      ],
+      imgSrc:     ["'self'", "data:", "blob:", "https:"],
+      connectSrc: ["'self'", "https://api.openweathermap.org", "https:", "http://localhost:5000"],
+      frameSrc:   ["'none'"],
+      objectSrc:  ["'none'"],
+    },
+  },
+}))
 
 app.use(cors({ origin: true, credentials: true }))
 
+// Body parsing MUST come before routes (and before static for API routes)
+app.use(express.json({ limit: '1mb' }))
+app.use(express.urlencoded({ extended: true, limit: '1mb' }))
+
 // Serve static frontend files
-app.use(express.static(path.join(__dirname, '..')))
-app.use(express.json())
+app.use(express.static(path.join(__dirname, '..'), { maxAge: '1h' }))
 
 // Rate limiting for auth endpoints
 const authLimiter = rateLimit({
@@ -42,6 +77,8 @@ app.use('/api/auth', require('./routes/auth'))
 app.use('/api/bookings', require('./routes/bookings'))
 app.use('/api/reviews', require('./routes/reviews'))
 app.use('/api/contacts', require('./routes/contacts'))
+app.use('/api/favorites', require('./routes/favorites'))
+app.use('/api/jobs', require('./routes/jobs'))
 
 // Stats endpoint
 app.get('/api/stats', async (req, res) => {

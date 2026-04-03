@@ -2,284 +2,976 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="О компании Endless Line — туристический портал нового поколения. Наша команда, история, миссия и партнёры.">
+  <meta name="description" content="Endless Line — туристический портал нового поколения. 8 лет, 500K путешественников, 50+ стран.">
   <title>О компании — Endless Line</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="variables.css">
   <link rel="stylesheet" href="shared.css">
-  <link rel="stylesheet" href="about-page.css">
   <link rel="stylesheet" href="auth.css">
+  <style>
+    /* ═══════════════════════════════════════════
+       ABOUT PAGE — IMMERSIVE DARK PREMIUM DESIGN
+       ═══════════════════════════════════════════ */
+
+    /* HERO — dark warm with brand orange */
+    .ab-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0e0a06 0%, #1a0e04 35%, #1c1008 65%, #120a02 100%);
+    }
+    .ab-hero-bg {
+      position: absolute; inset: 0;
+      background:
+        radial-gradient(ellipse 900px 600px at 70% 40%, rgba(255,90,0,0.18) 0%, transparent 60%),
+        radial-gradient(ellipse 600px 500px at 10% 70%, rgba(255,140,0,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 400px 300px at 50% 10%, rgba(255,176,32,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 300px 250px at 85% 85%, rgba(255,90,0,0.07) 0%, transparent 55%);
+      animation: heroBgPulse 12s ease-in-out infinite alternate;
+    }
+    @keyframes heroBgPulse {
+      from { opacity: 0.7; transform: scale(1); }
+      to { opacity: 1; transform: scale(1.04); }
+    }
+    /* Stars/particles — orange tinted */
+    .ab-stars {
+      position: absolute; inset: 0;
+      background-image:
+        radial-gradient(1px 1px at 20% 30%, rgba(255,200,120,0.4) 0%, transparent 100%),
+        radial-gradient(1px 1px at 50% 60%, rgba(255,255,255,0.25) 0%, transparent 100%),
+        radial-gradient(1px 1px at 80% 20%, rgba(255,200,100,0.35) 0%, transparent 100%),
+        radial-gradient(1px 1px at 35% 80%, rgba(255,255,255,0.2) 0%, transparent 100%),
+        radial-gradient(1px 1px at 70% 75%, rgba(255,190,80,0.3) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 90% 50%, rgba(255,176,32,0.6) 0%, transparent 100%),
+        radial-gradient(1.5px 1.5px at 10% 55%, rgba(255,90,0,0.5) 0%, transparent 100%);
+      pointer-events: none;
+    }
+    .ab-hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: calc(var(--header-h) + 80px) 40px 80px;
+    }
+    .ab-hero-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+
+    /* Badge */
+    .ab-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(255,90,0,0.15);
+      border: 1px solid rgba(255,90,0,0.35);
+      border-radius: 100px;
+      color: #ff7a3d;
+      font-size: 0.78rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 24px;
+    }
+    .ab-badge-dot {
+      width: 6px; height: 6px;
+      background: #ff5a00;
+      border-radius: 50%;
+      animation: pulseDot 1.8s ease-in-out infinite;
+      box-shadow: 0 0 6px rgba(255,90,0,0.6);
+    }
+    .ab-hero-title {
+      font-family: var(--f-heading);
+      font-size: clamp(3rem, 5.5vw, 5rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.05;
+      letter-spacing: -0.04em;
+      margin-bottom: 24px;
+    }
+    .ab-hero-title span {
+      background: linear-gradient(135deg, #ff5a00, #ffb020);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .ab-hero-sub {
+      font-size: 1.1rem;
+      color: rgba(255,255,255,0.65);
+      line-height: 1.75;
+      margin-bottom: 36px;
+      max-width: 500px;
+    }
+    .ab-hero-btns {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .ab-btn-primary {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: linear-gradient(135deg, #ff5a00, #ff8c00);
+      color: #fff;
+      font-weight: 700;
+      font-size: 0.95rem;
+      border-radius: 100px;
+      text-decoration: none;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 24px rgba(255,90,0,0.4);
+    }
+    .ab-btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 32px rgba(255,90,0,0.5); }
+    .ab-btn-ghost {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 14px 28px;
+      background: rgba(255,255,255,0.07);
+      border: 1px solid rgba(255,255,255,0.15);
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 100px;
+      text-decoration: none;
+      backdrop-filter: blur(10px);
+      transition: all 0.2s ease;
+    }
+    .ab-btn-ghost:hover { background: rgba(255,255,255,0.12); border-color: rgba(255,255,255,0.25); }
+
+    /* Right visual: floating card */
+    .ab-hero-visual {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .ab-card-main {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.12);
+      border-radius: 24px;
+      padding: 36px;
+      backdrop-filter: blur(20px);
+      width: 340px;
+      text-align: center;
+      position: relative;
+      box-shadow: 0 40px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,90,0,0.1);
+      animation: floatCard 6s ease-in-out infinite;
+    }
+    @keyframes floatCard {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+    .ab-card-logo {
+      width: 110px; height: 110px;
+      background: #ffffff;
+      border: 3px solid rgba(255,90,0,0.3);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 20px;
+      box-shadow:
+        0 0 0 6px rgba(255,90,0,0.08),
+        0 8px 32px rgba(255,90,0,0.25),
+        inset 0 1px 3px rgba(255,255,255,0.8);
+      animation: logoPulse 3s ease-in-out infinite;
+    }
+    @keyframes logoPulse {
+      0%,100% { box-shadow: 0 0 0 6px rgba(255,90,0,0.08), 0 8px 32px rgba(255,90,0,0.25); }
+      50% { box-shadow: 0 0 0 10px rgba(255,90,0,0.12), 0 12px 40px rgba(255,90,0,0.35); }
+    }
+    .ab-card-logo img { width: 72px; height: 72px; object-fit: contain; padding: 4px; }
+    .ab-card-name {
+      font-family: var(--f-heading);
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+      letter-spacing: -0.04em;
+      margin-bottom: 4px;
+    }
+    .ab-card-name span { color: #ff5a00; }
+    .ab-card-sub { font-size: 0.75rem; color: rgba(255,255,255,0.4); letter-spacing: 0.12em; text-transform: uppercase; margin-bottom: 24px; }
+    .ab-card-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+    .ab-card-stat {
+      background: rgba(255,90,0,0.07);
+      border-radius: 12px;
+      padding: 14px 10px;
+      border: 1px solid rgba(255,90,0,0.12);
+      transition: background 0.2s ease;
+    }
+    .ab-card-stat:hover { background: rgba(255,90,0,0.12); }
+    .ab-card-stat-num {
+      font-family: var(--f-heading);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: #ff5a00;
+      line-height: 1;
+    }
+    .ab-card-stat-lbl { font-size: 0.68rem; color: rgba(255,255,255,0.4); margin-top: 3px; }
+
+    /* Floating badges around card */
+    .ab-float-badge {
+      position: absolute;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 0.8rem;
+      color: rgba(255,255,255,0.85);
+      font-weight: 600;
+      backdrop-filter: blur(10px);
+      white-space: nowrap;
+    }
+    .ab-float-1 { top: -20px; right: -30px; animation: floatBadge 4s ease-in-out infinite; }
+    .ab-float-2 { bottom: 40px; left: -40px; animation: floatBadge 5s ease-in-out infinite 1s; }
+    .ab-float-3 { top: 60px; left: -50px; animation: floatBadge 4.5s ease-in-out infinite 2s; }
+    @keyframes floatBadge {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    /* Stats band dark */
+    .ab-stats-band {
+      background: #0e0a06;
+      border-top: 1px solid rgba(255,90,0,0.12);
+      border-bottom: 1px solid rgba(255,90,0,0.10);
+      padding: 48px 40px;
+    }
+    .ab-stats-grid {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(6, 1fr);
+      gap: 0;
+    }
+    .ab-stat-item {
+      text-align: center;
+      padding: 0 20px;
+      border-right: 1px solid rgba(255,255,255,0.06);
+    }
+    .ab-stat-item:last-child { border-right: none; }
+    .ab-stat-icon { font-size: 1.8rem; margin-bottom: 8px; display: block; }
+    .ab-stat-num {
+      font-family: var(--f-heading);
+      font-size: 2.2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #ff5a00, #ffb020);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+      letter-spacing: -0.04em;
+    }
+    .ab-stat-lbl { font-size: 0.75rem; color: rgba(255,255,255,0.4); margin-top: 5px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* ── STORY / MISSION ─── */
+    .ab-section {
+      padding: 100px 40px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .ab-section-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      background: rgba(255,90,0,0.1);
+      border: 1px solid rgba(255,90,0,0.25);
+      border-radius: 100px;
+      color: #ff7a3d;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.07em;
+      margin-bottom: 20px;
+    }
+    .ab-section-title {
+      font-family: var(--f-heading);
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      color: var(--c-text);
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .ab-section-title span { color: var(--c-primary); }
+
+    /* Mission grid */
+    .ab-mission-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: start;
+    }
+    .ab-mission-text p {
+      color: var(--c-text-2);
+      line-height: 1.8;
+      font-size: 1rem;
+      margin-bottom: 16px;
+    }
+    .ab-values {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 32px;
+    }
+    .ab-value {
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      padding: 18px 20px;
+      background: var(--c-bg-card);
+      border: 1px solid var(--c-border);
+      border-radius: 16px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .ab-value:hover { border-color: rgba(255,90,0,0.3); transform: translateX(6px); }
+    .ab-value-icon {
+      width: 42px; height: 42px;
+      background: rgba(255,90,0,0.1);
+      border: 1px solid rgba(255,90,0,0.2);
+      border-radius: 12px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+    .ab-value-title { font-weight: 700; color: var(--c-text); font-size: 0.95rem; margin-bottom: 3px; }
+    .ab-value-desc { font-size: 0.82rem; color: var(--c-text-2); line-height: 1.5; }
+
+    /* Timeline */
+    .ab-timeline {
+      position: relative;
+      padding-left: 30px;
+    }
+    .ab-timeline::before {
+      content: '';
+      position: absolute;
+      top: 8px; bottom: 8px;
+      left: 0;
+      width: 2px;
+      background: linear-gradient(to bottom, #ff5a00, rgba(255,90,0,0.1));
+      border-radius: 2px;
+    }
+    .ab-tl-item {
+      position: relative;
+      padding-bottom: 36px;
+    }
+    .ab-tl-item:last-child { padding-bottom: 0; }
+    .ab-tl-dot {
+      position: absolute;
+      left: -38px;
+      top: 4px;
+      width: 16px; height: 16px;
+      background: var(--c-bg);
+      border: 2px solid rgba(255,90,0,0.3);
+      border-radius: 50%;
+      transition: all 0.3s ease;
+    }
+    .ab-tl-item:hover .ab-tl-dot,
+    .ab-tl-item.active .ab-tl-dot {
+      border-color: #ff5a00;
+      box-shadow: 0 0 0 4px rgba(255,90,0,0.15);
+      background: #ff5a00;
+    }
+    .ab-tl-year {
+      font-family: var(--f-heading);
+      font-size: 1.4rem;
+      font-weight: 900;
+      color: var(--c-primary);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .ab-tl-text { font-size: 0.9rem; color: var(--c-text-2); line-height: 1.6; }
+    .ab-tl-milestone {
+      display: inline-block;
+      margin-top: 6px;
+      padding: 3px 10px;
+      background: rgba(255,90,0,0.1);
+      border-radius: 100px;
+      font-size: 0.72rem;
+      color: var(--c-primary);
+      font-weight: 700;
+    }
+
+    /* ── TEAM ─── */
+    .ab-team-section {
+      background: var(--c-bg-2);
+      padding: 100px 0;
+    }
+    .ab-team-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .ab-team-header { text-align: center; margin-bottom: 60px; }
+    .ab-team-header p { color: var(--c-text-2); font-size: 1rem; margin-top: 12px; max-width: 500px; margin-left: auto; margin-right: auto; }
+    .ab-team-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .ab-team-card {
+      background: var(--c-bg-card);
+      border: 1px solid var(--c-border);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+      cursor: default;
+    }
+    .ab-team-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(255,90,0,0.25);
+      box-shadow: 0 24px 60px rgba(0,0,0,0.12), 0 0 0 1px rgba(255,90,0,0.08);
+    }
+    .ab-team-img-wrap {
+      position: relative;
+      height: 220px;
+      overflow: hidden;
+      background: linear-gradient(135deg, rgba(255,90,0,0.12), rgba(255,176,32,0.08));
+    }
+    .ab-team-img-wrap img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      object-position: top;
+      transition: transform 0.5s ease;
+    }
+    .ab-team-card:hover .ab-team-img-wrap img { transform: scale(1.07); }
+    .ab-team-card-body { padding: 20px; }
+    .ab-team-name {
+      font-family: var(--f-heading);
+      font-size: 1.05rem;
+      font-weight: 800;
+      color: var(--c-text);
+      margin-bottom: 3px;
+    }
+    .ab-team-role {
+      font-size: 0.78rem;
+      color: var(--c-primary);
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+    .ab-team-bio { font-size: 0.82rem; color: var(--c-text-2); line-height: 1.6; }
+
+    /* ── WHY US — DARK CARDS ─── */
+    .ab-why-section {
+      padding: 100px 0;
+      background: linear-gradient(180deg, var(--c-bg) 0%, #120a02 100%);
+    }
+    .ab-why-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .ab-why-header { text-align: center; margin-bottom: 60px; }
+    .ab-why-header p { color: var(--c-text-2); font-size: 1rem; margin-top: 12px; }
+    .ab-why-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .ab-why-card {
+      position: relative;
+      background: rgba(255,140,0,0.03);
+      border: 1px solid rgba(255,140,0,0.10);
+      border-radius: 20px;
+      padding: 32px 28px;
+      transition: all 0.3s ease;
+      overflow: hidden;
+    }
+    .ab-why-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--g-primary);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .ab-why-card:hover { transform: translateY(-6px); border-color: rgba(255,90,0,0.2); background: rgba(255,255,255,0.05); }
+    .ab-why-card:hover::before { opacity: 1; }
+    .ab-why-num {
+      font-family: var(--f-heading);
+      font-size: 3.5rem;
+      font-weight: 900;
+      color: rgba(255,90,0,0.12);
+      line-height: 1;
+      position: absolute;
+      top: 20px; right: 20px;
+      letter-spacing: -0.05em;
+    }
+    .ab-why-icon {
+      font-size: 2rem;
+      margin-bottom: 16px;
+      display: block;
+    }
+    .ab-why-title {
+      font-family: var(--f-heading);
+      font-size: 1.15rem;
+      font-weight: 800;
+      color: #fff;
+      margin-bottom: 10px;
+    }
+    .ab-why-desc { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.7; }
+
+    /* ── PARTNERS ─── */
+    .ab-partners-section {
+      padding: 80px 0;
+      background: var(--c-bg-2);
+      border-top: 1px solid var(--c-border);
+    }
+    .ab-partners-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .ab-partners-header { text-align: center; margin-bottom: 48px; }
+    .ab-partners-track-wrap { overflow: hidden; position: relative; }
+    .ab-partners-track-wrap::before,
+    .ab-partners-track-wrap::after {
+      content: ''; position: absolute; top: 0; bottom: 0; width: 80px; z-index: 2;
+      pointer-events: none;
+    }
+    .ab-partners-track-wrap::before { left: 0; background: linear-gradient(to right, var(--c-bg-2), transparent); }
+    .ab-partners-track-wrap::after  { right: 0; background: linear-gradient(to left, var(--c-bg-2), transparent); }
+    .ab-partners-track {
+      display: flex;
+      gap: 20px;
+      animation: partnerScroll 20s linear infinite;
+      width: max-content;
+    }
+    @keyframes partnerScroll {
+      from { transform: translateX(0); }
+      to { transform: translateX(-50%); }
+    }
+    .ab-partners-track:hover { animation-play-state: paused; }
+    .ab-partner-pill {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 24px;
+      background: var(--c-bg-card);
+      border: 1px solid var(--c-border);
+      border-radius: 100px;
+      font-size: 0.88rem;
+      font-weight: 600;
+      color: var(--c-text);
+      white-space: nowrap;
+      transition: border-color 0.2s ease;
+    }
+    .ab-partner-pill:hover { border-color: rgba(255,90,0,0.3); }
+
+    /* ── CTA ─── */
+    .ab-cta-section {
+      padding: 100px 40px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0e0a06 0%, #1a0e04 40%, #1c1008 70%, #120a02 100%);
+    }
+    .ab-cta-section::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 700px; height: 400px;
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(255,90,0,0.22) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 70%, rgba(255,176,32,0.10) 0%, transparent 50%);
+      pointer-events: none;
+      animation: ctaGlow 10s ease-in-out infinite alternate;
+    }
+    @keyframes ctaGlow {
+      from { transform: translate(-50%, -50%) scale(1); opacity: 0.8; }
+      to { transform: translate(-50%, -50%) scale(1.15); opacity: 1; }
+    }
+    .ab-cta-inner { position: relative; z-index: 1; max-width: 640px; margin: 0 auto; }
+    .ab-cta-title {
+      font-family: var(--f-heading);
+      font-size: clamp(2rem, 4vw, 3rem);
+      font-weight: 900;
+      color: #fff;
+      line-height: 1.1;
+      letter-spacing: -0.04em;
+      margin-bottom: 16px;
+    }
+    .ab-cta-title span { color: var(--c-primary); }
+    .ab-cta-sub { color: rgba(255,255,255,0.55); font-size: 1rem; margin-bottom: 36px; line-height: 1.7; }
+    .ab-cta-btns { display: flex; gap: 14px; justify-content: center; flex-wrap: wrap; }
+
+    /* Reveal animation classes */
+    .reveal-ready {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.55s ease, transform 0.55s ease;
+    }
+    .reveal-visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* RESPONSIVE */
+    @media(max-width: 1100px) {
+      .ab-stats-grid { grid-template-columns: repeat(3, 1fr); }
+      .ab-stat-item { border-right: none; border-bottom: 1px solid rgba(255,255,255,0.06); padding: 20px; }
+      .ab-team-grid { grid-template-columns: repeat(2, 1fr); }
+      .ab-why-grid { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media(max-width: 900px) {
+      .ab-hero-grid { grid-template-columns: 1fr; gap: 48px; }
+      .ab-hero-visual { display: none; }
+      .ab-mission-grid { grid-template-columns: 1fr; gap: 40px; }
+    }
+    @media(max-width: 768px) {
+      .ab-hero-inner { padding: calc(var(--header-h) + 50px) 20px 60px; }
+      .ab-section { padding: 60px 20px; }
+      .ab-team-inner, .ab-why-inner, .ab-partners-inner { padding: 0 20px; }
+      .ab-team-grid { grid-template-columns: 1fr 1fr; }
+      .ab-why-grid { grid-template-columns: 1fr; }
+      .ab-stats-grid { grid-template-columns: repeat(2, 1fr); }
+      .ab-cta-section { padding: 70px 20px; }
+    }
+    @media(max-width: 480px) {
+      .ab-team-grid { grid-template-columns: 1fr; }
+    }
+  </style>
 </head>
 <body data-page="about">
+  <main id="main-content">
 
-  <main id="main-content" style="padding-top: calc(var(--header-h) + 44px);">
+    <!-- ══════════════════════════ HERO ══════════════════════════ -->
+    <section class="ab-hero">
+      <div class="ab-hero-bg"></div>
+      <div class="ab-stars"></div>
+      <div class="ab-hero-inner">
+        <div class="ab-hero-grid">
 
-    <!-- Brand Identity Banner -->
-    <div class="about-brand-banner">
-      <div class="section-inner">
-        <div class="about-brand-inner">
-          <img src="assets/logo.png" alt="Endless Line Logo" class="about-brand-logo">
-          <div class="about-brand-text">
-            <div class="about-brand-name">Endless<span>Line</span></div>
-            <div class="about-brand-tagline">Путешествие без границ · с 2018 года · Алматы, Казахстан</div>
-          </div>
-          <div class="about-brand-badge">
-            <span>🏆</span> Лучшая платформа Казахстана 2023
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Hero -->
-    <div class="about-hero">
-      <div class="section-inner">
-        <div class="about-hero-inner">
-          <div class="about-hero-text">
-            <span class="section-tag">О нас</span>
-            <h1 class="about-title">Endless Line —<br><span>Путешествие без границ</span></h1>
-            <p class="about-sub">Мы — туристический портал нового поколения, созданный в Казахстане для путешественников по всему миру. Наша миссия: сделать каждое путешествие удобным, доступным и незабываемым.</p>
-            <div style="display:flex;gap:12px;margin-top:28px;flex-wrap:wrap">
-              <a href="tours.html" class="btn-primary">Найти тур</a>
-              <a href="#team" class="btn-secondary">Наша команда</a>
+          <!-- Left Text -->
+          <div>
+            <div class="ab-badge">
+              <span class="ab-badge-dot"></span>
+              О компании
+            </div>
+            <h1 class="ab-hero-title">
+              Мы делаем<br>
+              <span>мечты</span> реальными
+            </h1>
+            <p class="ab-hero-sub">
+              Endless Line — туристический портал нового поколения из Казахстана. 8 лет мы открываем мир для 500 000+ путешественников. Каждый тур — это история, которую вы расскажете детям.
+            </p>
+            <div class="ab-hero-btns">
+              <a href="tours.html" class="ab-btn-primary">
+                <span>🌍</span> Найти тур
+              </a>
+              <a href="#team" class="ab-btn-ghost">
+                <span>👥</span> Наша команда
+              </a>
             </div>
           </div>
-          <div class="about-hero-visual">
-            <div class="about-logo-showcase">
-              <div class="about-logo-glow-ring"></div>
-              <div class="about-logo-center">
-                <img src="assets/logo.png" alt="Endless Line" class="about-logo-main">
-                <div class="about-logo-brand-name">Endless<span>Line</span></div>
-                <div class="about-logo-brand-sub">Kazakhstan Travel Hub</div>
+
+          <!-- Right Visual -->
+          <div class="ab-hero-visual">
+            <div style="position: relative; display: inline-block;">
+              <div class="ab-card-main">
+                <div class="ab-card-logo">
+                  <img src="assets/logo.png" alt="Endless Line">
+                </div>
+                <div class="ab-card-name">Endless<span>Line</span></div>
+                <div class="ab-card-sub">Kazakhstan Travel Hub</div>
+                <div class="ab-card-stats">
+                  <div class="ab-card-stat">
+                    <div class="ab-card-stat-num">500K+</div>
+                    <div class="ab-card-stat-lbl">Туристов</div>
+                  </div>
+                  <div class="ab-card-stat">
+                    <div class="ab-card-stat-num">50+</div>
+                    <div class="ab-card-stat-lbl">Стран</div>
+                  </div>
+                  <div class="ab-card-stat">
+                    <div class="ab-card-stat-num">4.9★</div>
+                    <div class="ab-card-stat-lbl">Рейтинг</div>
+                  </div>
+                  <div class="ab-card-stat">
+                    <div class="ab-card-stat-num">8 лет</div>
+                    <div class="ab-card-stat-lbl">На рынке</div>
+                  </div>
+                </div>
               </div>
-              <!-- Floating badges -->
-              <div class="about-logo-badge badge-tl">✈️ 50+ стран</div>
-              <div class="about-logo-badge badge-tr">⭐ 4.9 рейтинг</div>
-              <div class="about-logo-badge badge-bl">🏆 8 лет</div>
-              <div class="about-logo-badge badge-br">👥 500K туристов</div>
+              <div class="ab-float-badge ab-float-1">🏆 Лучший портал 2023</div>
+              <div class="ab-float-badge ab-float-2">🌍 50+ стран</div>
+              <div class="ab-float-badge ab-float-3">⭐ 12 000+ отзывов</div>
             </div>
           </div>
-        </div>
-      </div>
-    </div>
 
-
-    <!-- Stats -->
-    <div class="about-stats-section">
-      <div class="section-inner">
-        <div class="about-stats-grid">
-          <div class="about-stat-card" id="astat-1">
-            <div class="astat-icon">✈️</div>
-            <div class="astat-num">500K+</div>
-            <div class="astat-lbl">Путешественников</div>
-          </div>
-          <div class="about-stat-card" id="astat-2">
-            <div class="astat-icon">🌍</div>
-            <div class="astat-num">50+</div>
-            <div class="astat-lbl">Стран</div>
-          </div>
-          <div class="about-stat-card" id="astat-3">
-            <div class="astat-icon">🗺</div>
-            <div class="astat-num">3200+</div>
-            <div class="astat-lbl">Маршрутов</div>
-          </div>
-          <div class="about-stat-card" id="astat-4">
-            <div class="astat-icon">⭐</div>
-            <div class="astat-num">4.9</div>
-            <div class="astat-lbl">Рейтинг</div>
-          </div>
-          <div class="about-stat-card" id="astat-5">
-            <div class="astat-icon">🏆</div>
-            <div class="astat-num">8</div>
-            <div class="astat-lbl">Лет на рынке</div>
-          </div>
-          <div class="about-stat-card" id="astat-6">
-            <div class="astat-icon">🤝</div>
-            <div class="astat-num">120+</div>
-            <div class="astat-lbl">Партнёров</div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Mission -->
-    <section class="section" id="mission">
-      <div class="section-inner about-story-inner">
-        <div class="about-story-text">
-          <span class="section-tag">Наша миссия</span>
-          <h2 class="section-title">Мы создаём <span>мечты</span><br>о путешествиях</h2>
-          <p style="color:var(--c-text-2);line-height:1.8;margin-top:16px">Endless Line основана в 2018 году в Алматы. Мы начинали как небольшой стартап, а сегодня являемся одной из ведущих туристических платформ в Центральной Азии.</p>
-          <p style="color:var(--c-text-2);line-height:1.8;margin-top:12px">Наша цель — сделать путешествия доступными каждому. Мы верим, что мир нужно исследовать, а не просто читать о нём в книгах. Каждый тур, который мы предлагаем — это не просто билет, это история, которую вы расскажете своим детям.</p>
-          <div class="mission-values">
-            <div class="mval"><span>🎯</span><div><strong>Точность</strong><p>Каждый маршрут тщательно проверен</p></div></div>
-            <div class="mval"><span>💚</span><div><strong>Ответственность</strong><p>Мы заботимся о вас и о планете</p></div></div>
-            <div class="mval"><span>🚀</span><div><strong>Инновации</strong><p>Лучшие технологии в туризме</p></div></div>
-          </div>
-        </div>
-        <div class="about-story-visual">
-          <div class="story-timeline">
-            <div class="tl-item" id="tl1">
-              <div class="tl-dot"></div>
-              <div class="tl-year">2018</div>
-              <div class="tl-text">Основание компании в Алматы. Первые 100 клиентов.</div>
-            </div>
-            <div class="tl-item" id="tl2">
-              <div class="tl-dot"></div>
-              <div class="tl-year">2019</div>
-              <div class="tl-text">Запуск мобильного приложения. 10 000 туристов.</div>
-            </div>
-            <div class="tl-item" id="tl3">
-              <div class="tl-dot"></div>
-              <div class="tl-year">2021</div>
-              <div class="tl-text">Расширение на 30 стран. Партнёрство с ведущими авиакомпаниями.</div>
-            </div>
-            <div class="tl-item" id="tl4">
-              <div class="tl-dot"></div>
-              <div class="tl-year">2023</div>
-              <div class="tl-text">100 000 путешественников. Лучшая туристическая платформа Казахстана.</div>
-            </div>
-            <div class="tl-item" id="tl5">
-              <div class="tl-dot active"></div>
-              <div class="tl-year">2026</div>
-              <div class="tl-text">500 000 туристов. 50 стран. Новый портал с интерактивной картой мира.</div>
-            </div>
-          </div>
         </div>
       </div>
     </section>
 
-    <!-- Team -->
-    <section class="section team-section" id="team">
-      <div class="section-inner">
-        <div class="section-header">
-          <span class="section-tag">Команда</span>
-          <h2 class="section-title">Люди, которые <span>делают чудеса</span></h2>
-          <p class="section-subtitle">Наша команда из 85 профессионалов посвящена тому, чтобы ваш отпуск был идеальным</p>
+    <!-- ══════════════════════════ STATS BAND ══════════════════════════ -->
+    <div class="ab-stats-band">
+      <div class="ab-stats-grid">
+        <div class="ab-stat-item">
+          <span class="ab-stat-icon">✈️</span>
+          <div class="ab-stat-num" data-target="500">0</div>
+          <div class="ab-stat-lbl">Тысяч туристов</div>
         </div>
-        <div class="team-grid">
-          <div class="team-card" id="tm1">
-            <div class="team-avatar-img">
+        <div class="ab-stat-item">
+          <span class="ab-stat-icon">🌍</span>
+          <div class="ab-stat-num" data-target="50">0</div>
+          <div class="ab-stat-lbl">Стран охвата</div>
+        </div>
+        <div class="ab-stat-item">
+          <span class="ab-stat-icon">🗺</span>
+          <div class="ab-stat-num" data-target="3200">0</div>
+          <div class="ab-stat-lbl">Маршрутов</div>
+        </div>
+        <div class="ab-stat-item">
+          <span class="ab-stat-icon">⭐</span>
+          <div class="ab-stat-num">4.9</div>
+          <div class="ab-stat-lbl">Средний рейтинг</div>
+        </div>
+        <div class="ab-stat-item">
+          <span class="ab-stat-icon">🤝</span>
+          <div class="ab-stat-num" data-target="120">0</div>
+          <div class="ab-stat-lbl">Партнёров</div>
+        </div>
+        <div class="ab-stat-item">
+          <span class="ab-stat-icon">🏆</span>
+          <div class="ab-stat-num" data-target="8">0</div>
+          <div class="ab-stat-lbl">Лет на рынке</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════ MISSION ══════════════════════════ -->
+    <div class="ab-section">
+      <div class="ab-mission-grid">
+        <!-- Left: text -->
+        <div class="ab-mission-text">
+          <div class="ab-section-tag">🎯 Наша миссия</div>
+          <h2 class="ab-section-title">Мы создаём<br><span>незабываемые</span><br>путешествия</h2>
+          <p>Endless Line основана в 2018 году в Алматы. Мы начинали как небольшой стартап с командой из 5 человек, а сегодня — одна из ведущих туристических платформ Центральной Азии.</p>
+          <p>Наша цель — сделать путешествия доступными каждому. Мы верим: мир нужно исследовать, а не просто читать о нём в книгах. Каждый тур — это история, которую вы расскажете своим детям.</p>
+
+          <div class="ab-values">
+            <div class="ab-value">
+              <div class="ab-value-icon">🎯</div>
+              <div>
+                <div class="ab-value-title">Точность и надёжность</div>
+                <div class="ab-value-desc">Каждый маршрут тщательно проверен, все партнёры аккредитованы</div>
+              </div>
+            </div>
+            <div class="ab-value">
+              <div class="ab-value-icon">💚</div>
+              <div>
+                <div class="ab-value-title">Ответственность</div>
+                <div class="ab-value-desc">Экологичный туризм, поддержка местных сообществ в каждой стране</div>
+              </div>
+            </div>
+            <div class="ab-value">
+              <div class="ab-value-icon">🚀</div>
+              <div>
+                <div class="ab-value-title">Технологии и инновации</div>
+                <div class="ab-value-desc">Лучшие tech-решения в туристической индустрии Казахстана</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: timeline -->
+        <div>
+          <div style="padding: 32px 36px; background: var(--c-bg-card); border: 1px solid var(--c-border); border-radius: 24px;">
+            <div style="font-size: 0.78rem; color: var(--c-text-3); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 28px; font-weight: 700;">История компании</div>
+            <div class="ab-timeline">
+              <div class="ab-tl-item active">
+                <div class="ab-tl-dot"></div>
+                <div class="ab-tl-year">2018</div>
+                <div class="ab-tl-text">Основание в Алматы. Первые 100 клиентов. Команда 5 человек.</div>
+                <span class="ab-tl-milestone">🚀 Старт</span>
+              </div>
+              <div class="ab-tl-item">
+                <div class="ab-tl-dot"></div>
+                <div class="ab-tl-year">2019</div>
+                <div class="ab-tl-text">Запуск мобильного приложения. 10 000 путешественников. Выход на рынок Астаны.</div>
+                <span class="ab-tl-milestone">📱 Мобильное приложение</span>
+              </div>
+              <div class="ab-tl-item">
+                <div class="ab-tl-dot"></div>
+                <div class="ab-tl-year">2021</div>
+                <div class="ab-tl-text">Расширение на 30 стран. Партнёрство с Air Astana, Turkish Airlines и Marriott.</div>
+                <span class="ab-tl-milestone">🌍 30 стран</span>
+              </div>
+              <div class="ab-tl-item">
+                <div class="ab-tl-dot"></div>
+                <div class="ab-tl-year">2023</div>
+                <div class="ab-tl-text">100 000+ путешественников. Победа «Лучшая туристическая платформа Казахстана».</div>
+                <span class="ab-tl-milestone">🏆 Лучший портал</span>
+              </div>
+              <div class="ab-tl-item active">
+                <div class="ab-tl-dot"></div>
+                <div class="ab-tl-year">2026</div>
+                <div class="ab-tl-text">500 000 туристов. 50 стран. Новый портал с интерактивной картой мира и AI-рекомендациями.</div>
+                <span class="ab-tl-milestone">✨ Сейчас</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ══════════════════════════ TEAM ══════════════════════════ -->
+    <section class="ab-team-section" id="team">
+      <div class="ab-team-inner">
+        <div class="ab-team-header">
+          <div class="ab-section-tag">👥 Команда</div>
+          <h2 class="ab-section-title">Люди, которые <span>делают чудеса</span></h2>
+          <p>85 профессионалов посвящают себя тому, чтобы ваш отпуск был идеальным</p>
+        </div>
+        <div class="ab-team-grid">
+          <div class="ab-team-card" id="tm1">
+            <div class="ab-team-img-wrap">
               <img src="assets/team_ceo.png" alt="Айдар Абенов" loading="lazy">
             </div>
-            <div class="team-name">Айдар Абенов</div>
-            <div class="team-role">CEO & Основатель</div>
-            <div class="team-bio">Путешественник с 20-летним опытом. Побывал в 70+ странах. Основал Endless Line чтобы помочь другим открыть мир.</div>
+            <div class="ab-team-card-body">
+              <div class="ab-team-name">Айдар Абенов</div>
+              <div class="ab-team-role">CEO & Основатель</div>
+              <div class="ab-team-bio">Путешественник с 20-летним опытом. Побывал в 70+ странах. Основал Endless Line, чтобы помочь другим открыть мир.</div>
+            </div>
           </div>
-          <div class="team-card" id="tm2">
-            <div class="team-avatar-img">
+          <div class="ab-team-card" id="tm2">
+            <div class="ab-team-img-wrap">
               <img src="assets/team_director.png" alt="Динара Смагулова" loading="lazy">
             </div>
-            <div class="team-name">Динара Смагулова</div>
-            <div class="team-role">Директор по туризму</div>
-            <div class="team-bio">Специалист по туристическому рынку Азии и Ближнего Востока. 15 лет опыта в туристической индустрии.</div>
+            <div class="ab-team-card-body">
+              <div class="ab-team-name">Динара Смагулова</div>
+              <div class="ab-team-role">Директор по туризму</div>
+              <div class="ab-team-bio">Специалист по туристическому рынку Азии и Ближнего Востока. 15 лет опыта в индустрии путешествий.</div>
+            </div>
           </div>
-          <div class="team-card" id="tm3">
-            <div class="team-avatar-img">
+          <div class="ab-team-card" id="tm3">
+            <div class="ab-team-img-wrap">
               <img src="assets/team_cto.png" alt="Марат Касымов" loading="lazy">
             </div>
-            <div class="team-name">Марат Касымов</div>
-            <div class="team-role">CTO & Разработка</div>
-            <div class="team-bio">Построил технологическую платформу Endless Line с нуля. Опыт в Google и Яндекс.</div>
+            <div class="ab-team-card-body">
+              <div class="ab-team-name">Марат Касымов</div>
+              <div class="ab-team-role">CTO & Разработка</div>
+              <div class="ab-team-bio">Построил технологическую платформу Endless Line с нуля. Ранее работал в Google и Яндекс.</div>
+            </div>
           </div>
-          <div class="team-card" id="tm4">
-            <div class="team-avatar-img">
+          <div class="ab-team-card" id="tm4">
+            <div class="ab-team-img-wrap">
               <img src="assets/team_marketing.png" alt="Зарина Алиева" loading="lazy">
             </div>
-            <div class="team-name">Зарина Алиева</div>
-            <div class="team-role">Директор по маркетингу</div>
-            <div class="team-bio">Эксперт в цифровом маркетинге. За 3 года увеличила базу клиентов в 50 раз.</div>
+            <div class="ab-team-card-body">
+              <div class="ab-team-name">Зарина Алиева</div>
+              <div class="ab-team-role">Директор по маркетингу</div>
+              <div class="ab-team-bio">Эксперт в цифровом маркетинге. За 3 года увеличила базу клиентов Endless Line в 50 раз.</div>
+            </div>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- Partners -->
-    <section class="section partners-section" id="partners">
-      <div class="section-inner">
-        <div class="section-header">
-          <span class="section-tag">Партнёры</span>
-          <h2 class="section-title">Работаем с <span>лучшими</span></h2>
-          <p class="section-subtitle">Наши партнёры — ведущие авиакомпании, отели и туроператоры мира</p>
+    <!-- ══════════════════════════ WHY US ══════════════════════════ -->
+    <section class="ab-why-section">
+      <div class="ab-why-inner">
+        <div class="ab-why-header">
+          <div class="ab-section-tag">💎 Преимущества</div>
+          <h2 class="ab-section-title">Почему выбирают <span>Endless Line</span>?</h2>
+          <p>Мы не просто продаём туры — мы создаём незабываемые воспоминания</p>
         </div>
-        <div class="partners-grid">
-          <div class="partner-card">✈️ Air Astana</div>
-          <div class="partner-card">🏨 Marriott Hotels</div>
-          <div class="partner-card">✈️ Turkish Airlines</div>
-          <div class="partner-card">🏨 Hilton Group</div>
-          <div class="partner-card">✈️ Emirates</div>
-          <div class="partner-card">🚂 KTZ Express</div>
-          <div class="partner-card">🏨 Hyatt Hotels</div>
-          <div class="partner-card">✈️ FlyArystan</div>
-          <div class="partner-card">🚢 MSC Cruises</div>
-          <div class="partner-card">🛡 AXA Страхование</div>
+        <div class="ab-why-grid">
+          <div class="ab-why-card">
+            <div class="ab-why-num">01</div>
+            <span class="ab-why-icon">💰</span>
+            <div class="ab-why-title">Гарантия лучшей цены</div>
+            <div class="ab-why-desc">Найдёте дешевле — вернём разницу. Работаем напрямую с авиакомпаниями и отелями без лишних посредников.</div>
+          </div>
+          <div class="ab-why-card">
+            <div class="ab-why-num">02</div>
+            <span class="ab-why-icon">🎧</span>
+            <div class="ab-why-title">Поддержка 24/7</div>
+            <div class="ab-why-desc">Наши эксперты всегда на связи — звоните, пишите в WhatsApp или Telegram в любое время дня и ночи.</div>
+          </div>
+          <div class="ab-why-card">
+            <div class="ab-why-num">03</div>
+            <span class="ab-why-icon">🔒</span>
+            <div class="ab-why-title">Безопасное бронирование</div>
+            <div class="ab-why-desc">SSL-шифрование, возврат средств при отмене. Ваши данные и деньги всегда под защитой.</div>
+          </div>
+          <div class="ab-why-card">
+            <div class="ab-why-num">04</div>
+            <span class="ab-why-icon">🌍</span>
+            <div class="ab-why-title">50+ стран мира</div>
+            <div class="ab-why-desc">Европа, Азия, Америка, Ближний Восток, Окения — мы бронируем туры абсолютно по всему миру.</div>
+          </div>
+          <div class="ab-why-card">
+            <div class="ab-why-num">05</div>
+            <span class="ab-why-icon">⚡</span>
+            <div class="ab-why-title">Мгновенное подтверждение</div>
+            <div class="ab-why-desc">Бронирование за 3 минуты. Подтверждение на email мгновенно. Никаких долгих ожиданий и звонков.</div>
+          </div>
+          <div class="ab-why-card">
+            <div class="ab-why-num">06</div>
+            <span class="ab-why-icon">🛂</span>
+            <div class="ab-why-title">Визовая помощь</div>
+            <div class="ab-why-desc">Помогаем с оформлением виз для граждан РК. Актуальные требования и инструкции для каждой страны.</div>
+          </div>
         </div>
       </div>
     </section>
 
-    <!-- Contacts -->
-    <section class="section contacts-section" id="contacts">
-      <div class="section-inner">
-        <div class="section-header">
-          <span class="section-tag">Контакты</span>
-          <h2 class="section-title">Свяжитесь <span>с нами</span></h2>
+    <!-- ══════════════════════════ PARTNERS ══════════════════════════ -->
+    <section class="ab-partners-section" id="partners">
+      <div class="ab-partners-inner">
+        <div class="ab-partners-header">
+          <div class="ab-section-tag">🤝 Партнёры</div>
+          <h2 class="ab-section-title">Работаем с <span>лучшими</span></h2>
         </div>
-        <div class="about-contacts-grid">
-          <div class="contact-card" id="cc-1">
-            <div class="cc-icon">📍</div>
-            <h3>Адрес</h3>
-            <p>Где-то у Марса 27</p>
-          </div>
-          <div class="contact-card" id="cc-2">
-            <div class="cc-icon">📞</div>
-            <h3>Телефон</h3>
-            <p><a href="tel:+77075557909">+7 707 555-79-09</a></p>
-            <p style="margin-top:4px;font-size:0.8rem;color:var(--c-text-3)">Работаем 24/7</p>
-          </div>
-          <div class="contact-card" id="cc-3">
-            <div class="cc-icon">✉️</div>
-            <h3>Email</h3>
-            <p><a href="mailto:nick@barinov.pro">nick@barinov.pro</a></p>
-          </div>
-          <div class="contact-card" id="cc-4">
-            <div class="cc-icon">💬</div>
-            <h3>Соцсети</h3>
-            <div style="display:flex;gap:8px;margin-top:8px">
-              <a href="#" class="footer-social-btn" style="width:36px;height:36px">📱</a>
-              <a href="#" class="footer-social-btn" style="width:36px;height:36px">💬</a>
-              <a href="#" class="footer-social-btn" style="width:36px;height:36px">📷</a>
-            </div>
+        <div class="ab-partners-track-wrap">
+          <div class="ab-partners-track" id="partners-track">
+            <div class="ab-partner-pill">✈️ Air Astana</div>
+            <div class="ab-partner-pill">🏨 Marriott Hotels</div>
+            <div class="ab-partner-pill">✈️ Turkish Airlines</div>
+            <div class="ab-partner-pill">🏨 Hilton Group</div>
+            <div class="ab-partner-pill">✈️ Emirates</div>
+            <div class="ab-partner-pill">🚂 KTZ Express</div>
+            <div class="ab-partner-pill">🏨 Hyatt Hotels</div>
+            <div class="ab-partner-pill">✈️ FlyArystan</div>
+            <div class="ab-partner-pill">🚢 MSC Cruises</div>
+            <div class="ab-partner-pill">🛡 AXA Страхование</div>
+            <!-- Duplicate for seamless scroll -->
+            <div class="ab-partner-pill">✈️ Air Astana</div>
+            <div class="ab-partner-pill">🏨 Marriott Hotels</div>
+            <div class="ab-partner-pill">✈️ Turkish Airlines</div>
+            <div class="ab-partner-pill">🏨 Hilton Group</div>
+            <div class="ab-partner-pill">✈️ Emirates</div>
+            <div class="ab-partner-pill">🚂 KTZ Express</div>
+            <div class="ab-partner-pill">🏨 Hyatt Hotels</div>
+            <div class="ab-partner-pill">✈️ FlyArystan</div>
+            <div class="ab-partner-pill">🚢 MSC Cruises</div>
+            <div class="ab-partner-pill">🛡 AXA Страхование</div>
           </div>
         </div>
+      </div>
+    </section>
 
-        <!-- Contact Form -->
-        <div style="max-width:600px;margin:40px auto 0;background:var(--c-bg-card);border:1px solid var(--c-border);border-radius:var(--r-lg);padding:32px;box-shadow:var(--s-md)">
-          <h3 style="font-family:var(--f-heading);font-size:1.2rem;color:var(--c-text);margin-bottom:20px;text-align:center">📩 Написать нам</h3>
-          <form id="contact-form" onsubmit="submitContactForm(event)">
-            <div class="auth-field">
-              <label>Ваше имя</label>
-              <input type="text" class="s-input" id="cf-name" placeholder="Введите имя" required minlength="2">
-            </div>
-            <div class="auth-field">
-              <label>Email</label>
-              <input type="email" class="s-input" id="cf-email" placeholder="Введите email" required>
-            </div>
-            <div class="auth-field">
-              <label>Сообщение</label>
-              <textarea class="s-input" id="cf-message" rows="4" placeholder="Опишите ваш вопрос (минимум 10 символов)..." required minlength="10"></textarea>
-            </div>
-            <button type="submit" class="btn-primary auth-submit" id="cf-btn">Отправить сообщение</button>
-          </form>
-        </div>
-
-        <!-- Complaints button -->
-        <div style="text-align:center;margin-top:24px">
-          <a href="https://www.youtube.com/watch?v=dQw4w9WgXcQ&list=RDdQw4w9WgXcQ&start_radio=1" target="_blank" rel="noopener noreferrer"
-            style="display:inline-flex;align-items:center;gap:8px;padding:12px 28px;border:1px solid var(--c-border);border-radius:var(--r-sm);background:var(--c-bg-card);color:var(--c-text-2);font-size:0.875rem;font-weight:500;cursor:pointer;text-decoration:none;transition:all 0.2s"
-            onmouseover="this.style.borderColor='var(--c-error)';this.style.color='var(--c-error)'"
-            onmouseout="this.style.borderColor='var(--c-border)';this.style.color='var(--c-text-2)'">
-            📋 Подать жалобу
+    <!-- ══════════════════════════ CTA ══════════════════════════ -->
+    <section class="ab-cta-section">
+      <div class="ab-cta-inner">
+        <div class="ab-section-tag" style="margin: 0 auto 20px; display: inline-flex;">🌟 Готовы путешествовать?</div>
+        <h2 class="ab-cta-title">Ваше следующее<br><span>приключение</span> ждёт</h2>
+        <p class="ab-cta-sub">Откройте мир вместе с Endless Line. 50+ стран, 3 200 маршрутов, гарантия лучшей цены.</p>
+        <div class="ab-cta-btns">
+          <a href="tours.html" class="ab-btn-primary" style="font-size: 1.05rem; padding: 16px 36px;">
+            🌍 Найти тур
+          </a>
+          <a href="contacts.html" class="ab-btn-ghost" style="color: rgba(255,255,255,0.8);">
+            💬 Связаться с нами
           </a>
         </div>
       </div>
@@ -288,32 +980,50 @@
   </main>
 
   <script src="nav.js"></script>
+<script src="translations.js"></script>
   <script src="auth.js"></script>
   <script>
-    // Simple counter animation for stats
+    // Animated counters
     function animateCounters() {
-      document.querySelectorAll('.astat-num').forEach(el => {
-        const target = el.textContent.replace(/[^0-9.]/g, '');
-        const suffix = el.textContent.replace(/[0-9.]/g, '');
-        if (!target) return;
-        const num = parseFloat(target);
+      document.querySelectorAll('.ab-stat-num[data-target]').forEach(el => {
+        const target = parseInt(el.dataset.target);
+        const suffix = target >= 1000 ? '+' : '+';
         let current = 0;
-        const steps = 50;
-        const increment = num / steps;
+        const steps = 60;
+        const inc = target / steps;
         const interval = setInterval(() => {
-          current = Math.min(current + increment, num);
-          el.textContent = (Number.isInteger(num) ? Math.floor(current) : current.toFixed(1)) + suffix;
-          if (current >= num) clearInterval(interval);
-        }, 30);
+          current = Math.min(current + inc, target);
+          el.textContent = Math.floor(current) + suffix;
+          if (current >= target) clearInterval(interval);
+        }, 25);
       });
     }
+    const statsBand = document.querySelector('.ab-stats-band');
+    if (statsBand) {
+      const obs = new IntersectionObserver(entries => {
+        entries.forEach(e => { if (e.isIntersecting) { animateCounters(); obs.disconnect(); } });
+      }, { threshold: 0.3 });
+      obs.observe(statsBand);
+    }
 
-    const statsSection = document.querySelector('.about-stats-section');
-    if (statsSection) {
-      const observer = new IntersectionObserver(entries => {
-        entries.forEach(entry => { if (entry.isIntersecting) { animateCounters(); observer.disconnect(); } });
+    // Scroll reveal for cards — CSS class-based (not opacity=0 JS which breaks screenshots)
+    const revealEls = document.querySelectorAll('.ab-team-card, .ab-why-card, .ab-value, .ab-tl-item');
+    revealEls.forEach(el => el.classList.add('reveal-ready'));
+    const revealObs = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          const delay = (i % 4) * 80;
+          setTimeout(() => entry.target.classList.add('reveal-visible'), delay);
+          revealObs.unobserve(entry.target);
+        }
       });
-      observer.observe(statsSection);
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+    revealEls.forEach(el => revealObs.observe(el));
+
+    // Trigger counters if already in view on load
+    if (statsBand) {
+      const rect = statsBand.getBoundingClientRect();
+      if (rect.top < window.innerHeight) animateCounters();
     }
   </script>
 </body>

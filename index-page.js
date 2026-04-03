@@ -328,12 +328,16 @@ function handleNL(e) {
 
 /* ── TIMER ────────────────────────────────────────────────── */
 function initTimer() {
+  // Shared key with deals.html so both timers are in sync
+  const KEY = 'el_deals_target';
+  let target = parseInt(localStorage.getItem(KEY) || '0');
+  const nowMs = Date.now();
+  if (!target || target < nowMs) {
+    target = nowMs + 24 * 3600 * 1000;
+    localStorage.setItem(KEY, target);
+  }
   function update() {
-    const now = new Date();
-    // Timer resets daily at midnight
-    const midnight = new Date(now);
-    midnight.setHours(23, 59, 59, 999);
-    const diff = midnight - now;
+    const diff = Math.max(0, target - Date.now());
     const h = Math.floor(diff / 3600000);
     const m = Math.floor((diff % 3600000) / 60000);
     const s = Math.floor((diff % 60000) / 1000);
@@ -344,6 +348,10 @@ function initTimer() {
     if (hEl) hEl.textContent = pad(h);
     if (mEl) mEl.textContent = pad(m);
     if (sEl) sEl.textContent = pad(s);
+    if (diff === 0) {
+      target = Date.now() + 24 * 3600 * 1000;
+      localStorage.setItem(KEY, target);
+    }
   }
   update();
   setInterval(update, 1000);

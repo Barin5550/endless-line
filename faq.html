@@ -2,6 +2,7 @@
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>FAQ — Часто задаваемые вопросы | Endless Line</title>
   <meta name="description" content="Ответы на часто задаваемые вопросы о бронировании туров, отелей и авиабилетов в Endless Line.">
@@ -23,7 +24,7 @@
       <p>Нашли ответы на большинство вопросов. Не нашли — напишите нам!</p>
       <div class="sp-search-bar">
         <input type="text" id="faq-search-input" placeholder="Введите вопрос..." oninput="filterFAQ(this.value)">
-        <button>Найти</button>
+        <button onclick="filterFAQ(document.getElementById('faq-search-input').value)">Найти</button>
       </div>
     </div>
   </div>
@@ -149,6 +150,9 @@
   </div>
 </main>
 
+<style>
+  mark.faq-hl { background: rgba(255,140,0,0.28); color: inherit; border-radius: 3px; padding: 0 2px; }
+</style>
 <script>
 function toggleFAQ(btn) {
   const item = btn.closest('.sp-faq-item');
@@ -156,18 +160,56 @@ function toggleFAQ(btn) {
   document.querySelectorAll('.sp-faq-item.open').forEach(i => i.classList.remove('open'));
   if (!wasOpen) item.classList.add('open');
 }
+
+// Store original HTML of each FAQ item once
+const _faqOriginals = new Map();
+document.querySelectorAll('.sp-faq-item').forEach(item => {
+  _faqOriginals.set(item, item.innerHTML);
+});
+
 function filterFAQ(q) {
-  const query = q.toLowerCase();
+  const query = q.trim();
+  const lcQuery = query.toLowerCase();
+
   document.querySelectorAll('.sp-faq-item').forEach(item => {
-    item.style.display = item.textContent.toLowerCase().includes(query) ? '' : 'none';
+    // Restore original HTML first (to remove previous highlights)
+    if (_faqOriginals.has(item)) item.innerHTML = _faqOriginals.get(item);
+    const matches = !query || item.textContent.toLowerCase().includes(lcQuery);
+    item.style.display = matches ? '' : 'none';
+
+    // Highlight matches
+    if (matches && query) {
+      const btn = item.querySelector('.sp-faq-btn');
+      const ans = item.querySelector('.sp-faq-answer');
+      [btn, ans].forEach(el => {
+        if (!el) return;
+        el.innerHTML = el.innerHTML.replace(
+          new RegExp(`(${query.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'),
+          '<mark class="faq-hl">$1</mark>'
+        );
+      });
+      // Re-bind toggle after innerHTML replacement
+      if (btn) btn.onclick = function(){ toggleFAQ(this); };
+    }
   });
+
+  // Hide/show categories
   document.querySelectorAll('[data-cat]').forEach(sec => {
     const vis = [...sec.querySelectorAll('.sp-faq-item')].some(i => i.style.display !== 'none');
     sec.style.display = vis ? '' : 'none';
   });
 }
+
+// Keyboard: Enter triggers search
+document.addEventListener('DOMContentLoaded', () => {
+  const inp = document.getElementById('faq-search-input');
+  if (inp) inp.addEventListener('keydown', e => { if(e.key==='Escape'){ inp.value=''; filterFAQ(''); } });
+});
 </script>
+
 <script src="nav.js"></script>
+<script src="translations.js"></script>
 <script src="auth.js"></script>
 </body>
 </html>
+

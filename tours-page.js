@@ -61,7 +61,7 @@ const TOUR_NAME_IMAGES = {
   /* Thailand */
   'Пхукет 10 ночей':          'assets/tour_phuket.png',
   'Бангкок + Паттайя':        'assets/hotel_bangkok_river.png',
-  'Острова Таиланда':         'assets/tour_phuket_island.png',
+  'Острова Таиланда':         'assets/tour_phuket.png',
   'Самуи виллы':              'assets/tour_kohsamui.png',
 
   /* India */
@@ -208,6 +208,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initViewToggle();
   initSortSelect();
   checkURLFilters();
+  loadFavorites();
 });
 
 function renderTours() {
@@ -245,11 +246,11 @@ function buildTourCard(tour) {
     <div class="tour-card" id="tour-${tour.id}" onclick="openTourModal('${tour.id}')">
       <div class="tour-card-img">
         ${imgSrc
-          ? `<img src="${imgSrc}" alt="${tour.country}" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0">`
+          ? `<img src="${imgSrc}" alt="${tour.country}" loading="lazy" style="width:100%;height:100%;object-fit:cover;position:absolute;inset:0" onerror="this.style.display='none';this.nextElementSibling&&(this.nextElementSibling.style.display='')">`
           : `<div class="tour-card-img-inner">${tour.icon}</div>`
         }
         ${discountHTML}${hotHTML}
-        <button class="tour-fav" onclick="event.stopPropagation();toggleFav(this)" title="В избранное">🤍</button>
+        <button class="tour-fav" onclick="event.stopPropagation();toggleFav(this,'${tour.id}','${tour.name.replace(/'/g,"\\'")}')" data-tour-id="${tour.id}" title="В избранное">🤍</button>
       </div>
       <div class="tour-card-body">
         <div class="tour-card-country">${tour.flag} ${tour.country}</div>
@@ -273,12 +274,62 @@ function buildTourCard(tour) {
 }
 
 
-function toggleFav(btn) {
+// Local favorites fallback (localStorage)
+function getLocalFavs() { try { return JSON.parse(localStorage.getItem('el_favs') || '[]'); } catch { return []; } }
+function setLocalFavs(arr) { localStorage.setItem('el_favs', JSON.stringify(arr)); }
+
+async function toggleFav(btn, tourId, tourName) {
+  const isActive = btn.classList.contains('active');
   btn.classList.toggle('active');
   btn.textContent = btn.classList.contains('active') ? '❤️' : '🤍';
-  if (btn.classList.contains('active')) {
-    showToast('Добавлено в избранное!', 'success');
+
+  const token = localStorage.getItem('el_token');
+
+  if (!isActive) {
+    // Adding to favorites
+    showToast('❤️ Добавлено в избранное!', 'success');
+    if (token) {
+      fetch('http://localhost:5000/api/favorites', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
+        body: JSON.stringify({ tourId, tourName })
+      }).catch(() => {});
+    } else {
+      const favs = getLocalFavs();
+      if (!favs.includes(tourId)) { favs.push(tourId); setLocalFavs(favs); }
+    }
+  } else {
+    // Removing from favorites
+    showToast('Убрано из избранного', 'info');
+    if (token) {
+      fetch('http://localhost:5000/api/favorites/' + encodeURIComponent(tourId), {
+        method: 'DELETE',
+        headers: { 'Authorization': 'Bearer ' + token }
+      }).catch(() => {});
+    } else {
+      setLocalFavs(getLocalFavs().filter(id => id !== tourId));
+    }
   }
+}
+
+async function loadFavorites() {
+  const token = localStorage.getItem('el_token');
+  let favIds = [];
+  if (token) {
+    try {
+      const res = await fetch('http://localhost:5000/api/favorites', {
+        headers: { 'Authorization': 'Bearer ' + token }
+      });
+      if (res.ok) { const data = await res.json(); favIds = data.map(f => f.tourId); }
+    } catch {}
+  } else {
+    favIds = getLocalFavs();
+  }
+  // Mark active fav buttons
+  favIds.forEach(id => {
+    const btn = document.querySelector(`.tour-fav[data-tour-id="${id}"]`);
+    if (btn) { btn.classList.add('active'); btn.textContent = '❤️'; }
+  });
 }
 
 function bookTour(id) {
@@ -438,20 +489,90 @@ function initViewToggle() {
   });
 }
 
+// Map of Russian/English country names to countryId
+const DEST_ALIASES = {
+  'турция': 'turkey', 'turkey': 'turkey', 'анталья': 'turkey', 'стамбул': 'turkey',
+  'оаэ': 'uae', 'дубай': 'uae', 'dubai': 'uae', 'абу-даби': 'uae',
+  'египет': 'egypt', 'egypt': 'egypt', 'хургада': 'egypt', 'шарм': 'egypt',
+  'таиланд': 'thailand', 'thailand': 'thailand', 'пхукет': 'thailand', 'бангкок': 'thailand',
+  'греция': 'greece', 'greece': 'greece', 'санторини': 'greece', 'афины': 'greece',
+  'италия': 'italy', 'italy': 'italy', 'рим': 'italy', 'венеция': 'italy',
+  'франция': 'france', 'france': 'france', 'париж': 'france',
+  'германия': 'germany', 'germany': 'germany', 'берлин': 'germany',
+  'австрия': 'austria', 'austria': 'austria', 'вена': 'austria',
+  'испания': 'spain', 'spain': 'spain', 'барселона': 'spain',
+  'китай': 'china', 'china': 'china', 'пекин': 'china', 'шанхай': 'china',
+  'япония': 'japan', 'japan': 'japan', 'токио': 'japan', 'киото': 'japan',
+  'мальдивы': 'maldives', 'maldives': 'maldives',
+  'бразилия': 'brazil', 'brazil': 'brazil', 'рио': 'brazil',
+  'португалия': 'portugal', 'portugal': 'portugal', 'лиссабон': 'portugal',
+  'марокко': 'morocco', 'morocco': 'morocco', 'марракеш': 'morocco',
+  'индия': 'india', 'india': 'india', 'гоа': 'india',
+  'вьетнам': 'vietnam', 'vietnam': 'vietnam', 'нячанг': 'vietnam',
+  'индонезия': 'indonesia', 'indonesia': 'indonesia', 'бали': 'indonesia',
+  'корея': 'southkorea', 'korea': 'southkorea', 'сеул': 'southkorea',
+  'шри-ланка': 'srilanka', 'srilanka': 'srilanka',
+  'черногория': 'montenegro', 'montenegro': 'montenegro', 'будва': 'montenegro',
+  'мексика': 'mexico', 'mexico': 'mexico', 'канкун': 'mexico',
+  'австралия': 'australia', 'australia': 'australia',
+  'сша': 'usa', 'usa': 'usa', 'нью-йорк': 'usa',
+};
+
 function checkURLFilters() {
   const params = new URLSearchParams(window.location.search);
-  const dest = params.get('dest');
+  const dest   = params.get('dest');
   const region = params.get('region');
+  const type   = params.get('type');
+  const search = params.get('q') || params.get('search');
 
   if (dest) {
-    filteredTours = TOURS_DB.filter(t => t.countryId === dest);
+    // Show the search term in the input
+    const inp = document.getElementById('ts-dest');
+    if (inp) inp.value = dest;
+
+    // Try alias map first (Турция → turkey), then countryId exact, then text search
+    const alias = DEST_ALIASES[dest.toLowerCase()];
+    let byId = alias ? TOURS_DB.filter(t => t.countryId === alias) : [];
+    if (!byId.length) byId = TOURS_DB.filter(t => t.countryId === dest.toLowerCase());
+    filteredTours = byId.length > 0 ? byId : TOURS_DB.filter(t =>
+      t.country.toLowerCase().includes(dest.toLowerCase()) ||
+      t.name.toLowerCase().includes(dest.toLowerCase())
+    );
     renderTours();
+    if (filteredTours.length > 0) {
+      showToast(`🌍 Туры по запросу «${dest}»: ${filteredTours.length}`, 'info');
+    } else {
+      showToast(`По запросу «${dest}» туров не найдено. Показаны все туры.`, 'info');
+      filteredTours = [...TOURS_DB];
+      renderTours();
+    }
   } else if (region) {
     filteredTours = TOURS_DB.filter(t => t.region === region);
-    // Also tick the corresponding checkbox
     const cb = document.querySelector(`.region-filter[value="${region}"]`);
     if (cb) cb.checked = true;
     renderTours();
-    showToast(`Показаны туры: ${region}`, 'info');
+    const regionNames = { europe:'Европа', asia:'Азия', mena:'Ближний Восток', americas:'Америка', seas:'Острова', oceania:'Океания' };
+    showToast(`🗺 ${regionNames[region] || region}`, 'info');
+  } else if (type === 'hotel') {
+    showToast('🏨 Показаны все туры с отелями', 'info');
+    filteredTours = [...TOURS_DB];
+    renderTours();
+  } else if (type === 'flights') {
+    showToast('✈️ Показаны туры с перелётом', 'info');
+    filteredTours = [...TOURS_DB];
+    renderTours();
+  } else if (search) {
+    const sLower = search.toLowerCase();
+    const alias = DEST_ALIASES[sLower];
+    filteredTours = alias
+      ? TOURS_DB.filter(t => t.countryId === alias)
+      : TOURS_DB.filter(t =>
+          t.country.toLowerCase().includes(sLower) || t.name.toLowerCase().includes(sLower)
+        );
+    const inp = document.getElementById('ts-dest');
+    if (inp) inp.value = search;
+    renderTours();
+    showToast(`🔍 Результаты: «${search}» — ${filteredTours.length} туров`, 'info');
   }
 }
+

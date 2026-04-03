@@ -23,7 +23,7 @@ router.post('/', auth, async (req, res) => {
 
     // Check if user already left a review
     const existing = await db.reviews.findOne({ userId: req.userId })
-    if (existing) return res.status(400).json({ message: 'Вы уже оставили отзыв. Можете отредактировать его.' })
+    if (existing) return res.status(400).json({ message: 'Вы уже оставили отзыв. Чтобы написать новый — удалите старый.' })
 
     // Get user name
     const user = await db.users.findOne({ _id: req.userId })

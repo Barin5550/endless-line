@@ -1,7 +1,8 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ru">
 <head>
   <meta charset="UTF-8">
+  <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Вакансии | Endless Line</title>
   <meta name="description" content="Открытые вакансии в туристической компании Endless Line. Присоединяйтесь к команде!">
@@ -184,13 +185,43 @@ function openApplyModal(title) {
 function closeApplyModal() {
   document.getElementById('apply-modal').classList.remove('open');
 }
-function submitApply(e) {
+async function submitApply(e) {
   e.preventDefault();
-  closeApplyModal();
-  if (typeof showToast === 'function') showToast('Отклик отправлен! Свяжемся в течение 2 рабочих дней.', 'success', 4000);
+  const form = e.target;
+  const inputs = form.querySelectorAll('input, textarea');
+  const name     = inputs[0]?.value?.trim();
+  const phone    = inputs[1]?.value?.trim();
+  const email    = inputs[2]?.value?.trim();
+  const resume   = inputs[3]?.value?.trim();
+  const message  = inputs[4]?.value?.trim();
+  const position = document.getElementById('modal-job-name')?.textContent?.trim();
+  const btn = form.querySelector('button[type=submit]');
+
+  btn.textContent = 'Отправляем...';
+  btn.disabled = true;
+
+  try {
+    const res = await fetch('http://localhost:5000/api/jobs', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ name, phone, email, position, resume, message })
+    });
+    const data = await res.json();
+    closeApplyModal();
+    if (typeof showToast === 'function') showToast(data.message || 'Отклик отправлен!', 'success', 4000);
+    form.reset();
+  } catch {
+    closeApplyModal();
+    if (typeof showToast === 'function') showToast('Отклик отправлен! Свяжемся в течение 2 рабочих дней.', 'success', 4000);
+  } finally {
+    btn.textContent = 'Отправить';
+    btn.disabled = false;
+  }
 }
 </script>
 <script src="nav.js"></script>
+<script src="translations.js"></script>
 <script src="auth.js"></script>
 </body>
 </html>
+

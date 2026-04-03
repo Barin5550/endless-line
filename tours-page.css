@@ -11,8 +11,15 @@
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse at 70% 50%, rgba(255,107,53,0.07) 0%, transparent 55%);
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(255,107,53,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 80%, rgba(255,176,32,0.05) 0%, transparent 45%);
   pointer-events: none;
+  animation: toursHeroGlow 11s ease-in-out infinite alternate;
+}
+@keyframes toursHeroGlow {
+  from { opacity: 0.7; transform: scale(1); }
+  to   { opacity: 1;   transform: scale(1.08); }
 }
 .page-hero::after {
   content: '';
@@ -46,77 +53,129 @@
   align-items: start;
 }
 
-/* ---- FILTERS ---- */
+/* ---- FILTERS — COMPACT ---- */
 .filters-panel {
   background: var(--c-bg-card);
   border: 1px solid var(--c-border);
   border-radius: var(--r-lg);
-  padding: var(--sp-lg);
+  padding: 12px;
   position: sticky;
-  top: calc(var(--header-h) + 60px);
+  top: calc(var(--header-h) + 20px);
   transition: box-shadow var(--t-base);
+  overflow: hidden;
+  max-height: calc(100vh - var(--header-h) - 30px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255,90,0,0.3) transparent;
 }
-.filters-panel:hover { box-shadow: 0 8px 24px rgba(0,0,0,0.15); }
+.filters-panel::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--g-primary);
+  border-radius: var(--r-lg) var(--r-lg) 0 0;
+}
+.filters-panel:hover { box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
 .filters-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--sp-lg);
+  margin-bottom: 10px;
+  padding-top: 2px;
 }
 .filters-title {
   font-family: var(--f-heading);
-  font-size: 1.05rem;
-  font-weight: 700;
+  font-size: 0.88rem;
+  font-weight: 800;
   color: var(--c-text);
+  letter-spacing: -0.01em;
 }
 .filters-reset {
   background: none;
   border: none;
   color: var(--c-primary);
-  font-size: 0.82rem;
+  font-size: 0.72rem;
+  font-weight: 600;
   cursor: pointer;
-  padding: 4px 8px;
-  border-radius: var(--r-sm);
-  transition: background var(--t-fast), transform var(--t-fast);
+  padding: 2px 6px;
+  border-radius: var(--r-full);
+  border: 1px solid rgba(255,90,0,0.25);
+  transition: all var(--t-fast);
 }
-.filters-reset:hover { background: var(--c-primary-glow); transform: scale(1.03); }
+.filters-reset:hover { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
 
 .filter-group {
-  margin-bottom: var(--sp-lg);
-  padding-bottom: var(--sp-lg);
+  margin-bottom: 10px;
+  padding-bottom: 10px;
   border-bottom: 1px solid var(--c-border);
 }
-.filter-group:last-of-type { border-bottom: none; }
+.filter-group:last-of-type { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
 .filter-group-title {
-  font-size: 0.82rem;
+  font-size: 0.65rem;
   font-weight: 700;
-  color: var(--c-text-2);
+  color: var(--c-text-3);
   text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 10px;
+  letter-spacing: 0.08em;
+  margin-bottom: 6px;
 }
-.filter-options { display: flex; flex-direction: column; gap: 8px; }
+
+/* Chip-style filter options — compact 2-col */
+.filter-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4px;
+}
 .f-check {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: 8px;
-  font-size: 0.875rem;
+  gap: 3px;
+  font-size: 0.7rem;
   color: var(--c-text-2);
   cursor: pointer;
-  transition: color var(--t-fast);
-  padding: 3px 0;
+  background: var(--c-bg-3);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-full);
+  padding: 4px 8px;
+  transition: all 0.18s ease;
+  user-select: none;
+  line-height: 1.3;
+  text-align: center;
+  justify-content: center;
 }
-.f-check input { accent-color: var(--c-primary); width: 15px; height: 15px; cursor: pointer; }
-.f-check:hover { color: var(--c-text); }
+.f-check:hover {
+  border-color: rgba(255,90,0,0.35);
+  color: var(--c-primary);
+  background: rgba(255,90,0,0.06);
+}
+.f-check:has(input:checked) {
+  background: var(--c-primary);
+  border-color: var(--c-primary);
+  color: #fff;
+  box-shadow: 0 2px 8px rgba(255,90,0,0.3);
+}
+.f-check input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}
 
 .price-range-labels {
   display: flex;
   justify-content: space-between;
-  font-size: 0.78rem;
+  font-size: 0.68rem;
   color: var(--c-text-3);
-  margin-bottom: 8px;
+  margin-bottom: 5px;
+  font-weight: 600;
 }
-.price-slider { width: 100%; accent-color: var(--c-primary); cursor: pointer; }
+.price-slider {
+  width: 100%;
+  accent-color: var(--c-primary);
+  cursor: pointer;
+  height: 3px;
+}
 
 /* ---- TOURS MAIN ---- */
 .tours-toolbar {
