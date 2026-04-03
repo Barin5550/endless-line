@@ -830,6 +830,41 @@
           <div class="ab-section-tag">👥 Команда</div>
           <h2 class="ab-section-title">Люди, которые <span>делают чудеса</span></h2>
           <p>85 профессионалов посвящают себя тому, чтобы ваш отпуск был идеальным</p>
+          
+          <!-- === ПРОСТОЙ ФИЛЬТР ПО ИМЕНАМ СОВТРУДНИКОВ === -->
+          <!-- Поле ввода: пользователь вводит текст сюда -->
+          <input type="text" 
+                 id="teamNameFilter" 
+                 placeholder="Найти по имени (например: Айдар)" 
+                 oninput="filterTeamByName()"
+                 style="margin-top: 24px; padding: 14px 24px; width: 100%; max-width: 350px; border-radius: 100px; border: 1px solid rgba(255,140,0,0.3); background: rgba(0,0,0,0.2); color: #fff; outline: none; font-size: 0.95rem;">
+          
+          <!-- Скрипт фильтрации -->
+          <script>
+            // Эта функция срабатывает каждый раз, когда печатается буква (oninput)
+            function filterTeamByName() {
+              // 1. Получаем текст из поля и переводим в нижний регистр, чтобы поиск не зависел от капса
+              const searchText = document.getElementById('teamNameFilter').value.toLowerCase();
+              
+              // 2. Находим ВСЕ карточки команды на странице
+              const teamCards = document.querySelectorAll('.ab-team-card');
+              
+              // 3. Проходим по каждой карточке по очереди (циклом)
+              teamCards.forEach(card => {
+                // 4. Достаем имя только из текущей карточки
+                const name = card.querySelector('.ab-team-name').textContent.toLowerCase();
+                
+                // 5. Проверяем: если имя содержит то, что ввел пользователь -> показываем (display: block)
+                // Если не содержит -> прячем (display: none)
+                if (name.includes(searchText)) {
+                  card.style.display = 'block';
+                } else {
+                  card.style.display = 'none';
+                }
+              });
+            }
+          </script>
+          <!-- ============================================== -->
         </div>
         <div class="ab-team-grid">
           <div class="ab-team-card" id="tm1">
