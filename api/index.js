@@ -1,120 +1,172 @@
-const express = require('express')
-const cors = require('cors')
-const helmet = require('helmet')
-const rateLimit = require('express-rate-limit')
-const fs = require('fs')
-const path = require('path')
-require('dotenv').config()
+/**
+ * ============================================================
+ * ENDLESS LINE — Главный файл сервера (api/index.js)
+ * ============================================================
+ * Стек: Node.js + Express.js
+ * База данных: NeDB (NoSQL, хранение в файлах .db)
+ * Безопасность: Helmet (CSP), bcrypt, JWT, rate-limit
+ * Деплой: Vercel (Serverless Functions)
+ * ============================================================
+ */
 
-// Ensure data directory exists
+// ── ИМПОРТЫ ──────────────────────────────────────────────────
+const express  = require('express')           // HTTP-фреймворк для создания REST API
+const cors     = require('cors')              // Разрешает запросы с других доменов (браузер → сервер)
+const helmet   = require('helmet')            // Добавляет заголовки безопасности (XSS, CSP, и др.)
+const rateLimit = require('express-rate-limit') // Ограничивает частоту запросов (защита от брутфорса)
+const fs       = require('fs')                // Встроенный модуль Node.js для работы с файловой системой
+const path     = require('path')              // Встроенный модуль для работы с путями (кросс-платформенно)
+require('dotenv').config()                    // Загружает переменные из .env файла (JWT_SECRET и др.)
+
+// ── ПОДГОТОВКА ПАПКИ ДЛЯ БАЗЫ ДАННЫХ ────────────────────────
+// Создаёт папку api/data/ если её нет (там хранятся .db файлы NeDB)
 fs.mkdirSync(path.join(__dirname, 'data'), { recursive: true })
 
-const app = express()
+// ── ИНИЦИАЛИЗАЦИЯ ПРИЛОЖЕНИЯ ─────────────────────────────────
+const app = express()  // Создаём экземпляр Express-приложения
 
-// Security headers — relaxed CSP to allow inline scripts/styles and external CDNs
+// ── БЕЗОПАСНОСТЬ: HELMET + CSP ───────────────────────────────
+// Content Security Policy (CSP) — белый список разрешённых источников
+// Защищает от XSS-атак (внедрение вредоносного кода)
 app.use(helmet({
-  crossOriginEmbedderPolicy: false,
+  crossOriginEmbedderPolicy: false, // Отключаем COEP — иначе браузер блокирует CDN-ресурсы
+
   contentSecurityPolicy: {
     directives: {
-      defaultSrc: ["'self'"],
+      defaultSrc: ["'self'"],         // По умолчанию — только с нашего сервера
       scriptSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "'unsafe-eval'",
-        "https://cdn.jsdelivr.net",
-        "https://cdnjs.cloudflare.com",
-        "https://unpkg.com",
-        "https://d3js.org",
+        "'self'",                     // Наши собственные JS-файлы
+        "'unsafe-inline'",            // Inline-скрипты в HTML (onclick="...", <script>)
+        "'unsafe-eval'",              // eval() — нужен для Babel (JSX компиляция в браузере)
+        "https://cdn.jsdelivr.net",   // CDN: React, ReactDOM, React Router
+        "https://cdnjs.cloudflare.com", // CDN: Babel standalone
+        "https://unpkg.com",          // CDN: альтернативный источник библиотек
+        "https://d3js.org",           // D3.js — интерактивная карта мира
       ],
-      scriptSrcAttr: ["'unsafe-inline'"],   // ← разрешает onclick="..." атрибуты
+      scriptSrcAttr: ["'unsafe-inline'"],  // Разрешает onclick="..." атрибуты в HTML
       styleSrc: [
-        "'self'",
-        "'unsafe-inline'",
-        "https://fonts.googleapis.com",
-        "https://cdn.jsdelivr.net",
+        "'self'",                     // Наши собственные CSS-файлы
+        "'unsafe-inline'",            // style="" атрибуты в HTML
+        "https://fonts.googleapis.com", // Google Fonts (загрузка шрифтов)
+        "https://cdn.jsdelivr.net",   // CSS из CDN
       ],
       fontSrc: [
-        "'self'",
-        "https://fonts.gstatic.com",
-        "data:",
+        "'self'",                     // Локальные шрифты
+        "https://fonts.gstatic.com",  // Google Fonts — сами файлы шрифтов
+        "data:",                      // Base64-закодированные шрифты
       ],
-      imgSrc:     ["'self'", "data:", "blob:", "https:"],
-      connectSrc: ["'self'", "https://api.openweathermap.org", "https:", "http://localhost:5000"],
-      frameSrc:   ["'none'"],
-      objectSrc:  ["'none'"],
+      imgSrc: ["'self'", "data:", "blob:", "https:"], // Картинки: свои + base64 + blob + любые https
+      connectSrc: [
+        "'self'",                              // Fetch к нашему API
+        "https://api.openweathermap.org",      // Погодный API (для карты)
+        "https:",                              // Любые HTTPS запросы
+        "http://localhost:5000",               // Локальная разработка
+      ],
+      frameSrc:  ["'none'"],          // Запрещаем <iframe> (защита от кликджекинга)
+      objectSrc: ["'none'"],          // Запрещаем <object>, <embed> (устаревшие опасные теги)
     },
   },
 }))
 
+// ── CORS ─────────────────────────────────────────────────────
+// Cross-Origin Resource Sharing: разрешаем запросы с любого домена
+// credentials: true — разрешает передачу куки и заголовков авторизации
 app.use(cors({ origin: true, credentials: true }))
 
-// Body parsing MUST come before routes (and before static for API routes)
-app.use(express.json({ limit: '1mb' }))
-app.use(express.urlencoded({ extended: true, limit: '1mb' }))
+// ── ПАРСИНГ ТЕЛА ЗАПРОСА ─────────────────────────────────────
+// ВАЖНО: должен быть ДО маршрутов, иначе req.body будет пустым
+app.use(express.json({ limit: '1mb' }))              // Для JSON (Content-Type: application/json)
+app.use(express.urlencoded({ extended: true, limit: '1mb' })) // Для HTML-форм
 
-// Serve static frontend files
+// ── СТАТИЧЕСКИЕ ФАЙЛЫ ────────────────────────────────────────
+// Раздаёт все HTML, CSS, JS, картинки из корневой папки проекта
+// maxAge: '1h' — браузер кешируем на 1 час (ускорение загрузки)
 app.use(express.static(path.join(__dirname, '..'), { maxAge: '1h' }))
 
-// Rate limiting for auth endpoints
+// ── RATE LIMITING (ЗАЩИТА ОТ БРУТФОРСА) ─────────────────────
+// Для /api/auth: максимум 20 запросов за 15 минут
+// Защищает от автоматического перебора паролей
 const authLimiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 20,
+  windowMs: 15 * 60 * 1000, // 15 минут в миллисекундах
+  max: 20,                   // Максимум 20 запросов
   message: { message: 'Слишком много попыток. Попробуйте снова через 15 минут.' },
-  standardHeaders: true,
-  legacyHeaders: false,
+  standardHeaders: true,     // Возвращает заголовки RateLimit-* (стандарт RFC 6585)
+  legacyHeaders: false,      // Отключаем устаревшие X-RateLimit-* заголовки
 })
 
+// Для всего API: максимум 100 запросов в минуту
 const generalLimiter = rateLimit({
-  windowMs: 60 * 1000,
-  max: 100,
+  windowMs: 60 * 1000, // 1 минута
+  max: 100,            // Максимум 100 запросов
   message: { message: 'Слишком много запросов. Подождите немного.' },
 })
 
-app.use('/api/auth', authLimiter)
-app.use('/api', generalLimiter)
+// Применяем rate limiters к нужным маршрутам
+app.use('/api/auth', authLimiter)  // Строгий лимит только для авторизации
+app.use('/api', generalLimiter)    // Мягкий лимит для всего остального API
 
-app.use('/api/auth', require('./routes/auth'))
-app.use('/api/bookings', require('./routes/bookings'))
-app.use('/api/reviews', require('./routes/reviews'))
-app.use('/api/contacts', require('./routes/contacts'))
-app.use('/api/favorites', require('./routes/favorites'))
-app.use('/api/jobs', require('./routes/jobs'))
+// ── ПОДКЛЮЧЕНИЕ МАРШРУТОВ API ────────────────────────────────
+// Каждый файл в routes/ — это отдельный Express Router
+app.use('/api/auth',      require('./routes/auth'))       // POST /api/auth/register, /login
+app.use('/api/bookings',  require('./routes/bookings'))   // CRUD: бронирования
+app.use('/api/reviews',   require('./routes/reviews'))    // CRUD: отзывы
+app.use('/api/contacts',  require('./routes/contacts'))   // POST: обратная связь
+app.use('/api/favorites', require('./routes/favorites'))  // CRUD: избранные туры
+app.use('/api/jobs',      require('./routes/jobs'))       // GET/POST: вакансии
 
-// Stats endpoint
+// ── ENDPOINT: СТАТИСТИКА ─────────────────────────────────────
+// GET /api/stats → возвращает количество записей в каждой коллекции NeDB
 app.get('/api/stats', async (req, res) => {
   try {
-    const db = require('./db')
+    const db = require('./db') // Подключаем базу данных
+    // Promise.all выполняет все запросы параллельно (быстрее чем последовательно)
     const [users, bookings, reviews, contacts] = await Promise.all([
-      db.users.count({}),
-      db.bookings.count({}),
-      db.reviews.count({}),
-      db.contacts.count({}),
+      db.users.count({}),     // Считаем всех пользователей
+      db.bookings.count({}),  // Считаем все бронирования
+      db.reviews.count({}),   // Считаем все отзывы
+      db.contacts.count({}),  // Считаем все обращения
     ])
-    res.json({ users, bookings, reviews, contacts })
+    res.json({ users, bookings, reviews, contacts }) // Возвращаем в JSON
   } catch {
+    // Если БД недоступна — возвращаем нули (не роняем сервер)
     res.json({ users: 0, bookings: 0, reviews: 0, contacts: 0 })
   }
 })
 
-app.get('/api/health', (req, res) => res.json({ status: 'ok', db: 'nedb', time: new Date() }))
+// ── ENDPOINT: HEALTH CHECK ────────────────────────────────────
+// GET /api/health → проверка работоспособности сервера
+// Используется для мониторинга и деплоя
+app.get('/api/health', (req, res) =>
+  res.json({ status: 'ok', db: 'nedb', time: new Date() })
+)
 
-// Global error handler
+// ── ГЛОБАЛЬНЫЙ ОБРАБОТЧИК ОШИБОК ─────────────────────────────
+// Перехватывает все необработанные ошибки в middleware
+// next(err) из любого маршрута попадает сюда
 app.use((err, req, res, next) => {
-  console.error(err.stack)
+  console.error(err.stack)  // Выводим стектрейс в консоль сервера
   res.status(500).json({ message: 'Внутренняя ошибка сервера' })
 })
 
-// 404 handler — serve 404.html for unknown routes (non-API)
+// ── ОБРАБОТЧИК 404 ────────────────────────────────────────────
+// Срабатывает если ни один маршрут выше не совпал
 app.use((req, res) => {
   if (req.path.startsWith('/api/')) {
+    // API-запрос к несуществующему эндпоинту → JSON-ошибка
     return res.status(404).json({ message: 'Маршрут не найден' })
   }
+  // Браузерный запрос → показываем нашу красивую 404-страницу
   res.status(404).sendFile(path.join(__dirname, '..', '404.html'))
 })
 
-const PORT = process.env.PORT || 5000
+// ── ЗАПУСК СЕРВЕРА ────────────────────────────────────────────
+const PORT = process.env.PORT || 5000  // Берём порт из .env или используем 5000
+
+// Запускаем HTTP-сервер только при локальной разработке
+// На Vercel сервер не запускается напрямую — Vercel сам управляет воркерами
 if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
   app.listen(PORT, () => console.log(`🚀 Endless Line server → http://localhost:${PORT}`))
 }
 
+// Экспортируем Express-приложение для Vercel (serverless entry point)
 module.exports = app
