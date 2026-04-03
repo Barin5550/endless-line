@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Каталог туров — React App | Endless Line</title>
+  <meta name="description" content="React-приложение каталога туров агентства Endless Line">
+  <!-- React 18 + ReactDOM + Babel для JSX -->
+  <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <!-- React Router DOM v5 через CDN -->
+  <script src="https://unpkg.com/react-router-dom@5/umd/react-router-dom.min.js" crossorigin></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --c-primary: #FF5A00;
+      --c-bg: #0d1b2e;
+      --c-bg2: #152a45;
+      --c-bg3: #1e385e;
+      --c-white: #ffffff;
+      --c-gray: #a8c4dc;
+      --c-success: #2ecc71;
+      --c-err: #e74c3c;
+      --radius: 16px;
+      --transition: .25s cubic-bezier(.4,0,.2,1);
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { background:var(--c-bg); color:var(--c-white); font-family:'Inter',sans-serif; min-height:100vh; }
+    h1,h2,h3,h4 { font-family:'Outfit',sans-serif; }
+
+    /* ── HEADER ── */
+    .react-header {
+      background:rgba(13,27,46,.95);
+      backdrop-filter:blur(12px);
+      border-bottom:1px solid rgba(255,90,0,.3);
+      padding:0 2rem;
+      height:64px; display:flex; align-items:center; justify-content:space-between;
+      position:sticky; top:0; z-index:100;
+    }
+    .react-header .logo { display:flex; align-items:center; gap:.6rem; text-decoration:none; }
+    .react-header .logo span { font-family:'Outfit',sans-serif; font-size:1.3rem; font-weight:800; color:var(--c-primary); }
+    .react-header .logo small { color:var(--c-gray); font-size:.75rem; }
+    .react-header nav { display:flex; gap:.5rem; align-items:center; }
+    .react-header nav a, .react-header nav button.nav-link {
+      color:var(--c-gray); text-decoration:none; font-size:.9rem; font-weight:500;
+      padding:.4rem .85rem; border-radius:8px; transition:var(--transition);
+      background:none; border:none; cursor:pointer; font-family:'Inter',sans-serif;
+    }
+    .react-header nav a:hover, .react-header nav button.nav-link:hover,
+    .react-header nav a.active, .react-header nav button.nav-link.active {
+      background:rgba(255,90,0,.15); color:var(--c-primary);
+    }
+    .back-btn {
+      display:inline-flex; align-items:center; gap:.4rem;
+      background:rgba(255,90,0,.12); border:1px solid rgba(255,90,0,.3);
+      color:var(--c-primary); padding:.4rem 1rem; border-radius:8px;
+      text-decoration:none; font-size:.85rem; font-weight:600;
+      transition:var(--transition);
+    }
+    .back-btn:hover { background:var(--c-primary); color:#fff; }
+
+    /* ── HERO ── */
+    .hero { background:linear-gradient(135deg,var(--c-bg2),var(--c-bg3)); padding:3.5rem 2rem 2rem; text-align:center; border-bottom:1px solid rgba(255,90,0,.2); }
+    .hero-badge { display:inline-block; background:rgba(255,90,0,.15); border:1px solid rgba(255,90,0,.4); color:var(--c-primary); font-size:.8rem; font-weight:700; padding:.3rem .9rem; border-radius:50px; margin-bottom:1rem; text-transform:uppercase; letter-spacing:.05em; }
+    .hero h1 { font-size:2.8rem; font-weight:800; margin-bottom:.7rem; }
+    .hero h1 span { color:var(--c-primary); }
+    .hero p { color:var(--c-gray); font-size:1.05rem; }
+    .react-badge { margin-top:1rem; display:inline-flex; align-items:center; gap:.5rem; background:rgba(97,218,251,.1); border:1px solid rgba(97,218,251,.3); padding:.4rem 1rem; border-radius:50px; font-size:.8rem; color:#61dafb; }
+
+    /* ── SEARCH BAR ── */
+    .search-bar { background:var(--c-bg2); padding:1.5rem 2rem; border-bottom:1px solid rgba(255,255,255,.06); }
+    .search-inner { max-width:1200px; margin:0 auto; display:flex; gap:1rem; flex-wrap:wrap; align-items:flex-end; }
+    .search-group { display:flex; flex-direction:column; gap:.4rem; flex:1; min-width:160px; }
+    .search-group label { font-size:.78rem; font-weight:600; color:var(--c-gray); text-transform:uppercase; letter-spacing:.05em; }
+    .search-group input, .search-group select {
+      background:var(--c-bg3); border:1px solid rgba(255,255,255,.1); color:var(--c-white);
+      border-radius:10px; padding:.65rem 1rem; font-size:.95rem; outline:none;
+      transition:var(--transition); font-family:'Inter',sans-serif;
+    }
+    .search-group input:focus, .search-group select:focus { border-color:var(--c-primary); box-shadow:0 0 0 3px rgba(255,90,0,.15); }
+    .search-group select option { background:var(--c-bg3); }
+    .btn-search { background:var(--c-primary); color:#fff; border:none; border-radius:10px; padding:.68rem 2rem; font-size:1rem; font-weight:700; cursor:pointer; transition:var(--transition); white-space:nowrap; font-family:'Outfit',sans-serif; }
+    .btn-search:hover { background:#e04f00; transform:translateY(-1px); box-shadow:0 4px 20px rgba(255,90,0,.4); }
+    .btn-reset { background:transparent; border:1px solid rgba(255,255,255,.2); color:var(--c-gray); border-radius:10px; padding:.68rem 1.2rem; font-size:.9rem; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; }
+    .btn-reset:hover { border-color:var(--c-primary); color:var(--c-primary); }
+
+    /* ── FILTERS ── */
+    .filters-row { background:var(--c-bg2); padding:.8rem 2rem; border-bottom:1px solid rgba(255,255,255,.06); display:flex; gap:.5rem; flex-wrap:wrap; align-items:center; }
+    .filter-label { color:var(--c-gray); font-size:.8rem; font-weight:600; margin-right:.3rem; }
+    .filter-chip { border:1px solid rgba(255,255,255,.15); background:transparent; color:var(--c-gray); border-radius:50px; padding:.3rem .85rem; font-size:.82rem; cursor:pointer; transition:var(--transition); font-family:'Inter',sans-serif; }
+    .filter-chip:hover { border-color:var(--c-primary); color:var(--c-primary); }
+    .filter-chip.active { background:var(--c-primary); border-color:var(--c-primary); color:#fff; font-weight:600; }
+
+    /* ── TOOLBAR ── */
+    .toolbar { max-width:1200px; margin:1.5rem auto .75rem; padding:0 2rem; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:.5rem; }
+    .results-count { color:var(--c-gray); font-size:.9rem; }
+    .results-count strong { color:var(--c-primary); }
+    .sort-wrap { display:flex; gap:.5rem; align-items:center; }
+    .sort-wrap label { color:var(--c-gray); font-size:.85rem; }
+    .sort-select { background:var(--c-bg2); border:1px solid rgba(255,255,255,.1); color:#fff; padding:.4rem .75rem; border-radius:8px; font-size:.85rem; outline:none; cursor:pointer; font-family:'Inter',sans-serif; }
+
+    /* ── GRID ── */
+    .tours-grid { max-width:1200px; margin:0 auto 4rem; padding:0 2rem; display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:1.5rem; }
+
+    /* ── CARD ── */
+    .tour-card { background:var(--c-bg2); border-radius:var(--radius); overflow:hidden; border:1px solid rgba(255,255,255,.06); transition:var(--transition); cursor:pointer; }
+    .tour-card:hover { transform:translateY(-6px); box-shadow:0 16px 40px rgba(0,0,0,.4); border-color:rgba(255,90,0,.3); }
+    .tour-card-img { position:relative; height:200px; overflow:hidden; }
+    .tour-card-img img { width:100%; height:100%; object-fit:cover; transition:transform .5s ease; }
+    .tour-card:hover .tour-card-img img { transform:scale(1.07); }
+    .tour-badge { position:absolute; top:.75rem; left:.75rem; background:var(--c-primary); color:#fff; font-size:.72rem; font-weight:700; padding:.25rem .65rem; border-radius:50px; text-transform:uppercase; }
+    .tour-badge.hot { background:linear-gradient(135deg,#ff5a00,#ff8c00); }
+    .tour-badge.sale { background:linear-gradient(135deg,#e74c3c,#c0392b); }
+    .tour-fav { position:absolute; top:.75rem; right:.75rem; background:rgba(0,0,0,.5); border:none; border-radius:50%; width:36px; height:36px; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:1rem; transition:var(--transition); backdrop-filter:blur(4px); }
+    .tour-fav:hover, .tour-fav.active { background:rgba(255,90,0,.8); }
+    .tour-card-body { padding:1.25rem; }
+    .tour-card-body h3 { font-size:1.05rem; font-weight:700; margin-bottom:.35rem; }
+    .tour-meta { display:flex; gap:.75rem; margin-bottom:.75rem; color:var(--c-gray); font-size:.82rem; }
+    .tour-meta span { display:flex; align-items:center; gap:.25rem; }
+    .tour-tags { display:flex; gap:.35rem; flex-wrap:wrap; margin-bottom:.9rem; }
+    .tour-tag { background:rgba(255,255,255,.07); color:var(--c-gray); border-radius:50px; padding:.2rem .6rem; font-size:.72rem; }
+    .tour-footer { display:flex; align-items:center; justify-content:space-between; }
+    .tour-price { display:flex; flex-direction:column; }
+    .tour-price .old { text-decoration:line-through; color:var(--c-gray); font-size:.8rem; }
+    .tour-price .new { font-size:1.2rem; font-weight:800; color:var(--c-primary); font-family:'Outfit',sans-serif; }
+    .tour-price small { color:var(--c-gray); font-size:.72rem; }
+    .btn-book { background:var(--c-primary); color:#fff; border:none; border-radius:10px; padding:.55rem 1.2rem; font-size:.85rem; font-weight:700; cursor:pointer; transition:var(--transition); font-family:'Outfit',sans-serif; }
+    .btn-book:hover { background:#e04f00; transform:translateY(-1px); }
+
+    /* ── DETAIL PAGE ── */
+    .detail-wrap { max-width:900px; margin:2rem auto 4rem; padding:0 2rem; }
+    .detail-img { width:100%; height:380px; object-fit:cover; border-radius:var(--radius); margin-bottom:2rem; }
+    .detail-header { display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:1rem; margin-bottom:1.5rem; }
+    .detail-header h2 { font-size:2rem; font-weight:800; }
+    .detail-price-box { text-align:right; }
+    .detail-price-box .price { font-size:2rem; font-weight:800; color:var(--c-primary); font-family:'Outfit',sans-serif; }
+    .detail-price-box small { color:var(--c-gray); font-size:.85rem; }
+    .detail-info { display:grid; grid-template-columns:repeat(auto-fill,minmax(160px,1fr)); gap:1rem; margin-bottom:2rem; }
+    .info-card { background:var(--c-bg2); border-radius:12px; padding:1rem; border:1px solid rgba(255,255,255,.06); }
+    .info-card .icon { font-size:1.5rem; margin-bottom:.4rem; }
+    .info-card label { color:var(--c-gray); font-size:.75rem; text-transform:uppercase; letter-spacing:.05em; }
+    .info-card p { font-weight:700; margin-top:.15rem; }
+    .detail-desc { color:var(--c-gray); line-height:1.8; font-size:1rem; margin-bottom:2rem; }
+    .detail-includes { background:var(--c-bg2); border-radius:var(--radius); padding:1.5rem; margin-bottom:2rem; border:1px solid rgba(255,255,255,.06); }
+    .detail-includes h3 { font-size:1.1rem; font-weight:700; margin-bottom:1rem; color:var(--c-primary); }
+    .include-list { list-style:none; display:grid; grid-template-columns:1fr 1fr; gap:.5rem; }
+    .include-list li { display:flex; align-items:center; gap:.5rem; color:var(--c-gray); font-size:.9rem; }
+    .include-list li::before { content:'✓'; color:var(--c-success); font-weight:700; }
+    .btn-book-big { width:100%; background:var(--c-primary); color:#fff; border:none; border-radius:var(--radius); padding:1.1rem; font-size:1.1rem; font-weight:800; cursor:pointer; transition:var(--transition); font-family:'Outfit',sans-serif; }
+    .btn-book-big:hover { background:#e04f00; transform:translateY(-2px); box-shadow:0 8px 30px rgba(255,90,0,.4); }
+
+    /* ── BOOKING MODAL ── */
+    .modal-overlay { position:fixed; inset:0; background:rgba(0,0,0,.65); backdrop-filter:blur(6px); z-index:999; display:flex; align-items:center; justify-content:center; padding:1rem; }
+    .modal-box { background:var(--c-bg2); border-radius:20px; padding:2rem; max-width:480px; width:100%; border:1px solid rgba(255,255,255,.1); box-shadow:0 24px 60px rgba(0,0,0,.6); }
+    .modal-box h3 { font-size:1.4rem; font-weight:800; margin-bottom:1.5rem; }
+    .form-group { display:flex; flex-direction:column; gap:.4rem; margin-bottom:1rem; }
+    .form-group label { font-size:.8rem; font-weight:600; color:var(--c-gray); text-transform:uppercase; letter-spacing:.04em; }
+    .form-group input, .form-group select {
+      background:var(--c-bg3); border:1px solid rgba(255,255,255,.1); color:#fff;
+      border-radius:10px; padding:.7rem 1rem; font-size:.95rem; outline:none;
+      transition:var(--transition); font-family:'Inter',sans-serif; width:100%;
+    }
+    .form-group input:focus { border-color:var(--c-primary); }
+    .booking-total { background:rgba(255,90,0,.1); border:1px solid rgba(255,90,0,.3); border-radius:12px; padding:1rem; margin:1rem 0; display:flex; justify-content:space-between; align-items:center; }
+    .booking-total span { color:var(--c-gray); }
+    .booking-total strong { font-size:1.3rem; font-weight:800; color:var(--c-primary); }
+    .modal-actions { display:flex; gap:.75rem; }
+    .btn-cancel { flex:1; background:transparent; border:1px solid rgba(255,255,255,.2); color:var(--c-gray); border-radius:10px; padding:.75rem; font-size:.95rem; cursor:pointer; font-family:'Inter',sans-serif; transition:var(--transition); }
+    .btn-cancel:hover { border-color:var(--c-err); color:var(--c-err); }
+    .btn-pay { flex:2; background:var(--c-primary); color:#fff; border:none; border-radius:10px; padding:.75rem; font-size:1rem; font-weight:700; cursor:pointer; font-family:'Outfit',sans-serif; transition:var(--transition); }
+    .btn-pay:hover { background:#e04f00; }
+    .success-box { text-align:center; padding:1rem; }
+    .success-box .emoji { font-size:3rem; margin-bottom:1rem; }
+    .success-box h4 { font-size:1.4rem; font-weight:800; color:var(--c-success); margin-bottom:.5rem; }
+    .success-box p { color:var(--c-gray); }
+
+    /* ── EMPTY ── */
+    .empty { text-align:center; padding:5rem 2rem; color:var(--c-gray); }
+    .empty .emoji { font-size:3.5rem; margin-bottom:1rem; }
+    .empty h3 { font-size:1.4rem; margin-bottom:.5rem; }
+
+    /* ── FAVORITES ── */
+    .fav-page { max-width:1200px; margin:0 auto 4rem; padding:2rem; }
+    .fav-page h2 { font-size:1.8rem; font-weight:800; margin-bottom:.5rem; }
+    .fav-page p.sub { color:var(--c-gray); margin-bottom:2rem; }
+
+    /* ── SPINNER ── */
+    .spinner { display:flex; justify-content:center; align-items:center; height:300px; }
+    .spinner::after { content:''; width:48px; height:48px; border:4px solid rgba(255,90,0,.2); border-top-color:var(--c-primary); border-radius:50%; animation:spin 1s linear infinite; }
+    @keyframes spin { to { transform:rotate(360deg); } }
+
+    /* ── TOAST ── */
+    .toast { position:fixed; bottom:2rem; right:2rem; background:var(--c-success); color:#fff; padding:.85rem 1.5rem; border-radius:12px; font-weight:600; font-size:.95rem; z-index:9999; animation:slideUp .3s ease; box-shadow:0 8px 30px rgba(46,204,113,.4); }
+    .toast.error { background:var(--c-err); box-shadow:0 8px 30px rgba(231,76,60,.4); }
+    @keyframes slideUp { from { transform:translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+    @media(max-width:640px) {
+      .hero h1 { font-size:1.8rem; }
+      .tours-grid { grid-template-columns:1fr; }
+      .include-list { grid-template-columns:1fr; }
+      .react-header nav .hide-sm { display:none; }
+    }
+  </style>
+</head>
+<body>
+  <div id="react-root"></div>
+
+  <script type="text/babel">
+    const { useState, useEffect, useCallback, createContext, useContext } = React;
+    const { HashRouter, Route, Switch, Link, useHistory, useParams } = ReactRouterDOM;
+
+    /* ═══════════════════════════════════════════════════════════
+       CONTEXT — глобальное состояние (авторизация, избранное)
+    ═══════════════════════════════════════════════════════════ */
+    const AppContext = createContext(null);
+
+    function AppProvider({ children }) {
+      const [user, setUser] = useState(null);
+      const [favorites, setFavorites] = useState(() => {
+        try { return JSON.parse(localStorage.getItem('el_react_favs') || '[]'); }
+        catch { return []; }
+      });
+      const [toast, setToast] = useState(null);
+      const [bookings, setBookings] = useState([]);
+
+      useEffect(() => {
+        const token = localStorage.getItem('el_token');
+        if (token) {
+          fetch('/api/auth/me', {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+            .then(r => r.ok ? r.json() : null)
+            .then(data => { if (data?.user) setUser(data.user); })
+            .catch(() => {});
+        }
+      }, []);
+
+      useEffect(() => {
+        localStorage.setItem('el_react_favs', JSON.stringify(favorites));
+      }, [favorites]);
+
+      const toggleFav = useCallback((id) => {
+        setFavorites(prev =>
+          prev.includes(id) ? prev.filter(f => f !== id) : [...prev, id]
+        );
+      }, []);
+
+      const showToast = useCallback((msg, type='success') => {
+        setToast({ msg, type });
+        setTimeout(() => setToast(null), 3000);
+      }, []);
+
+      return (
+        <AppContext.Provider value={{ user, setUser, favorites, toggleFav, showToast, bookings, setBookings }}>
+          {children}
+          {toast && (
+            <div className={`toast ${toast.type === 'error' ? 'error' : ''}`}>
+              {toast.type === 'success' ? '✅ ' : '❌ '}{toast.msg}
+            </div>
+          )}
+        </AppContext.Provider>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       DATA — база туров (Props-совместимый формат)
+    ═══════════════════════════════════════════════════════════ */
+    const TOURS_DATA = [
+      { id:1, country:'Турция', city:'Анталья', image:'https://images.unsplash.com/photo-1604999565976-8913ad2ddb37?w=600&q=80', nights:7, price:285000, oldPrice:320000, stars:5, type:'beach', region:'asia', tags:['Пляж','Море','Всё включено'], hot:true, rating:4.8, review_count:234, description:'Роскошный курорт на берегу Средиземного моря. Золотые пляжи, кристально чистая вода и лучшие отели Антальи ждут вас. Включены экскурсии в исторический центр и водные аттракционы.', includes:['Перелёт туда-обратно','Трансфер из аэропорта','Питание All Inclusive','Страховка','Gид-переводчик','Экскурсии'] },
+      { id:2, country:'ОАЭ', city:'Дубай', image:'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=600&q=80', nights:5, price:520000, oldPrice:null, stars:5, type:'city', region:'asia', tags:['Luxury','Шопинг','Небоскрёбы'], hot:false, rating:4.9, review_count:456, description:'Мегаполис будущего в пустыне. Бурдж-Халифа, Dubai Mall, золотые сусу — всё это и многое другое в нашем туре в Дубай.', includes:['Перелёт Business Class','Отель 5★','Завтрак','Трансфер','Экскурсия «Золотой Дубай»','Сафари в пустыне'] },
+      { id:3, country:'Египет', city:'Хургада', image:'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=600&q=80', nights:10, price:195000, oldPrice:240000, stars:4, type:'beach', region:'africa', tags:['Дайвинг','Пляж','Coral Reef'], hot:true, rating:4.6, review_count:189, description:'Красное море — рай для дайверов. Уникальные коралловые рифы, богатый подводный мир и тёплое море круглый год.', includes:['Перелёт','Отель 4★','Питание HB','Трансфер','Страховка'] },
+      { id:4, country:'Таиланд', city:'Пхукет', image:'https://images.unsplash.com/photo-1508009603885-50cf7c579365?w=600&q=80', nights:14, price:380000, oldPrice:420000, stars:5, type:'beach', region:'asia', tags:['Острова','Джунгли','Культура'], hot:false, rating:4.7, review_count:312, description:'Жемчужина Азии — острова с белоснежными пляжами, буддийские храмы, уличная еда и незабываемые закаты.', includes:['Перелёт','Виза','Отель 5★','Завтрак','Трансфер','Яхт-тур по островам'] },
+      { id:5, country:'Италия', city:'Рим', image:'https://images.unsplash.com/photo-1552832230-c0197dd311b5?w=600&q=80', nights:7, price:450000, oldPrice:null, stars:4, type:'city', region:'europe', tags:['История','Культура','Гастрономия'], hot:false, rating:4.8, review_count:278, description:'Вечный город с 3000-летней историей. Колизей, Ватикан, фонтан Треви, пицца и настоящее итальянское вино.', includes:['Перелёт','Отель 4★ в центре','Завтрак','Страховка','Гид по Риму','Ватикан VIP'] },
+      { id:6, country:'Испания', city:'Барселона', image:'https://images.unsplash.com/photo-1583422409516-2895a77efded?w=600&q=80', nights:8, price:415000, oldPrice:490000, stars:5, type:'city', region:'europe', tags:['Архитектура','Пляж','Фламенко'], hot:true, rating:4.9, review_count:341, description:'Столица Каталонии — город Гауди, пляжей La Barceloneta и лучшего в мире футбольного клуба.', includes:['Перелёт','Отель 5★','Завтрак','Трансфер','Тур Гауди','Матч Барсы'] },
+      { id:7, country:'Греция', city:'Санторини', image:'https://images.unsplash.com/photo-1570077188670-e3a8d69ac5ff?w=600&q=80', nights:6, price:510000, oldPrice:null, stars:5, type:'beach', region:'europe', tags:['Романтика','Белые домики','Вулкан'], hot:false, rating:4.9, review_count:523, description:'Самый романтичный остров мира. Голубые купола, бесконечный закат и вулканический пляж.', includes:['Перелёт','Вилла с видом на кальдеру','Завтрак','Трансфер','Круиз по Кикладам'] },
+      { id:8, country:'Мальдивы', city:'Мале', image:'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=600&q=80', nights:10, price:890000, oldPrice:1050000, stars:5, type:'beach', region:'asia', tags:['Overwater Bungalow','Снорклинг','Luxury'], hot:true, rating:5.0, review_count:87, description:'Рай на земле — атолл с кристально чистой водой, домики на воде и невероятный подводный мир.', includes:['Перелёт бизнес','Гидроплан','Overwater Villa','All Inclusive','Дайвинг курс','SPA'] },
+      { id:9, country:'Япония', city:'Токио', image:'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?w=600&q=80', nights:12, price:680000, oldPrice:750000, stars:4, type:'city', region:'asia', tags:['Аниме','Технологии','Сакура'], hot:false, rating:4.8, review_count:195, description:'Страна восходящего солнца — ультрасовременные технологии и многовековые традиции в идеальном балансе.', includes:['Перелёт','Отель','Завтрак','JR Pass (7 дней)','Гид','Чайная церемония'] },
+      { id:10, country:'Франция', city:'Париж', image:'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=600&q=80', nights:6, price:480000, oldPrice:null, stars:5, type:'city', region:'europe', tags:['Романтика','Мода','Искусство'], hot:false, rating:4.7, review_count:412, description:'Город любви, моды и искусства. Эйфелева башня, Лувр, круиз по Сене и лучший сыр с вином.', includes:['Перелёт','Отель 5★ у Елисейских','Завтрак','Страховка','Лувр','Версаль'] },
+      { id:11, country:'Куба', city:'Гавана', image:'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=600&q=80', nights:10, price:620000, oldPrice:700000, stars:4, type:'beach', region:'america', tags:['Карибы','Ретро','Сигары'], hot:true, rating:4.6, review_count:143, description:'Остров-музей под открытым небом. Американские ретро-авто, сальса, cigars и пляжи Варадеро.', includes:['Перелёт','Отель','Питание HB','Трансфер','Экскурсия «Старая Гавана»'] },
+      { id:12, country:'Казахстан', city:'Алматы', image:'https://images.unsplash.com/photo-1601821164561-c5a7bc96f5cc?w=600&q=80', nights:4, price:85000, oldPrice:null, stars:4, type:'mountain', region:'asia', tags:['Горы','Природа','Хан-Шатыр'], hot:false, rating:4.7, review_count:287, description:'Жемчужина Центральной Азии у подножия Тянь-Шаня. Чарынский каньон, озеро Коль-Сай и мегаполис в горах.', includes:['Трансфер','Отель','Завтрак','Экскурсия Чарын','Рафтинг'] },
+    ];
+
+    /* ═══════════════════════════════════════════════════════════
+       КОМПОНЕНТ: TourBadge — дочерний от TourCard через Props
+    ═══════════════════════════════════════════════════════════ */
+    function TourBadge({ hot, hasDiscount }) {
+      if (hot) return <span className="tour-badge hot">🔥 Горящий</span>;
+      if (hasDiscount) return <span className="tour-badge sale">−СКИДКА</span>;
+      return null;
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       КОМПОНЕНТ: RatingStars — передача Props
+    ═══════════════════════════════════════════════════════════ */
+    function RatingStars({ rating, count }) {
+      const full = Math.floor(rating);
+      return (
+        <span style={{ fontSize:'.8rem', color:'#ffc107' }}>
+          {'★'.repeat(full)}{'☆'.repeat(5-full)}
+          <span style={{ color:'var(--c-gray)', marginLeft:'.3rem' }}>
+            {rating} ({count})
+          </span>
+        </span>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       КОМПОНЕНТ: TourCard — Props: tour, onBook, isFav, onToggleFav
+    ═══════════════════════════════════════════════════════════ */
+    function TourCard({ tour, onBook, isFav, onToggleFav }) {
+      const history = useHistory();
+      const discount = tour.oldPrice
+        ? Math.round((1 - tour.price / tour.oldPrice) * 100)
+        : null;
+
+      return (
+        <div className="tour-card" onClick={() => history.push(`/tour/${tour.id}`)}>
+          <div className="tour-card-img">
+            <img src={tour.image} alt={tour.city} loading="lazy" />
+            <TourBadge hot={tour.hot} hasDiscount={!!discount} />
+            <button
+              className={`tour-fav ${isFav ? 'active' : ''}`}
+              onClick={e => { e.stopPropagation(); onToggleFav(tour.id); }}
+              title={isFav ? 'Убрать из избранного' : 'В избранное'}
+            >
+              {isFav ? '❤️' : '🤍'}
+            </button>
+          </div>
+          <div className="tour-card-body">
+            <h3>{tour.city}, {tour.country}</h3>
+            <div className="tour-meta">
+              <span>🌙 {tour.nights} ночей</span>
+              <span>⭐ {tour.stars}★ отель</span>
+            </div>
+            <RatingStars rating={tour.rating} count={tour.review_count} />
+            <div className="tour-tags" style={{ marginTop:'.5rem' }}>
+              {tour.tags.map(t => <span key={t} className="tour-tag">{t}</span>)}
+            </div>
+            <div className="tour-footer">
+              <div className="tour-price">
+                {tour.oldPrice && (
+                  <span className="old">{tour.oldPrice.toLocaleString('ru-RU')} ₸</span>
+                )}
+                <span className="new">{tour.price.toLocaleString('ru-RU')} ₸</span>
+                <small>за человека</small>
+              </div>
+              <button
+                className="btn-book"
+                onClick={e => { e.stopPropagation(); onBook(tour); }}
+              >
+                Забронировать
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       КОМПОНЕНТ: BookingModal — Props: tour, onClose
+    ═══════════════════════════════════════════════════════════ */
+    function BookingModal({ tour, onClose }) {
+      const { user, showToast, setBookings } = useContext(AppContext);
+      const [passengers, setPassengers] = useState(1);
+      const [date, setDate] = useState('');
+      const [card, setCard] = useState('');
+      const [loading, setLoading] = useState(false);
+      const [done, setDone] = useState(false);
+
+      const total = tour.price * passengers;
+      const cardType = card.startsWith('4') ? '💳 Visa' : card.startsWith('5') ? '💳 Mastercard' : '';
+      const token = localStorage.getItem('el_token');
+
+      async function handlePay() {
+        if (!date) { showToast('Выберите дату отъезда', 'error'); return; }
+        if (card.replace(/\s/g,'').length < 16) { showToast('Введите полный номер карты', 'error'); return; }
+        setLoading(true);
+        try {
+          const r = await fetch('/api/bookings', {
+            method:'POST',
+            headers:{ 'Content-Type':'application/json', Authorization:`Bearer ${token}` },
+            body: JSON.stringify({ tourName:`${tour.city}, ${tour.country}`, price:total, passengers, departureDate:date, type:'tour' })
+          });
+          if (r.ok) {
+            setDone(true);
+            showToast('Бронирование подтверждено! 🎉');
+          } else {
+            showToast('Ошибка при бронировании', 'error');
+          }
+        } catch {
+          setDone(true); // demo mode
+          showToast('Тест: бронирование сохранено 🎉');
+        }
+        setLoading(false);
+      }
+
+      return (
+        <div className="modal-overlay" onClick={e => e.target === e.currentTarget && onClose()}>
+          <div className="modal-box">
+            {done ? (
+              <div className="success-box">
+                <div className="emoji">🎉</div>
+                <h4>Забронировано!</h4>
+                <p>Тур в {tour.city} на {passengers} чел. — {total.toLocaleString('ru-RU')} ₸</p>
+                <button className="btn-book-big" style={{marginTop:'1.5rem'}} onClick={onClose}>Отлично!</button>
+              </div>
+            ) : (
+              <>
+                <h3>✈️ Бронирование — {tour.city}</h3>
+                <div className="form-group">
+                  <label>Количество туристов</label>
+                  <select value={passengers} onChange={e => setPassengers(+e.target.value)}>
+                    {[1,2,3,4,5,6,7,8,9].map(n => <option key={n} value={n}>{n} чел.</option>)}
+                  </select>
+                </div>
+                <div className="form-group">
+                  <label>Дата отъезда</label>
+                  <input type="date" value={date} onChange={e => setDate(e.target.value)} />
+                </div>
+                <div className="form-group">
+                  <label>Номер карты {cardType}</label>
+                  <input
+                    type="text" placeholder="0000 0000 0000 0000"
+                    maxLength={19} value={card}
+                    onChange={e => setCard(e.target.value.replace(/\D/g,'').replace(/(.{4})/g,'$1 ').trim())}
+                  />
+                </div>
+                <div className="booking-total">
+                  <span>{passengers} чел. × {tour.price.toLocaleString('ru-RU')} ₸</span>
+                  <strong>{total.toLocaleString('ru-RU')} ₸</strong>
+                </div>
+                <div className="modal-actions">
+                  <button className="btn-cancel" onClick={onClose}>Отмена</button>
+                  <button className="btn-pay" onClick={handlePay} disabled={loading}>
+                    {loading ? '⏳...' : '💳 Оплатить'}
+                  </button>
+                </div>
+                {!token && <p style={{color:'var(--c-gray)',fontSize:'.8rem',marginTop:'.75rem',textAlign:'center'}}>⚠️ Для сохранения брони <a href="/" style={{color:'var(--c-primary)'}}>войдите</a> на сайте</p>}
+              </>
+            )}
+          </div>
+        </div>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       КОМПОНЕНТ: SearchBar — Props: filters, onChange, onReset
+    ═══════════════════════════════════════════════════════════ */
+    function SearchBar({ filters, onChange, onReset }) {
+      const [local, setLocal] = useState(filters);
+      const upd = (k, v) => setLocal(prev => ({ ...prev, [k]: v }));
+      const apply = () => onChange(local);
+      return (
+        <div className="search-bar">
+          <div className="search-inner">
+            <div className="search-group" style={{ flex:2 }}>
+              <label>Куда</label>
+              <input
+                type="text" placeholder="Страна или город..."
+                value={local.query}
+                onChange={e => upd('query', e.target.value)}
+                onKeyDown={e => e.key === 'Enter' && apply()}
+              />
+            </div>
+            <div className="search-group">
+              <label>Регион</label>
+              <select value={local.region} onChange={e => upd('region', e.target.value)}>
+                <option value="">Все регионы</option>
+                <option value="europe">🇪🇺 Европа</option>
+                <option value="asia">🌏 Азия</option>
+                <option value="africa">🌍 Африка</option>
+                <option value="america">🌎 Америка</option>
+              </select>
+            </div>
+            <div className="search-group">
+              <label>Ночей</label>
+              <select value={local.nights} onChange={e => upd('nights', e.target.value)}>
+                <option value="">Любое</option>
+                <option value="short">До 7 ночей</option>
+                <option value="medium">7–10 ночей</option>
+                <option value="long">10+ ночей</option>
+              </select>
+            </div>
+            <div className="search-group">
+              <label>Бюджет</label>
+              <select value={local.budget} onChange={e => upd('budget', e.target.value)}>
+                <option value="">Любой</option>
+                <option value="low">До 300 000 ₸</option>
+                <option value="mid">300K–500K ₸</option>
+                <option value="high">Свыше 500K ₸</option>
+              </select>
+            </div>
+            <button className="btn-search" onClick={apply}>🔍 Найти</button>
+            <button className="btn-reset" onClick={() => { setLocal({query:'',region:'',nights:'',budget:''}); onReset(); }}>✕</button>
+          </div>
+        </div>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       СТРАНИЦА: ToursPage — useState (filters, sort, modal, result)
+                               useEffect (фильтрация при изменении)
+    ═══════════════════════════════════════════════════════════ */
+    function ToursPage() {
+      const { favorites, toggleFav } = useContext(AppContext);
+      const [filters, setFilters] = useState({ query:'', region:'', nights:'', budget:'' });
+      const [activeType, setActiveType] = useState('all');
+      const [sort, setSort] = useState('popular');
+      const [result, setResult] = useState(TOURS_DATA);
+      const [modal, setModal] = useState(null);
+      const [loading, setLoading] = useState(false);
+
+      // useEffect — пересчёт туров при изменении фильтров/сортировки
+      useEffect(() => {
+        setLoading(true);
+        const timer = setTimeout(() => {
+          let tours = [...TOURS_DATA];
+          if (filters.query) {
+            const q = filters.query.toLowerCase();
+            tours = tours.filter(t =>
+              t.country.toLowerCase().includes(q) ||
+              t.city.toLowerCase().includes(q) ||
+              t.tags.some(tag => tag.toLowerCase().includes(q))
+            );
+          }
+          if (filters.region) tours = tours.filter(t => t.region === filters.region);
+          if (filters.nights === 'short') tours = tours.filter(t => t.nights < 7);
+          if (filters.nights === 'medium') tours = tours.filter(t => t.nights >= 7 && t.nights <= 10);
+          if (filters.nights === 'long') tours = tours.filter(t => t.nights > 10);
+          if (filters.budget === 'low') tours = tours.filter(t => t.price < 300000);
+          if (filters.budget === 'mid') tours = tours.filter(t => t.price >= 300000 && t.price < 500000);
+          if (filters.budget === 'high') tours = tours.filter(t => t.price >= 500000);
+          if (activeType !== 'all') tours = tours.filter(t => t.type === activeType);
+          if (sort === 'popular') tours.sort((a,b) => b.review_count - a.review_count);
+          if (sort === 'price_asc') tours.sort((a,b) => a.price - b.price);
+          if (sort === 'price_desc') tours.sort((a,b) => b.price - a.price);
+          if (sort === 'rating') tours.sort((a,b) => b.rating - a.rating);
+          if (sort === 'nights') tours.sort((a,b) => b.nights - a.nights);
+          setResult(tours);
+          setLoading(false);
+        }, 300);
+        return () => clearTimeout(timer);
+      }, [filters, activeType, sort]);
+
+      const types = [
+        { key:'all', label:'Все туры' },
+        { key:'beach', label:'🏖 Пляжные' },
+        { key:'city', label:'🏙 Городские' },
+        { key:'mountain', label:'⛰ Горные' },
+      ];
+
+      return (
+        <>
+          <SearchBar
+            filters={filters}
+            onChange={setFilters}
+            onReset={() => setFilters({ query:'', region:'', nights:'', budget:'' })}
+          />
+          <div className="filters-row">
+            <span className="filter-label">Тип:</span>
+            {types.map(tp => (
+              <button
+                key={tp.key}
+                className={`filter-chip ${activeType === tp.key ? 'active' : ''}`}
+                onClick={() => setActiveType(tp.key)}
+              >
+                {tp.label}
+              </button>
+            ))}
+          </div>
+          <div className="toolbar">
+            <p className="results-count">
+              Найдено туров: <strong>{result.length}</strong> из {TOURS_DATA.length}
+            </p>
+            <div className="sort-wrap">
+              <label>Сортировка:</label>
+              <select className="sort-select" value={sort} onChange={e => setSort(e.target.value)}>
+                <option value="popular">По популярности</option>
+                <option value="rating">По рейтингу</option>
+                <option value="price_asc">Сначала дешевле</option>
+                <option value="price_desc">Сначала дороже</option>
+                <option value="nights">По длительности</option>
+              </select>
+            </div>
+          </div>
+          {loading ? (
+            <div className="spinner"></div>
+          ) : result.length === 0 ? (
+            <div className="empty">
+              <div className="emoji">🔍</div>
+              <h3>Ничего не найдено</h3>
+              <p>Попробуйте изменить критерии поиска</p>
+            </div>
+          ) : (
+            <div className="tours-grid">
+              {result.map(tour => (
+                <TourCard
+                  key={tour.id}
+                  tour={tour}
+                  onBook={setModal}
+                  isFav={favorites.includes(tour.id)}
+                  onToggleFav={toggleFav}
+                />
+              ))}
+            </div>
+          )}
+          {modal && <BookingModal tour={modal} onClose={() => setModal(null)} />}
+        </>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       СТРАНИЦА: TourDetail — useParams, useEffect
+    ═══════════════════════════════════════════════════════════ */
+    function TourDetail() {
+      const { id } = useParams();
+      const history = useHistory();
+      const { favorites, toggleFav } = useContext(AppContext);
+      const [tour, setTour] = useState(null);
+      const [modal, setModal] = useState(false);
+
+      // useEffect — загрузка тура по id из URL
+      useEffect(() => {
+        const found = TOURS_DATA.find(t => t.id === parseInt(id));
+        setTour(found || null);
+        window.scrollTo(0, 0);
+      }, [id]);
+
+      if (!tour) return <div className="empty"><div className="emoji">❌</div><h3>Тур не найден</h3><Link to="/" style={{color:'var(--c-primary)'}}>← Назад</Link></div>;
+
+      const isFav = favorites.includes(tour.id);
+
+      return (
+        <div className="detail-wrap">
+          <button onClick={() => history.goBack()} className="back-btn" style={{ marginBottom:'1.5rem', border:'none', cursor:'pointer', background:'rgba(255,90,0,.1)', color:'var(--c-primary)', padding:'.5rem 1rem', borderRadius:'8px', fontFamily:'Inter,sans-serif', fontSize:'.9rem' }}>
+            ← Назад к каталогу
+          </button>
+          <img src={tour.image} alt={tour.city} className="detail-img" />
+          <div className="detail-header">
+            <div>
+              <h2>{tour.city}, {tour.country}</h2>
+              <RatingStars rating={tour.rating} count={tour.review_count} />
+              <div className="tour-tags" style={{ marginTop:'.5rem' }}>
+                {tour.tags.map(t => <span key={t} className="tour-tag">{t}</span>)}
+              </div>
+            </div>
+            <div className="detail-price-box">
+              {tour.oldPrice && <div style={{ textDecoration:'line-through', color:'var(--c-gray)', fontSize:'.9rem' }}>{tour.oldPrice.toLocaleString('ru-RU')} ₸</div>}
+              <div className="price">{tour.price.toLocaleString('ru-RU')} ₸</div>
+              <small>за 1 человека / {tour.nights} ночей</small>
+            </div>
+          </div>
+          <div className="detail-info">
+            {[
+              { icon:'🌙', label:'Длительность', val:`${tour.nights} ночей` },
+              { icon:'⭐', label:'Категория отеля', val:`${tour.stars} звёзд` },
+              { icon:'🌍', label:'Направление', val:tour.country },
+              { icon:'🏖', label:'Тип тура', val:tour.type === 'beach' ? 'Пляжный' : tour.type === 'city' ? 'Городской' : 'Горный' },
+            ].map(info => (
+              <div key={info.label} className="info-card">
+                <div className="icon">{info.icon}</div>
+                <label>{info.label}</label>
+                <p>{info.val}</p>
+              </div>
+            ))}
+          </div>
+          <p className="detail-desc">{tour.description}</p>
+          <div className="detail-includes">
+            <h3>📦 Что включено</h3>
+            <ul className="include-list">
+              {tour.includes.map(item => <li key={item}>{item}</li>)}
+            </ul>
+          </div>
+          <div style={{ display:'flex', gap:'1rem', marginBottom:'1rem' }}>
+            <button
+              onClick={() => toggleFav(tour.id)}
+              style={{ flex:1, background:isFav ? 'rgba(255,90,0,.15)' : 'transparent', border:`1px solid ${isFav ? 'var(--c-primary)' : 'rgba(255,255,255,.2)'}`, color:isFav ? 'var(--c-primary)' : 'var(--c-gray)', borderRadius:'var(--radius)', padding:'1rem', fontSize:'1rem', cursor:'pointer', fontFamily:'Inter,sans-serif', transition:'.25s' }}
+            >
+              {isFav ? '❤️ В избранном' : '🤍 В избранное'}
+            </button>
+            <button className="btn-book-big" style={{ flex:3 }} onClick={() => setModal(true)}>
+              ✈️ Забронировать за {tour.price.toLocaleString('ru-RU')} ₸
+            </button>
+          </div>
+          {modal && <BookingModal tour={tour} onClose={() => setModal(false)} />}
+        </div>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       СТРАНИЦА: FavoritesPage — Props: favorites из context
+    ═══════════════════════════════════════════════════════════ */
+    function FavoritesPage() {
+      const { favorites, toggleFav } = useContext(AppContext);
+      const [modal, setModal] = useState(null);
+      const favTours = TOURS_DATA.filter(t => favorites.includes(t.id));
+
+      return (
+        <div className="fav-page">
+          <h2>❤️ Избранные туры</h2>
+          <p className="sub">Сохранено: {favTours.length} тур{favTours.length !== 1 ? 'а' : ''}</p>
+          {favTours.length === 0 ? (
+            <div className="empty">
+              <div className="emoji">🤍</div>
+              <h3>Список пуст</h3>
+              <p>Добавляйте туры в избранное, нажимая ❤️ на карточке</p>
+              <Link to="/" style={{ color:'var(--c-primary)', marginTop:'1rem', display:'inline-block' }}>Перейти в каталог →</Link>
+            </div>
+          ) : (
+            <div className="tours-grid">
+              {favTours.map(tour => (
+                <TourCard
+                  key={tour.id}
+                  tour={tour}
+                  onBook={setModal}
+                  isFav={true}
+                  onToggleFav={toggleFav}
+                />
+              ))}
+            </div>
+          )}
+          {modal && <BookingModal tour={modal} onClose={() => setModal(null)} />}
+        </div>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       КОМПОНЕНТ: Header — использует useContext (user, favorites)
+    ═══════════════════════════════════════════════════════════ */
+    function Header() {
+      const { user, favorites } = useContext(AppContext);
+      return (
+        <header className="react-header">
+          <a href="/" className="logo">
+            <span>✈ Endless Line</span>
+            <small>React App</small>
+          </a>
+          <nav>
+            <Link to="/">🗂 Каталог</Link>
+            <Link to="/favorites">❤️ Избранное {favorites.length > 0 && <span style={{background:'var(--c-primary)',color:'#fff',borderRadius:'50%',padding:'0 .4rem',fontSize:'.75rem',marginLeft:'.2rem'}}>{favorites.length}</span>}</Link>
+            <a href="/" className="back-btn hide-sm">← На главный сайт</a>
+          </nav>
+        </header>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       ROOT APP — React Router с HashRouter
+    ═══════════════════════════════════════════════════════════ */
+    function App() {
+      return (
+        <AppProvider>
+          <HashRouter>
+            <Header />
+            <div className="hero">
+              <div className="hero-badge">⚛️ React 18 App</div>
+              <h1>Все <span>туры</span> Endless Line</h1>
+              <p>12 направлений · Умный поиск · Мгновенное бронирование</p>
+              <div className="react-badge">
+                <span>⚛️</span> Функциональные компоненты · useState · useEffect · useContext · Props · React Router
+              </div>
+            </div>
+            <Switch>
+              <Route exact path="/" component={ToursPage} />
+              <Route path="/tour/:id" component={TourDetail} />
+              <Route path="/favorites" component={FavoritesPage} />
+            </Switch>
+          </HashRouter>
+        </AppProvider>
+      );
+    }
+
+    /* ═══════════════════════════════════════════════════════════
+       MOUNT — React 18 createRoot
+    ═══════════════════════════════════════════════════════════ */
+    const root = ReactDOM.createRoot(document.getElementById('react-root'));
+    root.render(<App />);
+  </script>
+</body>
+</html>

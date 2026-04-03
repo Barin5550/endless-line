@@ -1,17 +1,18 @@
-# Endless Line — Travel Agency Web Application
+# ✈️ Endless Line — Информационно-бронировочная система
 
-> Курсовой проект | React + Node.js + MongoDB
+> Курсовой проект по дисциплине ПМ04 «Проектирование и обеспечение бесперебойной работы web-сайта»
 
-## 🚀 Стек технологий
+## 🛠 Технологический стек
 
-| Слой | Технология |
-|------|-----------|
-| Frontend | React 18 + Vite + React Router DOM |
-| Backend | Node.js + Express.js |
-| Database | MongoDB (Mongoose ODM) |
-| Auth | JWT + bcryptjs |
-| External API | OpenWeatherMap |
-| CSS | Vanilla CSS (без фреймворков) |
+| Уровень | Технология |
+|---------|-----------|
+| Frontend | HTML5, CSS3, Vanilla JavaScript (ES2022) |
+| Backend | Node.js 20 LTS + Express.js 4 |
+| База данных | NeDB (встраиваемая NoSQL, файловое хранилище) |
+| Аутентификация | JWT (7 дней) + bcryptjs (12 rounds) |
+| Безопасность | Helmet.js (CSP, X-Frame, HSTS) + express-rate-limit |
+| 3D/Карты | Three.js (глобус) + D3.js (интерактивная карта) |
+| Шрифты | Outfit (заголовки) + Inter (текст) — Google Fonts |
 
 ---
 
@@ -19,118 +20,134 @@
 
 ```
 WEB.Global/
-├── client/              ← React-приложение (порт 5173)
-│   ├── src/
-│   │   ├── components/  ← Header, Hero, Services, Destinations, BookingForm, etc.
-│   │   ├── pages/       ← Home, Login, Register, Dashboard
-│   │   ├── context/     ← AuthContext, LangContext
-│   │   └── index.css
-│   └── .env
+├── index.html          # Главная: поиск, 3D-глобус, горящие туры
+├── tours.html          # Каталог 80+ туров с фильтрами
+├── hotels.html         # Каталог отелей с рейтингами
+├── deals.html          # Акции с персистентным таймером
+├── map.html            # Интерактивная карта мира (D3.js)
+├── about.html          # О компании: команда, счётчики
+├── contacts.html       # Форма обратной связи
+├── faq.html            # FAQ с поиском и подсветкой
+├── visa.html           # Визовая помощь
+├── insurance.html      # Страхование
+├── 404.html            # Страница ошибки 404
 │
-├── server/              ← Node.js API (порт 5000)
-│   ├── models/          ← User.js, Booking.js
-│   ├── routes/          ← auth.js, bookings.js
-│   ├── middleware/      ← auth.js (JWT)
-│   ├── server.js
-│   └── .env
+├── variables.css       # 50+ CSS-переменных (дизайн-токены)
+├── shared.css          # Переиспользуемые компоненты
+├── nav.js              # Шапка, навигация, i18n, мобильное меню
+├── auth.js             # Клиентская аутентификация + JWT
+├── translations.js     # Мультиязычность (RU / EN / DE)
 │
-├── index.html           ← Статичная версия (резервная)
-└── styles.css
+├── tours-page.js       # Логика каталога туров (поиск, фильтры)
+├── deals-page.js       # Акции + localStorage-таймер
+├── index-page.js       # Главная страница (глобус, горящие туры)
+├── map-page.js         # Интерактивная карта
+├── map-data.js         # GeoJSON данные + туры по странам
+├── main.js             # Общие утилиты
+│
+└── server/
+    ├── server.js       # Express + middleware + статика
+    ├── db.js           # Инициализация 4 коллекций NeDB
+    ├── package.json    # npm зависимости
+    ├── routes/
+    │   ├── auth.js     # POST /login, /register, GET /me
+    │   ├── bookings.js # CRUD бронирований
+    │   ├── reviews.js  # Отзывы
+    │   └── contacts.js # Контактные заявки
+    └── middleware/
+        └── auth.js     # JWT-верификация
 ```
 
 ---
 
-## ⚙️ Установка и запуск
+## 🚀 Установка и запуск
 
-### 1. Клонировать / открыть проект
-
+### 1. Клонировать репозиторий
 ```bash
 cd c:\Проекты_Барина\WEB.Global
 ```
 
-### 2. Установить клиент
-```bash
-cd client
-npm install
-```
-
-### 3. Установить сервер
-```bash
-cd ../server
-npm install
-```
-
-### 4. Настроить MongoDB Atlas
-
-1. Зарегистрируйтесь на [mongodb.com/atlas](https://mongodb.com/atlas)
-2. Создайте бесплатный кластер (M0 Free Tier)
-3. Создайте пользователя БД и получите connection string
-4. Откройте `server/.env` и замените строку:
-
-```env
-MONGO_URI=mongodb+srv://<username>:<password>@cluster0.mongodb.net/endlessline
-```
-
-### 5. Запустить сервер (терминал 1)
+### 2. Установить зависимости сервера
 ```bash
 cd server
-node server.js
-# Сервер: http://localhost:5000
+npm install
 ```
 
-### 6. Запустить клиент (терминал 2)
+### 3. Запустить сервер
 ```bash
-cd client
-npm run dev
-# Клиент: http://localhost:5173
+node server.js
+```
+> Или двойной клик на `start.bat` в корневой папке (для Windows)
+
+### 4. Открыть в браузере
+```
+http://localhost:5000
 ```
 
 ---
 
-## 🔑 API маршруты
+## 🔌 REST API Endpoints
 
-### Auth
-| Метод | URL | Описание |
-|-------|-----|----------|
-| POST | `/api/auth/register` | Регистрация |
-| POST | `/api/auth/login` | Вход |
-| GET | `/api/auth/me` | Профиль (JWT) |
+| Метод | Маршрут | Авторизация | Описание |
+|-------|---------|-------------|----------|
+| POST | /api/auth/register | — | Регистрация пользователя |
+| POST | /api/auth/login | — | Вход + получение JWT |
+| GET | /api/auth/me | JWT | Профиль текущего пользователя |
+| PUT | /api/auth/profile | JWT | Обновление имени и телефона |
+| PUT | /api/auth/password | JWT | Смена пароля |
+| POST | /api/bookings | JWT | Создать бронирование |
+| GET | /api/bookings | JWT | История бронирований |
+| PATCH | /api/bookings/:id | JWT | Отмена бронирования |
+| POST | /api/reviews | JWT | Добавить отзыв |
+| GET | /api/reviews | — | Получить все отзывы |
+| GET | /api/reviews/:id | — | Отзывы по туру |
+| POST | /api/contacts | — | Контактная заявка |
+| GET | /api/contacts | JWT | Список заявок |
 
-### Bookings (требует JWT)
-| Метод | URL | Описание |
-|-------|-----|----------|
-| GET | `/api/bookings` | Список бронирований |
-| POST | `/api/bookings` | Создать бронирование |
-| DELETE | `/api/bookings/:id` | Отменить бронирование |
-
----
-
-## 🌐 Страницы
-
-| URL | Страница |
-|-----|---------|
-| `/` | Главная (Hero, Services, Destinations, Booking, FAQ, Contacts) |
-| `/login` | Авторизация |
-| `/register` | Регистрация |
-| `/dashboard` | Мои бронирования (защищён JWT) |
+> JWT-токен передаётся в заголовке: `Authorization: Bearer <token>`
 
 ---
 
-## 🗺️ Внешние API
+## 🛡 Безопасность
 
-- **OpenWeatherMap** — погода в городе при наведении на карточку направления
-  - API Key задаётся в `client/.env` → `VITE_WEATHER_API_KEY`
+- **bcrypt** (12 rounds) — хэширование паролей
+- **JWT** (7 дней) — stateless авторизация
+- **Helmet.js** — 11 защитных HTTP-заголовков (CSP, X-Frame-Options, HSTS)
+- **Rate Limiting** — 20 req/15 min для `/api/auth`, 100 req/min для остальных
+- **Двойная валидация** — клиент (JS) + сервер (Express) для всех форм
 
 ---
 
-## 🗄️ Модели MongoDB
+## 📊 Функциональность
 
-### User
-```json
-{ "name": "string", "email": "string (unique)", "password": "bcrypt hash", "createdAt": "date" }
-```
+- ✅ Регистрация / Вход / Профиль пользователя
+- ✅ Каталог 80+ туров с фильтрацией, поиском, сортировкой
+- ✅ Каталог отелей с рейтингами и тегами удобств
+- ✅ Система бронирования с платёжной формой
+- ✅ Персистентный таймер акций (localStorage, синхронизирован)
+- ✅ Интерактивная карта мира (D3.js + GeoJSON, 40+ стран)
+- ✅ 3D-глобус на главной (Three.js, освещение, атмосфера)
+- ✅ FAQ с поиском и подсветкой совпадений
+- ✅ Мультиязычность (RU / EN / DE)
+- ✅ Адаптивный дизайн (375px → 1920px)
+- ✅ Страница 404 с автоперенаправлением
 
-### Booking
-```json
-{ "user": "ObjectId", "type": "train|cruise|air", "from": "string", "to": "string", "departDate": "date", "returnDate": "date", "passengers": "number", "status": "confirmed|pending|cancelled", "price": "number" }
-```
+---
+
+## 🧪 Тестирование
+
+| Вид тестирования | Результат |
+|---|---|
+| Функциональное (10 тест-кейсов) | ✅ 10/10 пройдено |
+| Кроссбраузерное | ✅ Chrome 122 / Firefox 123 / Edge 122 |
+| Адаптивность | ✅ 375px / 768px / 1280px / 1920px |
+| API (Postman) | ✅ 13 эндпоинтов |
+| Безопасность | ✅ Rate-limit, валидация |
+
+---
+
+## 👤 Автор
+
+**Баринов Николай** | Группа ПО2410  
+Преподаватель: Онербекова Айганым Мухтаркызы  
+Астана, 2026
