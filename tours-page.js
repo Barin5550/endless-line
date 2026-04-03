@@ -171,6 +171,8 @@ function generateTours() {
         nights: tour.nights,
         stars: i === 0 ? 4 : i === 1 ? 5 : 4,
         meal: i === 0 ? 'bb' : i === 1 ? 'ai' : 'bb',
+        // --- Наш новый атрибут типа тура ---
+        tourType: i === 0 ? 'beach' : (i % 2 === 0 ? 'excursion' : 'active'), 
         region: getRegion(countryId),
         icon: country.attractions[0]?.emoji || '🌍',
         discount: Math.random() < 0.3 ? Math.floor(Math.random() * 25 + 10) : null,
@@ -289,7 +291,7 @@ async function toggleFav(btn, tourId, tourName) {
     // Adding to favorites
     showToast('❤️ Добавлено в избранное!', 'success');
     if (token) {
-      fetch(API + '/favorites', {
+      fetch('http://localhost:5000/api/favorites', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
         body: JSON.stringify({ tourId, tourName })
@@ -302,7 +304,7 @@ async function toggleFav(btn, tourId, tourName) {
     // Removing from favorites
     showToast('Убрано из избранного', 'info');
     if (token) {
-      fetch(API + '/favorites/' + encodeURIComponent(tourId), {
+      fetch('http://localhost:5000/api/favorites/' + encodeURIComponent(tourId), {
         method: 'DELETE',
         headers: { 'Authorization': 'Bearer ' + token }
       }).catch(() => {});
@@ -317,7 +319,7 @@ async function loadFavorites() {
   let favIds = [];
   if (token) {
     try {
-      const res = await fetch(API + '/favorites', {
+      const res = await fetch('http://localhost:5000/api/favorites', {
         headers: { 'Authorization': 'Bearer ' + token }
       });
       if (res.ok) { const data = await res.json(); favIds = data.map(f => f.tourId); }
@@ -419,6 +421,8 @@ function applyFilters() {
   const dur = document.querySelector('.dur-filter:checked')?.value || '';
   const stars = [...document.querySelectorAll('.stars-filter:checked')].map(cb => parseInt(cb.value));
   const meals = [...document.querySelectorAll('.meal-filter:checked')].map(cb => cb.value);
+  // Собираем все выбранные чекбоксы нашего нового фильтра "Тип отдыха"
+  const types = [...document.querySelectorAll('.type-filter:checked')].map(cb => cb.value);
   maxPrice = parseInt(document.getElementById('price-range')?.value || 700000);
 
   filteredTours = TOURS_DB.filter(t => {
@@ -429,6 +433,10 @@ function applyFilters() {
     if (dur === 'long' && t.nights < 10) return false;
     if (stars.length && !stars.includes(t.stars)) return false;
     if (meals.length && !meals.includes(t.meal)) return false;
+    
+    // Если пользователь выбрал хотя бы один тип отдыха, и тип тура не совпадает ни с одним из выбранных — скрываем этот тур
+    if (types.length && !types.includes(t.tourType)) return false;
+    
     return true;
   });
 
@@ -438,7 +446,8 @@ function applyFilters() {
 }
 
 function resetFilters() {
-  document.querySelectorAll('.region-filter, .stars-filter, .meal-filter').forEach(cb => cb.checked = false);
+  // .type-filter добавлен сюда, чтобы чекбоксы типа отдыха тоже сбрасывались
+  document.querySelectorAll('.region-filter, .stars-filter, .meal-filter, .type-filter').forEach(cb => cb.checked = false);
   document.querySelectorAll('.dur-filter').forEach(r => { if (!r.value) r.checked = true; });
   const slider = document.getElementById('price-range');
   if (slider) { slider.value = 700000; maxPrice = 700000; document.getElementById('price-max-lbl').textContent = '700 000 ₸'; }
