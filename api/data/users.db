@@ -1,0 +1,4 @@
+{"name":"BOBR","email":"nick@barinov.pro","password":"$2b$12$W4aebPVeez1.IWjeVk91leNWQsRyCX6NteCGsBYsINhK./4Kq45Ae","phone":"+77075557909","createdAt":"2026-04-02T01:51:45.331Z","_id":"2rN9SpT5HPowp4N7"}
+{"name":"???? ???????","email":"test@endless.kz","password":"$2b$12$z21YF4CUEN.GtWiv5lK.2OveIOthKIhvedg8lLZLbzRTDU0HcbXJq","phone":null,"createdAt":"2026-04-02T22:39:34.238Z","_id":"csuzYwOO7hsKeTU4"}
+{"$$indexCreated":{"fieldName":"email","unique":true,"sparse":false}}
+{"$$indexCreated":{"fieldName":"email","unique":true}}

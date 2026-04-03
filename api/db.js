@@ -1,7 +1,7 @@
 const Datastore = require('@seald-io/nedb')
 const path = require('path')
 
-const dbDir = path.join(__dirname, 'data')
+const dbDir = process.env.VERCEL ? '/tmp' : path.join(__dirname, 'data')
 
 const db = {
   users: new Datastore({ filename: path.join(dbDir, 'users.db'), autoload: true }),
