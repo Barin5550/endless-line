@@ -1,6 +1,19 @@
 /* ============================================================
-   nav.js — Shared Header, Footer & Utilities
-   Inject into all pages via: <script src="nav.js"></script>
+   nav.js — Общий заголовок, подвал и утилиты сайта
+
+   Подключается на ВСЕХ страницах: <script src="nav.js"></script>
+   Автоматически вставляет шапку и подвал через DOMContentLoaded.
+
+   Функции:
+     buildHeader(activePage) — HTML заголовка с навигацией
+     buildFooter()           — HTML подвала с колонками ссылок
+     initShared()            — инициализация интерактивных элементов
+     showToast(msg, type)    — всплывающие уведомления
+     updatePrices(currency)  — переключение валюты в ценах
+     formatPrice(kzt)        — форматирование числа как цены в ₸
+
+   Активная страница определяется через: <body data-page="home">
+   Поддерживаемые значения: home, tours, map, hotels, deals, about
    ============================================================ */
 
 /* ---------- HEADER HTML ---------- */
