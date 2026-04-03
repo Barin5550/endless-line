@@ -1,7 +1,9 @@
 /* auth.js — Authentication, Booking & Payment system
    Endless Line — полная система авторизации и бронирования */
 
-const API = 'http://localhost:5000/api';
+const API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
+  ? 'http://localhost:5000/api'
+  : '/api';
 
 /* ── AUTH STATE ─────────────────────────────────────────── */
 function getToken() { return localStorage.getItem('el_token'); }
@@ -96,6 +98,7 @@ function updateHeaderAuth() {
         <div class="ud-divider"></div>
         <button class="ud-item" onclick="openProfileModal()">👤 Мой профиль</button>
         <button class="ud-item" onclick="openBookingsModal()">📋 Мои бронирования</button>
+        <button class="ud-item" onclick="openFavoritesModal()">❤️ Избранное</button>
         <button class="ud-item" onclick="openReviewModal()">⭐ Оставить отзыв</button>
         <div class="ud-divider"></div>
         <button class="ud-item ud-logout" onclick="logout()">🚪 Выйти</button>
@@ -978,6 +981,133 @@ async function submitReview(e) {
 }
 
 /* ── UTILS ──────────────────────────────────────────────── */
+function openProfileModal() {
+  closeAllModals();
+  const user = getUser();
+  if (!user) return;
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay open';
+  overlay.innerHTML = `
+    <div class="modal" style="max-width:460px">
+      <button class="modal-close" onclick="closeAllModals()">×</button>
+      <h2 style="font-family:var(--f-heading);font-size:1.4rem;color:var(--c-text);margin-bottom:20px">👤 Мой профиль</h2>
+      <div style="display:flex;flex-direction:column;gap:14px">
+        <div style="padding:16px;background:var(--c-bg-2);border-radius:var(--r-md);border:1px solid var(--c-border)">
+          <div style="font-size:0.78rem;color:var(--c-text-3);margin-bottom:4px">Имя</div>
+          <div style="font-weight:600;color:var(--c-text)">${user.name || '—'}</div>
+        </div>
+        <div style="padding:16px;background:var(--c-bg-2);border-radius:var(--r-md);border:1px solid var(--c-border)">
+          <div style="font-size:0.78rem;color:var(--c-text-3);margin-bottom:4px">Email</div>
+          <div style="font-weight:600;color:var(--c-text)">${user.email || '—'}</div>
+        </div>
+        ${user.phone ? `<div style="padding:16px;background:var(--c-bg-2);border-radius:var(--r-md);border:1px solid var(--c-border)"><div style="font-size:0.78rem;color:var(--c-text-3);margin-bottom:4px">Телефон</div><div style="font-weight:600;color:var(--c-text)">${user.phone}</div></div>` : ''}
+        <div style="display:flex;gap:10px;margin-top:6px">
+          <button onclick="openFavoritesModal()" style="flex:1;padding:10px;border:1px solid var(--c-border);background:var(--c-bg-2);color:var(--c-text);border-radius:var(--r-md);cursor:pointer;font-size:0.9rem">❤️ Избранное</button>
+          <button onclick="openBookingsModal()" style="flex:1;padding:10px;border:1px solid var(--c-border);background:var(--c-bg-2);color:var(--c-text);border-radius:var(--r-md);cursor:pointer;font-size:0.9rem">📋 Бронирования</button>
+        </div>
+        <button onclick="closeAllModals();logout()" style="padding:10px;border:none;background:rgba(255,60,60,0.12);color:#ff6060;border-radius:var(--r-md);cursor:pointer;font-size:0.9rem;font-weight:600">🚪 Выйти из аккаунта</button>
+      </div>
+    </div>
+  `;
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeAllModals(); });
+  document.body.appendChild(overlay);
+}
+
+async function openFavoritesModal() {
+  closeAllModals();
+  // Load favorites from localStorage or server
+  let favIds = [];
+  const token = getToken();
+  if (token) {
+    try {
+      const res = await fetch(API + '/favorites', { headers: { 'Authorization': 'Bearer ' + token } });
+      if (res.ok) { const data = await res.json(); favIds = data.map(f => f.tourId); }
+    } catch {}
+  }
+  if (!favIds.length) {
+    try { favIds = JSON.parse(localStorage.getItem('el_favs') || '[]'); } catch { favIds = []; }
+  }
+
+  // Build cards from TOURS_DB if available, else show IDs
+  let favsHTML;
+  if (typeof TOURS_DB !== 'undefined' && TOURS_DB.length) {
+    const favTours = TOURS_DB.filter(t => favIds.includes(t.id));
+    favsHTML = favTours.length
+      ? favTours.map(t => `
+          <div style="display:flex;align-items:center;gap:14px;padding:14px;background:var(--c-bg-2);border-radius:var(--r-md);border:1px solid var(--c-border)">
+            <div style="font-size:2rem">${t.icon || '🌍'}</div>
+            <div style="flex:1">
+              <div style="font-weight:700;color:var(--c-text);font-size:0.95rem">${t.name}</div>
+              <div style="font-size:0.8rem;color:var(--c-text-3)">${t.flag} ${t.country} · ${t.nights} ночей</div>
+            </div>
+            <div style="text-align:right">
+              <div style="font-weight:800;color:var(--c-primary)">${t.price.toLocaleString('ru-RU')} ₸</div>
+              <button onclick="closeAllModals();openBookingModal('${t.name.replace(/'/g, "\\'")}',${ t.price},${t.nights},'${t.country}','')" style="margin-top:4px;padding:4px 12px;border:none;background:var(--g-primary);color:#fff;border-radius:var(--r-sm);font-size:0.75rem;font-weight:700;cursor:pointer">Бронировать</button>
+            </div>
+          </div>`).join('')
+      : '<div style="text-align:center;padding:40px;color:var(--c-text-3)">🤍 Избранное пусто.<br>Добавляйте туры из каталога!</div>';
+  } else {
+    favsHTML = favIds.length
+      ? favIds.map(id => `<div style="padding:12px 16px;background:var(--c-bg-2);border-radius:var(--r-md);border:1px solid var(--c-border);color:var(--c-text)">${id}</div>`).join('')
+      : '<div style="text-align:center;padding:40px;color:var(--c-text-3)">🤍 Избранное пусто.<br><br>Добавляйте туры из каталога, нажав ❤️ на карточке!</div>';
+  }
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay open';
+  overlay.innerHTML = `
+    <div class="modal" style="max-width:540px">
+      <button class="modal-close" onclick="closeAllModals()">×</button>
+      <h2 style="font-family:var(--f-heading);font-size:1.4rem;color:var(--c-text);margin-bottom:20px">❤️ Избранные туры</h2>
+      <div style="display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow-y:auto">${favsHTML}</div>
+      <div style="margin-top:16px">
+        <a href="tours.html" onclick="closeAllModals()" style="display:inline-flex;align-items:center;gap:6px;padding:10px 20px;background:var(--g-primary);color:#fff;border-radius:var(--r-md);text-decoration:none;font-weight:700;font-size:0.9rem">🌍 Перейти в каталог туров</a>
+      </div>
+    </div>
+  `;
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeAllModals(); });
+  document.body.appendChild(overlay);
+}
+
+async function openBookingsModal() {
+  closeAllModals();
+  let bookings = [];
+  const token = getToken();
+  if (token) {
+    try {
+      const res = await fetch(API + '/bookings', { headers: { 'Authorization': 'Bearer ' + token } });
+      if (res.ok) bookings = await res.json();
+    } catch {}
+  }
+
+  const rows = bookings.length
+    ? bookings.map(b => `
+        <div style="padding:14px 16px;background:var(--c-bg-2);border-radius:var(--r-md);border:1px solid var(--c-border)">
+          <div style="display:flex;justify-content:space-between;align-items:flex-start;gap:10px">
+            <div>
+              <div style="font-weight:700;color:var(--c-text);font-size:0.95rem">${b.tourName || b.destination || '—'}</div>
+              <div style="font-size:0.8rem;color:var(--c-text-3);margin-top:4px">${b.dateFrom ? new Date(b.dateFrom).toLocaleDateString('ru-RU') : ''} · ${b.passengers || 1} чел.</div>
+            </div>
+            <div style="text-align:right;flex-shrink:0">
+              <div style="font-weight:800;color:var(--c-primary)">${(b.price || 0).toLocaleString('ru-RU')} ₸</div>
+              <div style="font-size:0.75rem;margin-top:2px;padding:2px 8px;border-radius:100px;display:inline-block;background:rgba(0,200,100,0.15);color:#0c6">✓ ${b.status || 'Забронировано'}</div>
+            </div>
+          </div>
+        </div>`).join('')
+    : '<div style="text-align:center;padding:40px;color:var(--c-text-3)">📋 Бронирований пока нет.<br>Начните планировать путешествие!</div>';
+
+  const overlay = document.createElement('div');
+  overlay.className = 'modal-overlay open';
+  overlay.innerHTML = `
+    <div class="modal" style="max-width:540px">
+      <button class="modal-close" onclick="closeAllModals()">×</button>
+      <h2 style="font-family:var(--f-heading);font-size:1.4rem;color:var(--c-text);margin-bottom:20px">📋 Мои бронирования</h2>
+      <div style="display:flex;flex-direction:column;gap:10px;max-height:60vh;overflow-y:auto">${rows}</div>
+    </div>
+  `;
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeAllModals(); });
+  document.body.appendChild(overlay);
+}
+
 function closeAllModals() {
   document.querySelectorAll('.modal-overlay').forEach(m => m.remove());
 }

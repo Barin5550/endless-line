@@ -316,7 +316,7 @@ function handleNL(e) {
   const email = e.target.querySelector('input[type=email]')?.value;
   if (email) {
     // Try to save to server
-    fetch('http://localhost:5000/api/contacts', {
+    fetch(API + '/contacts', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ name: 'Подписка', email, message: 'Подписка на рассылку горящих туров' })

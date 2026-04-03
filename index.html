@@ -579,24 +579,22 @@
           <div class="map-promo-text">
             <span class="section-tag" data-i18n="section.map.tag">Интерактивная карта</span>
             <h2 class="section-title"><span data-i18n="section.map.title1">Выберите страну</span><br><span data-i18n="section.map.title2">на карте мира</span></h2>
-            <p style="color:var(--c-text-2);margin-top:14px;line-height:1.7">
+            <p style="color:var(--c-text-2);margin-top:14px;line-height:1.7" data-i18n="section.map.desc">
               Кликните на любую страну — и мы сразу покажем лучшие туры, достопримечательности, климат, визовые требования и цены.
             </p>
             <div class="map-promo-features">
-              <div class="mpf-item"><span>🗺</span> 15 стран с подробными данными</div>
-              <div class="mpf-item"><span>📸</span> Фото достопримечательностей</div>
-              <div class="mpf-item"><span>💰</span> Актуальные цены на туры</div>
-              <div class="mpf-item"><span>🛂</span> Визовые требования</div>
+              <div class="mpf-item"><span>🗺</span> <span data-i18n="section.map.feat1">15 стран с подробными данными</span></div>
+              <div class="mpf-item"><span>📸</span> <span data-i18n="section.map.feat2">Фото достопримечательностей</span></div>
+              <div class="mpf-item"><span>💰</span> <span data-i18n="section.map.feat3">Актуальные цены на туры</span></div>
+              <div class="mpf-item"><span>🛂</span> <span data-i18n="section.map.feat4">Визовые требования</span></div>
             </div>
             <a href="map.html" class="btn-primary" style="margin-top:24px" data-i18n="section.map.btn">Открыть карту мира</a>
           </div>
           <div class="map-promo-visual">
             <div class="globe-wrapper" style="position:relative;display:flex;align-items:center;justify-content:center;">
               <canvas id="earth-canvas" style="display:block;border-radius:50%;"></canvas>
-              <div class="map-promo-badge" style="position:absolute;bottom:-18px;left:50%;transform:translateX(-50%);">
-                <span style="color:var(--c-primary);">✅</span> 50+ стран на карте
-              </div>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -872,7 +870,7 @@
           var specDot = nx*hx + ny*hy + nz*hz;
           if (specDot < 0) specDot = 0;
           var spec = isOcean ? Math.pow(specDot, 38) * 0.5 : 0;
-          var lit = 0.22 + diff * 0.78;
+          var lit = 0.40 + diff * 0.65;
           /* Night glow */
           var nf = diff < 0.08 ? (0.08 - diff) * 6 : 0;
           var i = (py*W + (pdx + (cx|0))) * 4;

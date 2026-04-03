@@ -289,7 +289,7 @@ async function toggleFav(btn, tourId, tourName) {
     // Adding to favorites
     showToast('❤️ Добавлено в избранное!', 'success');
     if (token) {
-      fetch('http://localhost:5000/api/favorites', {
+      fetch(API + '/favorites', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'Authorization': 'Bearer ' + token },
         body: JSON.stringify({ tourId, tourName })
@@ -302,7 +302,7 @@ async function toggleFav(btn, tourId, tourName) {
     // Removing from favorites
     showToast('Убрано из избранного', 'info');
     if (token) {
-      fetch('http://localhost:5000/api/favorites/' + encodeURIComponent(tourId), {
+      fetch(API + '/favorites/' + encodeURIComponent(tourId), {
         method: 'DELETE',
         headers: { 'Authorization': 'Bearer ' + token }
       }).catch(() => {});
@@ -317,7 +317,7 @@ async function loadFavorites() {
   let favIds = [];
   if (token) {
     try {
-      const res = await fetch('http://localhost:5000/api/favorites', {
+      const res = await fetch(API + '/favorites', {
         headers: { 'Authorization': 'Bearer ' + token }
       });
       if (res.ok) { const data = await res.json(); favIds = data.map(f => f.tourId); }

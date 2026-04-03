@@ -97,6 +97,11 @@ const TRANSLATIONS = {
     'section.map.tag':       'Интерактивная карта',
     'section.map.title1':    'Выберите страну',
     'section.map.title2':    'на карте мира',
+    'section.map.desc':      'Кликните на любую страну — и мы сразу покажем лучшие туры, достопримечательности, климат, визовые требования и цены.',
+    'section.map.feat1':     '15 стран с подробными данными',
+    'section.map.feat2':     'Фото достопримечательностей',
+    'section.map.feat3':     'Актуальные цены на туры',
+    'section.map.feat4':     'Визовые требования',
     'section.map.btn':       'Открыть карту мира',
 
     /* COMMON BUTTONS */
@@ -202,6 +207,11 @@ const TRANSLATIONS = {
     'section.map.tag':       'Interactive Map',
     'section.map.title1':    'Choose a country',
     'section.map.title2':    'on the world map',
+    'section.map.desc':      'Click on any country and we will instantly show the best tours, sights, climate, visa requirements and prices.',
+    'section.map.feat1':     '15 countries with detailed data',
+    'section.map.feat2':     'Photos of attractions',
+    'section.map.feat3':     'Up-to-date tour prices',
+    'section.map.feat4':     'Visa requirements',
     'section.map.btn':       'Open world map',
 
     /* COMMON BUTTONS */
@@ -307,6 +317,11 @@ const TRANSLATIONS = {
     'section.map.tag':       'Interaktive Karte',
     'section.map.title1':    'Wählen Sie ein Land',
     'section.map.title2':    'auf der Weltkarte',
+    'section.map.desc':      'Klicken Sie auf ein beliebiges Land — wir zeigen Ihnen sofort die besten Touren, Sehenswürdigkeiten, Klima, Visabestimmungen und Preise.',
+    'section.map.feat1':     '15 Länder mit detaillierten Daten',
+    'section.map.feat2':     'Fotos von Sehenswürdigkeiten',
+    'section.map.feat3':     'Aktuelle Tourpreise',
+    'section.map.feat4':     'Visabestimmungen',
     'section.map.btn':       'Weltkarte öffnen',
 
     /* COMMON BUTTONS */
