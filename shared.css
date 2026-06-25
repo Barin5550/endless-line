@@ -1036,3 +1036,276 @@ a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible
     background-position: 0% 50%;
   }
 }
+
+
+/* ============================================================
+   POLISH PASS — APPENDED TO shared.css (ADDITIVE ONLY)
+   White base + purple iridescent. Reuses existing tokens.
+   Wins via natural cascade; no layout/box-model changes.
+   Single consolidated reduced-motion guard at the bottom.
+   ============================================================ */
+
+/* ── TYPOGRAPHY: global finish ─────────────────────────── */
+body {
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1, "calt" 1;
+  letter-spacing: -0.006em;
+}
+
+/* Balanced headings (progressive enhancement, ignored by old engines) */
+h1, h2, h3, h4,
+.section-title {
+  text-wrap: balance;
+}
+
+/* Subtitle: fluid scale + tidy wrapping; color re-set to same token */
+.section-subtitle {
+  font-size: clamp(1rem, 1.6vw, 1.1rem);
+  letter-spacing: -0.005em;
+  text-wrap: pretty;
+  color: var(--c-text-2);
+}
+.section-header .section-subtitle {
+  max-width: 60ch;
+}
+
+/* Opt-in lead paragraph — clearer hierarchy above body copy */
+.prose-lead, .section-subtitle.lead {
+  font-size: clamp(1.15rem, 2vw, 1.35rem);
+  line-height: 1.55;
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+  max-width: 62ch;
+}
+
+/* Opt-in branded blockquote (net-new; no existing rule) */
+blockquote {
+  margin: var(--sp-lg) 0;
+  padding: var(--sp-sm) var(--sp-lg);
+  border-left: 3px solid var(--c-primary);
+  font-family: var(--f-heading);
+  font-size: clamp(1.1rem, 1.8vw, 1.3rem);
+  font-weight: 500;
+  line-height: 1.45;
+  letter-spacing: -0.01em;
+  color: var(--c-text);
+}
+blockquote cite {
+  display: block;
+  margin-top: var(--sp-sm);
+  font-family: var(--f-body);
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-style: normal;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--c-primary);
+}
+
+/* Opt-in inline prose links (>=4.5:1 on white via primary-dark) */
+.prose a, .text-link {
+  color: var(--c-primary-dark);
+  text-decoration: underline;
+  text-decoration-color: rgba(124,58,237,0.35);
+  text-decoration-thickness: 1.5px;
+  text-underline-offset: 0.18em;
+  font-weight: 500;
+  transition: text-decoration-color var(--t-fast), color var(--t-fast);
+}
+.prose a:hover, .text-link:hover {
+  color: var(--c-primary);
+  text-decoration-color: var(--c-primary);
+}
+
+/* ── DEPTH & GLASS ─────────────────────────────────────── */
+
+/* Scrolled header: richer frosted glass + faint purple glow */
+.site-header.scrolled {
+  background: var(--glass-96);
+  backdrop-filter: var(--bd-lg) saturate(140%);
+  -webkit-backdrop-filter: var(--bd-lg) saturate(140%);
+  box-shadow: var(--s-header), 0 8px 32px rgba(124,58,237,0.07);
+}
+
+/* Modal: layered elevation + subtle purple glow on warm surface */
+.modal {
+  background: var(--g-card-warm);
+  box-shadow: var(--s-xl), 0 0 0 1px rgba(124,58,237,0.10), 0 24px 70px rgba(124,58,237,0.16);
+}
+
+/* Modal scrim: softly purple-tinted radial dim + stronger blur */
+.modal-overlay {
+  background: radial-gradient(120% 120% at 50% 40%, rgba(40,20,70,0.34) 0%, rgba(0,0,0,0.46) 100%);
+  backdrop-filter: blur(10px) saturate(120%);
+  -webkit-backdrop-filter: blur(10px) saturate(120%);
+}
+
+/* Toast: frosted glass surface + purple-tinted layered shadow */
+.toast {
+  background: var(--glass-96);
+  backdrop-filter: var(--bd-md) saturate(130%);
+  -webkit-backdrop-filter: var(--bd-md) saturate(130%);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05), 0 16px 40px rgba(124,58,237,0.14), 0 0 0 1px rgba(124,58,237,0.06);
+}
+
+/* Cohesive purple-tinted hover elevation across all card variants */
+.tour-card:hover,
+.deal-card:hover,
+.deal-card-v2:hover,
+.hotel-card:hover {
+  box-shadow: var(--s-card-hover);
+}
+
+/* Iridescent hairline edge that fades in on card hover.
+   Masked pseudo-element inside existing radius — no size/box change.
+   Degrades gracefully where mask-composite is unsupported. */
+.card,
+.tour-card,
+.deal-card,
+.hotel-card {
+  position: relative;
+}
+.card::after,
+.tour-card::after,
+.deal-card::after,
+.hotel-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(150deg, rgba(124,58,237,0.22), rgba(168,85,247,0.04) 40%, transparent 70%);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+          mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+          mask-composite: exclude;
+  opacity: 0;
+  transition: opacity var(--t-base);
+  pointer-events: none;
+  z-index: 1;
+}
+.card:hover::after,
+.tour-card:hover::after,
+.deal-card:hover::after,
+.hotel-card:hover::after {
+  opacity: 1;
+}
+
+/* Section tag: refined glass pill (gradient + top highlight + soft shadow),
+   relaxed tracking. Kept uppercase (no small-caps) for a clean editorial kicker. */
+.section-tag {
+  background: linear-gradient(135deg, rgba(124,58,237,0.10), rgba(168,85,247,0.05));
+  backdrop-filter: var(--bd-sm);
+  -webkit-backdrop-filter: var(--bd-sm);
+  box-shadow: 0 2px 10px rgba(124,58,237,0.10), inset 0 1px 0 rgba(255,255,255,0.6);
+  letter-spacing: 0.12em;
+}
+
+/* Footer social buttons: soft purple glow lift on hover */
+.footer-social-btn {
+  transition: all var(--t-fast), box-shadow var(--t-base);
+}
+.footer-social-btn:hover {
+  box-shadow: var(--s-glow-sm), 0 6px 18px rgba(124,58,237,0.28);
+}
+
+/* ── MOTION: micro-interactions ────────────────────────── */
+
+/* Animated underline on inactive nav links (active keeps its dot-bar) */
+.nav-link:not(.active)::after {
+  content: '';
+  position: absolute;
+  left: 14px; right: 14px;
+  bottom: 4px;
+  height: 2px;
+  border-radius: var(--r-full);
+  background: var(--g-primary);
+  transform: scaleX(0);
+  transform-origin: left center;
+  opacity: 0;
+  transition: transform 0.28s cubic-bezier(0.4,0,0.2,1), opacity 0.2s ease;
+  pointer-events: none;
+}
+.nav-link:not(.active):hover::after,
+.nav-link:not(.active):focus-visible::after {
+  transform: scaleX(1);
+  opacity: 1;
+}
+
+/* Slide-in underline reveal on footer text links (over existing color hover) */
+.footer-col-links a, .footer-legal a {
+  position: relative;
+  background-image: linear-gradient(var(--c-primary), var(--c-primary));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1.5px;
+  transition: color var(--t-fast), background-size 0.3s cubic-bezier(0.4,0,0.2,1);
+}
+.footer-col-links a:hover, .footer-legal a:hover { background-size: 100% 1.5px; }
+
+/* Periodic shimmer sweep across HOT badges (unique keyframe name) */
+.hot-badge {
+  position: relative;
+  overflow: hidden;
+}
+.hot-badge::after {
+  content: '';
+  position: absolute;
+  top: 0; left: -120%;
+  width: 60%; height: 100%;
+  background: linear-gradient(100deg, transparent, rgba(255,255,255,0.55), transparent);
+  transform: skewX(-18deg);
+  animation: badgeShimmerSweep 4.5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes badgeShimmerSweep {
+  0%, 70% { left: -120%; }
+  85%, 100% { left: 140%; }
+}
+
+/* Unified tactile press feedback for iridescent CTAs */
+.btn-header-cta:active,
+.btn-search-main:active,
+.deal-book-btn:active {
+  transform: translateY(0) scale(0.97);
+  filter: brightness(0.96);
+  box-shadow: 0 2px 8px rgba(124,58,237,0.28);
+  transition: transform 0.08s ease, filter 0.08s ease, box-shadow 0.08s ease;
+}
+
+/* Springy lift + press feedback on filter chips */
+.filter-chip {
+  transition: transform 0.2s cubic-bezier(0.34,1.56,0.64,1), background var(--t-fast), border-color var(--t-fast), color var(--t-fast), box-shadow var(--t-fast);
+}
+.filter-chip:hover { transform: translateY(-1.5px); box-shadow: 0 4px 14px rgba(124,58,237,0.16); }
+.filter-chip:active { transform: translateY(0) scale(0.95); }
+
+/* Opt-in CSS scroll reveal (toggle [data-reveal="in"] or .in-view via JS/IO) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 0.6s cubic-bezier(0.4,0,0.2,1), transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+[data-reveal="in"], [data-reveal].in-view {
+  opacity: 1;
+  transform: none;
+}
+
+/* ── CONSOLIDATED REDUCED-MOTION GUARD ─────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  .nav-link:not(.active)::after { transition: opacity 0.15s ease; }
+  .footer-col-links a, .footer-legal a {
+    transition: color var(--t-fast);
+    background-size: 0 0;
+  }
+  .hot-badge::after { animation: none; display: none; }
+  .filter-chip {
+    transition: background var(--t-fast), border-color var(--t-fast), color var(--t-fast);
+  }
+  .filter-chip:hover, .filter-chip:active { transform: none; box-shadow: none; }
+  .card::after, .tour-card::after, .deal-card::after, .hotel-card::after {
+    transition: none;
+  }
+  [data-reveal] { opacity: 1; transform: none; transition: none; }
+}
