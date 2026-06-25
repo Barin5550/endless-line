@@ -1,5 +1,5 @@
 /* ============================================================
-   ENDLESS LINE — SHARED COMPONENTS (header, footer, nav)
+   OdysseyTour — SHARED COMPONENTS (header, footer, nav)
    ============================================================ */
 @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap');
 @import 'variables.css';
@@ -125,7 +125,7 @@ body::after {
 }
 .logo-link:hover .logo-img { transform: rotate(-6deg) scale(1.1); box-shadow: 0 4px 20px rgba(255,90,0,0.35), 0 0 0 2px rgba(255,90,0,0.2); }
 .logo-text { display: flex; flex-direction: column; line-height: 1; }
-.logo-brand-row { display: flex; align-items: baseline; gap: 3px; }
+.logo-brand-row { display: flex; align-items: baseline; gap: 0; }
 .logo-name {
   font-family: var(--f-heading);
   font-weight: 900;
