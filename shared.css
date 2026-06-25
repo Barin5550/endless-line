@@ -1338,3 +1338,9 @@ blockquote cite {
   .btn-primary,.btn-header-cta,.btn-search,.btn-search-main,.btn-book,.btn-book-big,.btn-pay { transition: box-shadow var(--t-base); }
   .btn-primary:hover,.btn-header-cta:hover,.btn-search:hover,.btn-search-main:hover,.btn-book:hover,.btn-book-big:hover,.btn-pay:hover { transform: none; }
 }
+
+/* ── ROUND-3 FIXES ── */
+/* "HOT" badge: superscript via relative offset (vertical-align:super сдвигал "Туры" вниз) */
+.nav-link .hot-badge { vertical-align: baseline; position: relative; top: -0.55em; }
+/* Newsletter секция: светлая (в базовом правиле была тёмной) */
+.nl-section { background: linear-gradient(135deg, #f6f1ff 0%, #f2ebff 50%, #f6f1ff 100%); border-top: 1px solid rgba(124,58,237,0.15); }

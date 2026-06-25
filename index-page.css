@@ -1276,3 +1276,12 @@
   .services-grid { grid-template-columns: 1fr; }
   .hero-quick-filters { display: none; }
 }
+
+/* ── ROUND-3: map-promo секция → светлая бело-фиолетовая (была тёмно-коричневой) ── */
+.map-promo-section { background: linear-gradient(135deg, #faf8ff 0%, #f2ebff 45%, #f6f1ff 100%); }
+.map-promo-section::after { display: none; }
+.map-promo-text .section-title { color: var(--c-text); }
+.map-promo-stats { background: rgba(124,58,237,0.05); border: 1px solid rgba(124,58,237,0.14); backdrop-filter: none; }
+.mps-lbl { color: var(--c-text-3); }
+.mpf-item { color: var(--c-text-2); }
+.globe-center { background: radial-gradient(circle at 30% 30%, #a855f7, #6d28d9); }
