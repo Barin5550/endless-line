@@ -638,6 +638,78 @@
     @media(max-width: 480px) {
       .ab-team-grid { grid-template-columns: 1fr; }
     }
+
+    /* ============================================================
+       LIGHT THEME OVERRIDE — приводим «О нас» к бело-фиолетовой теме
+       (аддитивно; перекрывает тёмные правила выше по каскаду)
+       ============================================================ */
+    /* HERO → светлый лавандовый */
+    .ab-hero { background: var(--g-hero); }
+    .ab-hero-bg {
+      background:
+        radial-gradient(ellipse 900px 600px at 78% 30%, rgba(124,58,237,0.10) 0%, transparent 60%),
+        radial-gradient(ellipse 600px 500px at 8% 75%, rgba(168,85,247,0.08) 0%, transparent 60%),
+        radial-gradient(ellipse 420px 320px at 50% 8%, rgba(124,58,237,0.06) 0%, transparent 60%);
+    }
+    .ab-stars { display: none; }
+    .ab-badge { color: var(--c-primary); }
+    .ab-hero-title { color: var(--c-text); }
+    .ab-hero-sub { color: var(--c-text-2); }
+    .ab-btn-ghost {
+      background: rgba(124,58,237,0.06);
+      border: 1px solid rgba(124,58,237,0.30);
+      color: var(--c-primary-dark);
+    }
+    .ab-btn-ghost:hover { background: rgba(124,58,237,0.12); border-color: rgba(124,58,237,0.5); }
+
+    /* Floating glass card → светлое стекло */
+    .ab-card-main {
+      background: var(--glass-85);
+      border: 1px solid var(--c-border);
+      box-shadow: var(--s-card-hover);
+    }
+    .ab-card-name { color: var(--c-text); }
+    .ab-card-sub { color: var(--c-text-3); }
+    .ab-card-stat { background: rgba(124,58,237,0.06); border-color: rgba(124,58,237,0.14); }
+    .ab-card-stat-lbl { color: var(--c-text-3); }
+    .ab-float-badge {
+      background: var(--glass-85);
+      border: 1px solid var(--c-border);
+      color: var(--c-text);
+      box-shadow: var(--s-sm);
+    }
+
+    /* STATS BAND → светлый */
+    .ab-stats-band {
+      background: var(--c-bg-2);
+      border-top: 1px solid var(--c-border);
+      border-bottom: 1px solid var(--c-border);
+    }
+    .ab-stat-item { border-right-color: var(--c-border); }
+    .ab-stat-lbl { color: var(--c-text-3); }
+
+    /* WHY US → светлые карточки */
+    .ab-why-section { background: linear-gradient(180deg, var(--c-bg) 0%, var(--c-bg-2) 100%); }
+    .ab-why-card { background: var(--c-bg-card); border: 1px solid var(--c-border); box-shadow: var(--s-card); }
+    .ab-why-card:hover { background: var(--c-bg-card); border-color: rgba(124,58,237,0.25); box-shadow: var(--s-card-hover); }
+    .ab-why-num { color: rgba(124,58,237,0.12); }
+    .ab-why-title { color: var(--c-text); }
+    .ab-why-desc { color: var(--c-text-2); }
+
+    /* CTA → светлый с фиолетовым акцентом (span остаётся фиолетовым) */
+    .ab-cta-section { background: linear-gradient(160deg, var(--c-bg) 0%, #F2EBFF 55%, var(--c-bg) 100%); }
+    .ab-cta-section::before {
+      background:
+        radial-gradient(ellipse at 50% 50%, rgba(124,58,237,0.12) 0%, transparent 55%),
+        radial-gradient(ellipse at 20% 70%, rgba(168,85,247,0.08) 0%, transparent 50%);
+    }
+    .ab-cta-title { color: var(--c-text); }
+    .ab-cta-sub { color: var(--c-text-2); }
+
+    /* responsive: тёмные разделители -> светлые */
+    @media(max-width: 1100px) {
+      .ab-stat-item { border-bottom-color: var(--c-border); }
+    }
   </style>
 </head>
 <body data-page="about">
@@ -675,7 +747,7 @@
             <div style="position: relative; display: inline-block;">
               <div class="ab-card-main">
                 <div class="ab-card-logo">
-                  <img src="assets/logo.png" alt="OdysseyTour">
+                  <img src="assets/logo.svg" alt="OdysseyTour">
                 </div>
                 <div class="ab-card-name">Odyssey<span>Tour</span></div>
                 <div class="ab-card-sub">Kazakhstan Travel Hub</div>
@@ -915,7 +987,7 @@
           <a href="tours.html" class="ab-btn-primary" style="font-size: 1.05rem; padding: 16px 36px;">
             🌍 Найти тур
           </a>
-          <a href="contacts.html" class="ab-btn-ghost" style="color: rgba(255,255,255,0.8);">
+          <a href="contacts.html" class="ab-btn-ghost">
             💬 Связаться с нами
           </a>
         </div>
