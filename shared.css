@@ -29,10 +29,10 @@ body::before {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 80vw 60vh at 85% 8%,  rgba(255,130,0,0.045) 0%, transparent 60%),
-    radial-gradient(ellipse 65vw 55vh at 10% 88%, rgba(255,90,0, 0.035) 0%, transparent 60%),
-    radial-gradient(ellipse 50vw 45vh at 50% 50%, rgba(255,176,32,0.020) 0%, transparent 65%),
-    radial-gradient(ellipse 40vw 35vh at 20% 20%, rgba(255,140,0,0.025) 0%, transparent 55%);
+    radial-gradient(ellipse 80vw 60vh at 85% 8%,  rgba(124,58,237,0.045) 0%, transparent 60%),
+    radial-gradient(ellipse 65vw 55vh at 10% 88%, rgba(124,58,237, 0.035) 0%, transparent 60%),
+    radial-gradient(ellipse 50vw 45vh at 50% 50%, rgba(168,85,247,0.020) 0%, transparent 65%),
+    radial-gradient(ellipse 40vw 35vh at 20% 20%, rgba(124,58,237,0.025) 0%, transparent 55%);
   animation: bgOrbsDrift 22s ease-in-out infinite alternate;
 }
 body::after {
@@ -42,8 +42,8 @@ body::after {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(ellipse 55vw 45vh at 75% 90%, rgba(255,90,0,0.030) 0%, transparent 60%),
-    radial-gradient(ellipse 45vw 40vh at 30% 45%, rgba(255,176,32,0.018) 0%, transparent 55%);
+    radial-gradient(ellipse 55vw 45vh at 75% 90%, rgba(124,58,237,0.030) 0%, transparent 60%),
+    radial-gradient(ellipse 45vw 40vh at 30% 45%, rgba(168,85,247,0.018) 0%, transparent 55%);
   animation: bgOrbsDrift2 28s ease-in-out infinite alternate;
 }
 @keyframes bgOrbsDrift {
@@ -90,7 +90,7 @@ body::after {
   position: absolute;
   bottom: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, rgba(255,90,0,0.25) 30%, rgba(255,140,0,0.35) 50%, rgba(255,90,0,0.25) 70%, transparent);
+  background: linear-gradient(90deg, transparent, rgba(124,58,237,0.25) 30%, rgba(124,58,237,0.35) 50%, rgba(124,58,237,0.25) 70%, transparent);
   opacity: 0;
   transition: opacity 0.3s ease;
 }
@@ -119,11 +119,11 @@ body::after {
   background: #ffffff;
   border-radius: 50%;
   padding: 4px;
-  box-shadow: 0 2px 12px rgba(255,90,0,0.18), 0 0 0 1px rgba(255,90,0,0.10);
+  box-shadow: 0 2px 12px rgba(124,58,237,0.18), 0 0 0 1px rgba(124,58,237,0.10);
   filter: none;
   transition: transform 0.25s ease, box-shadow 0.25s ease;
 }
-.logo-link:hover .logo-img { transform: rotate(-6deg) scale(1.1); box-shadow: 0 4px 20px rgba(255,90,0,0.35), 0 0 0 2px rgba(255,90,0,0.2); }
+.logo-link:hover .logo-img { transform: rotate(-6deg) scale(1.1); box-shadow: 0 4px 20px rgba(124,58,237,0.35), 0 0 0 2px rgba(124,58,237,0.2); }
 .logo-text { display: flex; flex-direction: column; line-height: 1; }
 .logo-brand-row { display: flex; align-items: baseline; gap: 0; }
 .logo-name {
@@ -168,7 +168,7 @@ body::after {
   position: relative;
 }
 .nav-link:hover { color: var(--c-text); background: rgba(0,0,0,0.05); transform: translateY(-0.5px); }
-.nav-link.active { color: var(--c-primary); background: rgba(255,90,0,0.07); font-weight: 600; }
+.nav-link.active { color: var(--c-primary); background: rgba(124,58,237,0.07); font-weight: 600; }
 .nav-link.active::after {
   content: '';
   display: block;
@@ -248,7 +248,7 @@ body::after {
   background: linear-gradient(to bottom, rgba(255,255,255,0.15), transparent);
   pointer-events: none;
 }
-.btn-header-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,53,0.42); filter: brightness(1.05); }
+.btn-header-cta:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.42); filter: brightness(1.05); }
 
 /* Mobile Menu Toggle */
 .mobile-toggle {
@@ -310,7 +310,7 @@ body::after {
   position: absolute;
   top: 0; left: 0; right: 0;
   height: 1px;
-  background: linear-gradient(90deg, transparent, var(--c-border) 20%, rgba(255,90,0,0.18) 50%, var(--c-border) 80%, transparent);
+  background: linear-gradient(90deg, transparent, var(--c-border) 20%, rgba(124,58,237,0.18) 50%, var(--c-border) 80%, transparent);
 }
 .footer-inner {
   max-width: var(--max-w);
@@ -451,12 +451,12 @@ section,
 }
 
 /* ── Subtle section background tints for depth ── */
-.destinations-section { background: linear-gradient(180deg, rgba(255,90,0,0.018) 0%, transparent 100%); }
+.destinations-section { background: linear-gradient(180deg, rgba(124,58,237,0.018) 0%, transparent 100%); }
 .hot-deals-section    { background: linear-gradient(180deg, rgba(20,9,2,0.55) 0%, rgba(18,8,0,0.80) 50%, rgba(20,9,2,0.55) 100%); }
-.why-section          { background: linear-gradient(180deg, transparent 0%, rgba(255,120,0,0.012) 50%, transparent 100%); }
-.reviews-section      { background: linear-gradient(180deg, rgba(255,90,0,0.012) 0%, rgba(15,6,0,0.25) 100%); }
+.why-section          { background: linear-gradient(180deg, transparent 0%, rgba(124,58,237,0.012) 50%, transparent 100%); }
+.reviews-section      { background: linear-gradient(180deg, rgba(124,58,237,0.012) 0%, rgba(15,6,0,0.25) 100%); }
 .nl-section           { background: linear-gradient(135deg, #1e0e02 0%, #271104 50%, #1a0a01 100%); }
-.services-section     { background: linear-gradient(180deg, transparent 0%, rgba(255,140,0,0.014) 50%, transparent 100%); }
+.services-section     { background: linear-gradient(180deg, transparent 0%, rgba(124,58,237,0.014) 50%, transparent 100%); }
 
 
 .section-header { text-align: center; margin-bottom: var(--sp-2xl); }
@@ -464,7 +464,7 @@ section,
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 90, 0, 0.08);
+  background: rgba(124,58,237, 0.08);
   color: var(--c-primary);
   font-size: 0.75rem;
   font-weight: 700;
@@ -472,7 +472,7 @@ section,
   text-transform: uppercase;
   padding: 7px 16px;
   border-radius: var(--r-full);
-  border: 1px solid rgba(255, 90, 0, 0.22);
+  border: 1px solid rgba(124,58,237, 0.22);
   margin-bottom: var(--sp-md);
   position: relative;
   overflow: hidden;
@@ -585,7 +585,7 @@ section,
   gap: 8px;
   background: transparent;
   color: var(--c-primary);
-  border: 1.5px solid rgba(255,90,0,0.5);
+  border: 1.5px solid rgba(124,58,237,0.5);
   padding: 11px 24px;
   border-radius: var(--r-full);
   font-family: var(--f-body);
@@ -654,7 +654,7 @@ section,
 }
 .deal-book-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(255,90,0,0.35);
+  box-shadow: 0 6px 20px rgba(124,58,237,0.35);
 }
 
 /* ============================================================
@@ -670,7 +670,7 @@ section,
 }
 .card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255,90,0,0.25);
+  border-color: rgba(124,58,237,0.25);
   box-shadow: var(--s-card-hover);
 }
 
@@ -684,7 +684,7 @@ section,
   border: 1px solid rgba(255,255,255,0.6);
   border-radius: var(--r-xl);
   overflow: hidden;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 20px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(255,90,0,0.06);
+  box-shadow: 0 2px 8px rgba(0,0,0,0.04), 0 20px 50px rgba(0,0,0,0.06), 0 0 0 1px rgba(124,58,237,0.06);
 }
 .search-tabs {
   display: flex;
@@ -737,7 +737,7 @@ section,
   outline: none;
   transition: border-color var(--t-fast);
 }
-.s-input:focus { border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(255,90,0,0.12), 0 1px 3px rgba(0,0,0,0.05); background: #fff; }
+.s-input:focus { border-color: var(--c-primary); box-shadow: 0 0 0 3px rgba(124,58,237,0.12), 0 1px 3px rgba(0,0,0,0.05); background: #fff; }
 .s-input::placeholder { color: var(--c-text-3); }
 .s-input[type="date"]::-webkit-calendar-picker-indicator { filter: none; }
 select.s-input { cursor: pointer; appearance: auto; }
@@ -803,7 +803,7 @@ select.s-input { cursor: pointer; appearance: auto; }
   white-space: nowrap;
   transition: transform var(--t-fast), box-shadow var(--t-fast);
 }
-.btn-search-main:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(255,107,53,0.45); }
+.btn-search-main:hover { transform: translateY(-1px); box-shadow: 0 6px 20px rgba(124,58,237,0.45); }
 
 /* ============================================================
    PRICE BADGE
@@ -986,3 +986,53 @@ body:not(:has(#notif-bar)) #main-content {
   padding-top: var(--header-h) !important;
 }
 
+
+/* ============================================================
+   IRIDESCENT PURPLE SYSTEM (переливающийся)
+   Перелив только на CTA, логотипе-акценте и фоновых орбах —
+   НЕ за основным текстом. Отключается при prefers-reduced-motion.
+   ============================================================ */
+@keyframes iriShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+.btn-header-cta, .btn-primary, .btn-search, .btn-book, .btn-book-big, .btn-pay {
+  background-image: var(--g-iridescent);
+  background-size: 220% 220%;
+  animation: iriShift 8s ease-in-out infinite;
+}
+.logo-name-accent {
+  background-image: var(--g-iridescent);
+  background-size: 220% 220%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  animation: iriShift 7s ease-in-out infinite;
+}
+
+/* Многоцветные «переливающиеся» фоновые орбы (фиолетовый · фуксия · индиго) */
+body::before {
+  background:
+    radial-gradient(ellipse 80vw 60vh at 85% 8%,  rgba(124,58,237,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 65vw 55vh at 10% 88%, rgba(217,70,239,0.045) 0%, transparent 60%),
+    radial-gradient(ellipse 50vw 45vh at 50% 50%, rgba(129,140,248,0.040) 0%, transparent 65%),
+    radial-gradient(ellipse 40vw 35vh at 20% 20%, rgba(168,85,247,0.050) 0%, transparent 55%);
+}
+body::after {
+  background:
+    radial-gradient(ellipse 55vw 45vh at 75% 90%, rgba(124,58,237,0.050) 0%, transparent 60%),
+    radial-gradient(ellipse 45vw 40vh at 30% 45%, rgba(217,70,239,0.030) 0%, transparent 55%);
+}
+
+/* Выделение текста и фокус — на бренде */
+::selection { background: rgba(124,58,237,0.18); color: var(--c-text); }
+a:focus-visible, button:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible {
+  outline: 2px solid var(--c-primary);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-header-cta, .btn-primary, .btn-search, .btn-book, .btn-book-big, .btn-pay, .logo-name-accent {
+    animation: none !important;
+    background-position: 0% 50%;
+  }
+}

@@ -1,26 +1,29 @@
 /* ============================================================
-   ODYSSEYTOUR — ДИЗАЙН-СИСТЕМА: WHITE + ORANGE EDITION
+   ODYSSEYTOUR — ДИЗАЙН-СИСТЕМА: WHITE + PURPLE IRIDESCENT EDITION
+   Основной фон — белый. Бренд/акцент — фиолетовый с переливом.
+   --c-primary = #7C3AED (~5.6:1 на белом) — используется как цвет
+   текста/иконок в сотнях мест, поэтому держим его тёмным и читаемым.
    ============================================================ */
 :root {
   /* ── BRAND COLORS ─────────────────────────────────────── */
-  --c-primary:        #FF5A00;       /* Жирный оранжевый */
-  --c-primary-dark:   #CC4400;       /* Тёмный оранжевый */
-  --c-primary-light:  #FF7A30;       /* Светлый оранжевый */
-  --c-primary-glow:   rgba(255, 90, 0, 0.30);
-  --c-accent:         #FFB020;       /* Янтарный акцент */
-  --c-accent-soft:    rgba(255, 176, 32, 0.18);
+  --c-primary:        #7C3AED;       /* Фиолетовый (violet-600) */
+  --c-primary-dark:   #5B21B6;       /* Тёмный фиолетовый */
+  --c-primary-light:  #A78BFA;       /* Светлый фиолетовый */
+  --c-primary-glow:   rgba(124, 58, 237, 0.30);
+  --c-accent:         #A855F7;       /* Пурпурный акцент */
+  --c-accent-soft:    rgba(168, 85, 247, 0.18);
 
   /* ── LIGHT BACKGROUND ─────────────────────────────────── */
   --c-bg:        #FFFFFF;
-  --c-bg-2:      #FAF9F8;     /* warmer, barely-there tint — smooth transition */
-  --c-bg-3:      #F4F2F0;     /* slightly warm grey — subtle depth only */
+  --c-bg-2:      #FAF9FE;     /* cool lavender near-white — smooth transition */
+  --c-bg-3:      #F3F1FA;     /* light lavender — subtle depth only */
   --c-bg-card:   #FFFFFF;
   --c-bg-glass:  rgba(255, 255, 255, 0.92);
 
   /* ── BORDERS ──────────────────────────────────────────── */
   --c-border:       rgba(0, 0, 0, 0.08);
-  --c-border-hover: rgba(255, 90, 0, 0.5);
-  --c-border-orange: rgba(255, 90, 0, 0.25);
+  --c-border-hover: rgba(124, 58, 237, 0.5);
+  --c-border-orange: rgba(124, 58, 237, 0.25);   /* имя историческое — значение фиолетовое */
 
   /* ── TEXT ─────────────────────────────────────────────── */
   --c-text:    #111111;
@@ -35,20 +38,22 @@
   --c-info:    #3B82F6;
 
   /* ── GRADIENTS ────────────────────────────────────────── */
-  --g-primary:   linear-gradient(135deg, #FF5A00 0%, #FF8C00 60%, #FFA500 100%);
-  --g-primary-v: linear-gradient(180deg, #FF5A00 0%, #FF8C00 100%);
-  --g-dark:      linear-gradient(180deg, #F9F9FB 0%, #F4F4F7 50%, #FFFFFF 100%);
-  --g-hero:      linear-gradient(160deg, #FFFFFF 0%, #FFF8F2 30%, #FFF3E8 55%, #FFF8F2 80%, #FFFFFF 100%);
-  --g-card:      linear-gradient(135deg, #FFFFFF 0%, #F8F8FA 100%);
-  --g-orange-glow: radial-gradient(700px circle at 50% 40%, rgba(255,90,0,0.06) 0%, transparent 70%);
-  --g-map:       linear-gradient(180deg, #F0F1F5 0%, #E8EAF0 100%);
+  --g-primary:   linear-gradient(135deg, #6D28D9 0%, #7C3AED 50%, #9333EA 100%);
+  --g-primary-v: linear-gradient(180deg, #7C3AED 0%, #5B21B6 100%);
+  --g-dark:      linear-gradient(180deg, #FAFAFE 0%, #F4F4FB 50%, #FFFFFF 100%);
+  --g-hero:      linear-gradient(160deg, #FFFFFF 0%, #FAF8FF 30%, #F2EBFF 55%, #FAF8FF 80%, #FFFFFF 100%);
+  --g-card:      linear-gradient(135deg, #FFFFFF 0%, #FAF8FE 100%);
+  --g-orange-glow: radial-gradient(700px circle at 50% 40%, rgba(124,58,237,0.06) 0%, transparent 70%);
+  --g-map:       linear-gradient(180deg, #F0EFF8 0%, #E7E4F2 100%);
+  /* Переливающийся (iridescent) — для CTA, логотипа-акцента; стопы безопасны для белого жирного текста */
+  --g-iridescent: linear-gradient(115deg, #5B21B6 0%, #7C3AED 25%, #8B5CF6 45%, #9333EA 65%, #6D28D9 85%, #7C3AED 100%);
 
   /* ── SHADOWS ──────────────────────────────────────────── */
   --s-sm:    0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
   --s-md:    0 4px 16px rgba(0,0,0,0.08);
   --s-lg:    0 10px 40px rgba(0,0,0,0.10);
-  --s-glow:  0 0 30px rgba(255,90,0,0.18);
-  --s-orange: 0 8px 30px rgba(255,90,0,0.18);
+  --s-glow:  0 0 30px rgba(124,58,237,0.18);
+  --s-orange: 0 8px 30px rgba(124,58,237,0.18);
 
   /* ── TYPOGRAPHY ───────────────────────────────────────── */
   --f-heading:  'Outfit', sans-serif;
@@ -83,9 +88,9 @@
   /* ── ENHANCED SHADOWS ──────────────────────────────────── */
   --s-xl:          0 20px 60px rgba(0,0,0,0.10), 0 6px 16px rgba(0,0,0,0.06);
   --s-card:        0 2px 8px rgba(0,0,0,0.04), 0 10px 28px rgba(0,0,0,0.07);
-  --s-card-hover:  0 8px 28px rgba(0,0,0,0.08), 0 24px 52px rgba(0,0,0,0.10), 0 0 0 1px rgba(255,90,0,0.15);
-  --s-orange-lg:   0 16px 50px rgba(255,90,0,0.24), 0 4px 14px rgba(255,90,0,0.16);
-  --s-glow-sm:     0 0 16px rgba(255,90,0,0.20);
+  --s-card-hover:  0 8px 28px rgba(0,0,0,0.08), 0 24px 52px rgba(0,0,0,0.10), 0 0 0 1px rgba(124,58,237,0.15);
+  --s-orange-lg:   0 16px 50px rgba(124,58,237,0.24), 0 4px 14px rgba(124,58,237,0.16);
+  --s-glow-sm:     0 0 16px rgba(124,58,237,0.20);
   --s-header:      0 4px 32px rgba(0,0,0,0.07), 0 1px 4px rgba(0,0,0,0.04);
 
   /* ── GLASS MORPHISM ─────────────────────────────────────── */
@@ -93,13 +98,13 @@
   --glass-85:      rgba(255,255,255,0.85);
   --glass-96:      rgba(255,255,255,0.96);
   --glass-border:  rgba(255,255,255,0.65);
-  --glass-border-warm: rgba(255,200,150,0.35);
+  --glass-border-warm: rgba(196,181,253,0.40);
 
   /* ── EXPANDED GRADIENTS ─────────────────────────────────── */
-  --g-text:        linear-gradient(135deg, #FF5A00 0%, #FF8C00 60%, #FFB020 100%);
-  --g-card-warm:   linear-gradient(160deg, #FFFFFF 0%, #FFFAF5 100%);
-  --g-surface:     linear-gradient(180deg, #FFFFFF 0%, #FAFAF8 100%);
-  --g-orange-glow-lg: radial-gradient(900px circle at 50% 30%, rgba(255,90,0,0.07) 0%, transparent 70%);
+  --g-text:        linear-gradient(135deg, #7C3AED 0%, #9333EA 55%, #6D28D9 100%);
+  --g-card-warm:   linear-gradient(160deg, #FFFFFF 0%, #FAF7FF 100%);
+  --g-surface:     linear-gradient(180deg, #FFFFFF 0%, #FAFAFE 100%);
+  --g-orange-glow-lg: radial-gradient(900px circle at 50% 30%, rgba(124,58,237,0.07) 0%, transparent 70%);
   --g-shimmer:     linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.55) 50%, transparent 100%);
 
   /* ── BACKDROP BLUR ──────────────────────────────────────── */

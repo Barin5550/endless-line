@@ -14,8 +14,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 20% 50%, rgba(255,107,53,0.08) 0%, transparent 60%),
-    radial-gradient(ellipse at 80% 20%, rgba(255,176,32,0.05) 0%, transparent 50%);
+    radial-gradient(ellipse at 20% 50%, rgba(124,58,237,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse at 80% 20%, rgba(168,85,247,0.05) 0%, transparent 50%);
   pointer-events: none;
   animation: mapHeaderGlow 9s ease-in-out infinite alternate;
 }
@@ -71,14 +71,14 @@
   position: relative;
 }
 .legend-available {
-  background: rgba(255,107,53,0.35);
+  background: rgba(124,58,237,0.35);
   border: 2px solid var(--c-primary);
-  box-shadow: 0 0 6px rgba(255,107,53,0.3);
+  box-shadow: 0 0 6px rgba(124,58,237,0.3);
 }
 .legend-hover {
-  background: rgba(255,107,53,0.75);
-  border: 2px solid #FF5A00;
-  box-shadow: 0 0 10px rgba(255,107,53,0.5);
+  background: rgba(124,58,237,0.75);
+  border: 2px solid #7c3aed;
+  box-shadow: 0 0 10px rgba(124,58,237,0.5);
 }
 
 /* ---- MAP CONTAINER ---- */
@@ -115,29 +115,29 @@
 }
 
 .country-active {
-  fill: rgba(255, 90, 0, 0.28);
-  stroke: rgba(255, 120, 50, 0.85);
+  fill: rgba(124,58,237, 0.28);
+  stroke: rgba(124,58,237, 0.85);
   stroke-width: 1.0;
   cursor: pointer;
   transition: fill 0.22s ease, stroke-width 0.22s ease, filter 0.22s ease;
 }
 .country-active:hover,
 .country-active.hovered {
-  fill: rgba(255, 90, 0, 0.55);
-  stroke: #FF6010;
+  fill: rgba(124,58,237, 0.55);
+  stroke: #7c3aed;
   stroke-width: 1.5;
-  filter: drop-shadow(0 0 10px rgba(255, 90, 0, 0.6));
+  filter: drop-shadow(0 0 10px rgba(124,58,237, 0.6));
 }
 .country-active.selected {
-  fill: rgba(255, 90, 0, 0.75);
-  stroke: #FF4500;
+  fill: rgba(124,58,237, 0.75);
+  stroke: #6d28d9;
   stroke-width: 2.0;
-  filter: drop-shadow(0 0 18px rgba(255, 90, 0, 0.85));
+  filter: drop-shadow(0 0 18px rgba(124,58,237, 0.85));
   animation: selectedPulse 2.5s ease-in-out infinite;
 }
 @keyframes selectedPulse {
-  0%,100% { filter: drop-shadow(0 0 10px rgba(255,90,0,0.7)); }
-  50%      { filter: drop-shadow(0 0 24px rgba(255,90,0,0.95)); }
+  0%,100% { filter: drop-shadow(0 0 10px rgba(124,58,237,0.7)); }
+  50%      { filter: drop-shadow(0 0 24px rgba(124,58,237,0.95)); }
 }
 
 /* Country name labels — visible only on zoom */
@@ -177,7 +177,7 @@
 .map-tooltip-html {
   position: absolute;
   background: rgba(5, 14, 28, 0.92);
-  border: 1px solid rgba(255, 107, 53, 0.5);
+  border: 1px solid rgba(124,58,237, 0.5);
   border-radius: 8px;
   color: #fff;
   font-family: var(--f-body);
@@ -221,7 +221,7 @@
   background: var(--c-primary);
   border-color: var(--c-primary);
   color: #fff;
-  box-shadow: 0 0 12px rgba(255,107,53,0.4);
+  box-shadow: 0 0 12px rgba(124,58,237,0.4);
 }
 
 .map-tip {
@@ -249,14 +249,14 @@
   border-left: 1px solid var(--c-border);
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,107,53,0.3) transparent;
+  scrollbar-color: rgba(124,58,237,0.3) transparent;
   flex-shrink: 0;
   transition: transform var(--t-slow);
 }
 .country-sidebar::-webkit-scrollbar { width: 4px; }
 .country-sidebar::-webkit-scrollbar-track { background: transparent; }
-.country-sidebar::-webkit-scrollbar-thumb { background: rgba(255,107,53,0.3); border-radius: 4px; }
-.country-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(255,107,53,0.5); }
+.country-sidebar::-webkit-scrollbar-thumb { background: rgba(124,58,237,0.3); border-radius: 4px; }
+.country-sidebar::-webkit-scrollbar-thumb:hover { background: rgba(124,58,237,0.5); }
 
 .sidebar-inner { height: 100%; }
 
@@ -274,7 +274,7 @@
   font-size: 4rem;
   margin-bottom: var(--sp-md);
   animation: globe-spin 20s linear infinite;
-  filter: drop-shadow(0 0 12px rgba(255,107,53,0.3));
+  filter: drop-shadow(0 0 12px rgba(124,58,237,0.3));
 }
 @keyframes globe-spin { to { transform: rotate(360deg); } }
 .sidebar-placeholder h3 {
@@ -319,7 +319,7 @@
   border-color: var(--c-primary);
   color: #fff;
   transform: translateY(-1px);
-  box-shadow: 0 4px 12px rgba(255,107,53,0.3);
+  box-shadow: 0 4px 12px rgba(124,58,237,0.3);
 }
 
 /* ---- SIDEBAR CONTENT ---- */
@@ -499,7 +499,7 @@
   transition: all var(--t-base);
 }
 .sb-tour-card:hover {
-  border-color: rgba(255,107,53,0.4);
+  border-color: rgba(124,58,237,0.4);
   transform: translateY(-2px);
   box-shadow: 0 6px 18px rgba(0,0,0,0.15);
   background: var(--c-bg-3);
@@ -535,7 +535,7 @@
 }
 .sb-book-btn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(255,107,53,0.5);
+  box-shadow: 0 8px 24px rgba(124,58,237,0.5);
   opacity: 0.95;
 }
 

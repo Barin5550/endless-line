@@ -12,8 +12,8 @@
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(ellipse at 70% 50%, rgba(255,107,53,0.08) 0%, transparent 55%),
-    radial-gradient(ellipse at 15% 80%, rgba(255,176,32,0.05) 0%, transparent 45%);
+    radial-gradient(ellipse at 70% 50%, rgba(124,58,237,0.08) 0%, transparent 55%),
+    radial-gradient(ellipse at 15% 80%, rgba(168,85,247,0.05) 0%, transparent 45%);
   pointer-events: none;
   animation: toursHeroGlow 11s ease-in-out infinite alternate;
 }
@@ -66,7 +66,7 @@
   max-height: calc(100vh - var(--header-h) - 30px);
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(255,90,0,0.3) transparent;
+  scrollbar-color: rgba(124,58,237,0.3) transparent;
 }
 .filters-panel::before {
   content: '';
@@ -100,7 +100,7 @@
   cursor: pointer;
   padding: 2px 6px;
   border-radius: var(--r-full);
-  border: 1px solid rgba(255,90,0,0.25);
+  border: 1px solid rgba(124,58,237,0.25);
   transition: all var(--t-fast);
 }
 .filters-reset:hover { background: var(--c-primary); color: #fff; border-color: var(--c-primary); }
@@ -144,15 +144,15 @@
   justify-content: center;
 }
 .f-check:hover {
-  border-color: rgba(255,90,0,0.35);
+  border-color: rgba(124,58,237,0.35);
   color: var(--c-primary);
-  background: rgba(255,90,0,0.06);
+  background: rgba(124,58,237,0.06);
 }
 .f-check:has(input:checked) {
   background: var(--c-primary);
   border-color: var(--c-primary);
   color: #fff;
-  box-shadow: 0 2px 8px rgba(255,90,0,0.3);
+  box-shadow: 0 2px 8px rgba(124,58,237,0.3);
 }
 .f-check input {
   position: absolute;
@@ -250,8 +250,8 @@
 }
 .tour-card:hover {
   transform: translateY(-6px);
-  border-color: rgba(255,107,53,0.4);
-  box-shadow: 0 16px 40px rgba(0,0,0,0.2), 0 0 0 1px rgba(255,107,53,0.1);
+  border-color: rgba(124,58,237,0.4);
+  box-shadow: 0 16px 40px rgba(0,0,0,0.2), 0 0 0 1px rgba(124,58,237,0.1);
 }
 
 /* Card image */
@@ -374,7 +374,7 @@
 .tour-book-btn:hover {
   background: var(--c-primary-dark);
   transform: scale(1.04);
-  box-shadow: 0 4px 14px rgba(255,107,53,0.4);
+  box-shadow: 0 4px 14px rgba(124,58,237,0.4);
 }
 
 /* ---- LIST VIEW ---- */
