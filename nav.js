@@ -41,7 +41,7 @@ function buildHeader(activePage) {
 <header class="site-header" id="site-header">
   <div class="header-inner">
     <a href="index.html" class="logo-link" id="logo-home">
-      <img src="assets/logo.png" alt="OdysseyTour" class="logo-img">
+      <img src="assets/logo.svg" alt="OdysseyTour" class="logo-img">
       <div class="logo-text">
         <div class="logo-brand-row">
           <span class="logo-name">Odyssey</span>
@@ -80,7 +80,7 @@ function buildFooter() {
     <div class="footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo-link">
-          <img src="assets/logo.png" alt="OdysseyTour" class="logo-img" style="height:40px">
+          <img src="assets/logo.svg" alt="OdysseyTour" class="logo-img" style="height:40px">
           <div class="logo-text">
             <div class="logo-brand-row">
               <span class="logo-name">Odyssey</span>

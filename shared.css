@@ -1309,3 +1309,32 @@ blockquote cite {
   }
   [data-reveal] { opacity: 1; transform: none; transition: none; }
 }
+
+/* ============================================================
+   ROUND-2 POLISH — smoother background blending + buttons
+   ============================================================ */
+/* Softer, longer section edge fades → smoother transitions between backgrounds */
+.destinations-section::before,.hot-deals-section::before,.why-section::before,.reviews-section::before,.nl-section::before,.services-section::before,.map-promo-section::before,.deals-section::before,
+.destinations-section::after,.hot-deals-section::after,.why-section::after,.reviews-section::after,.nl-section::after,.services-section::after,.map-promo-section::after,.deals-section::after { height: 160px; }
+.fade-top::before, .fade-bottom::after { height: 150px; }
+.hero::after { height: 200px; }
+
+/* Primary iridescent CTAs: smoother lift + refined purple glow on hover */
+.btn-primary, .btn-header-cta, .btn-search, .btn-search-main, .btn-book, .btn-book-big, .btn-pay {
+  transition: transform var(--t-base), box-shadow var(--t-base), filter var(--t-base);
+}
+.btn-primary:hover, .btn-header-cta:hover, .btn-search:hover, .btn-search-main:hover, .btn-book:hover, .btn-book-big:hover, .btn-pay:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 34px rgba(124,58,237,0.36), 0 0 0 1px rgba(124,58,237,0.16);
+}
+/* Secondary button: subtle purple-tinted hover for cohesion */
+.btn-secondary:hover {
+  background: rgba(124,58,237,0.06);
+  border-color: rgba(124,58,237,0.30);
+  color: var(--c-primary-dark);
+  box-shadow: 0 6px 18px rgba(124,58,237,0.12);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-primary,.btn-header-cta,.btn-search,.btn-search-main,.btn-book,.btn-book-big,.btn-pay { transition: box-shadow var(--t-base); }
+  .btn-primary:hover,.btn-header-cta:hover,.btn-search:hover,.btn-search-main:hover,.btn-book:hover,.btn-book-big:hover,.btn-pay:hover { transform: none; }
+}
