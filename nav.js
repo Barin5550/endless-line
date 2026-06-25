@@ -25,7 +25,6 @@ function buildHeader(activePage) {
     { label: 'Отели',        href: 'hotels.html',  id: 'hotels', i18n: 'nav.hotels' },
     { label: 'Акции',        href: 'deals.html',   id: 'deals',  i18n: 'nav.deals' },
     { label: 'О нас',        href: 'about.html',     id: 'about',  i18n: 'nav.about' },
-    { label: '⚛️ React',    href: 'react-tours.html', id: 'react',  i18n: 'nav.react' },
   ];
   const navHTML = nav.map(n => `
     <li>
@@ -142,7 +141,6 @@ function buildFooter() {
         <div class="footer-col-title" data-i18n="footer.col.company">Компания</div>
         <ul class="footer-col-links">
           <li><a href="about.html">О нас</a></li>
-          <li><a href="about.html#team">Команда</a></li>
           <li><a href="about.html#partners">Партнёры</a></li>
           <li><a href="jobs.html">Вакансии</a></li>
           <li><a href="press.html">Пресс-центр</a></li>
