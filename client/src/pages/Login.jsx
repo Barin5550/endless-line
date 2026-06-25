@@ -62,10 +62,10 @@ export default function Login() {
     <div className="auth-page">
       <div className="auth-card">
         <Link to="/" className="auth-logo">
-          <img src="/logo.png" alt="Endless Line" className="logo-img" />
+          <img src="/logo.png" alt="OdysseyTour" className="logo-img" />
           <div className="logo-text">
-            <span className="logo-name">Endless</span>
-            <span className="logo-name-accent">Line</span>
+            <span className="logo-name">Odyssey</span>
+            <span className="logo-name-accent">Tour</span>
           </div>
         </Link>
 

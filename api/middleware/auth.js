@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * ENDLESS LINE — JWT Middleware (api/middleware/auth.js)
+ * OdysseyTour — JWT Middleware (api/middleware/auth.js)
  * ============================================================
  * Промежуточный обработчик (middleware) для защиты эндпоинтов.
  * Используется так:  router.get('/route', require('../middleware/auth'), handler)

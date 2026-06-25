@@ -11,10 +11,10 @@ export default function Footer() {
         <div className="footer-brand">
           <Link to="/" className="logo-link">
             <div className="logo">
-              <img src="/logo.png" alt="Endless Line" className="logo-img logo-img--sm" />
+              <img src="/logo.png" alt="OdysseyTour" className="logo-img logo-img--sm" />
               <div className="logo-text">
-                <span className="logo-name">Endless</span>
-                <span className="logo-name-accent">Line</span>
+                <span className="logo-name">Odyssey</span>
+                <span className="logo-name-accent">Tour</span>
               </div>
             </div>
           </Link>
@@ -29,7 +29,7 @@ export default function Footer() {
         </nav>
 
         <div className="footer-copy">
-          © 2026 Endless Line. {t('footer-rights')}
+          © 2026 OdysseyTour. {t('footer-rights')}
         </div>
       </div>
     </footer>

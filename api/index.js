@@ -1,6 +1,6 @@
 /**
  * ============================================================
- * ENDLESS LINE — Главный файл сервера (api/index.js)
+ * ODYSSEYTOUR — Главный файл сервера (api/index.js)
  * ============================================================
  * Стек: Node.js + Express.js
  * База данных: NeDB (NoSQL, хранение в файлах .db)
@@ -165,7 +165,7 @@ const PORT = process.env.PORT || 5000  // Берём порт из .env или �
 // Запускаем HTTP-сервер только при локальной разработке
 // На Vercel сервер не запускается напрямую — Vercel сам управляет воркерами
 if (process.env.NODE_ENV !== 'production' && !process.env.VERCEL) {
-  app.listen(PORT, () => console.log(`🚀 Endless Line server → http://localhost:${PORT}`))
+  app.listen(PORT, () => console.log(`🚀 OdysseyTour server → http://localhost:${PORT}`))
 }
 
 // Экспортируем Express-приложение для Vercel (serverless entry point)

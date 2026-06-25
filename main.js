@@ -1,4 +1,4 @@
-/* Endless Line — main.js */
+/* OdysseyTour — main.js */
 (function () {
     'use strict';
 

@@ -1,5 +1,5 @@
 /* auth.js — Authentication, Booking & Payment system
-   Endless Line — полная система авторизации и бронирования */
+   OdysseyTour — полная система авторизации и бронирования */
 
 const API = (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1')
   ? 'http://localhost:5000/api'
@@ -132,7 +132,7 @@ function openAuthModal(mode = 'login') {
   overlay.innerHTML = `
     <div class="modal auth-modal">
       <button class="modal-close" onclick="closeAllModals()">×</button>
-      <div class="auth-logo">✈️ Endless Line</div>
+      <div class="auth-logo">✈️ OdysseyTour</div>
       <div class="auth-tabs">
         <button class="auth-tab ${mode === 'login' ? 'active' : ''}" onclick="switchAuthTab('login')">Войти</button>
         <button class="auth-tab ${mode === 'register' ? 'active' : ''}" onclick="switchAuthTab('register')">Регистрация</button>

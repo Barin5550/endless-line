@@ -19,14 +19,14 @@ const TRANSLATIONS = {
     'footer.col.services':    'Услуги',
     'footer.col.company':     'Компания',
     'footer.col.support':     'Поддержка',
-    'footer.copy':            '© 2026 Endless Line. Все права защищены.',
+    'footer.copy':            '© 2026 OdysseyTour. Все права защищены.',
 
     /* HERO */
     'hero.badge':   'Новые туры каждую неделю',
     'hero.title1':  'Ваш следующий',
     'hero.accent':  'маршрут',
     'hero.title2':  'ждёт вас',
-    'hero.sub':     'От Казахстана до Мальдив — откройте мир с Endless Line.<br>50+ стран, 3 200 маршрутов, гарантия лучшей цены.',
+    'hero.sub':     'От Казахстана до Мальдив — откройте мир с OdysseyTour.<br>50+ стран, 3 200 маршрутов, гарантия лучшей цены.',
 
     /* SEARCH TABS */
     'search.tab.tours':   '🌍 Туры',
@@ -86,7 +86,7 @@ const TRANSLATIONS = {
     'section.deals.sub':     'Ограниченные предложения — бронируйте сейчас',
     'section.why.tag':       'Наши преимущества',
     'section.why.title1':    'Почему',
-    'section.why.title2':    'Endless Line',
+    'section.why.title2':    'OdysseyTour',
     'section.reviews.tag':   'Отзывы',
     'section.reviews.title1':'Что говорят наши',
     'section.reviews.title2':'клиенты',
@@ -129,14 +129,14 @@ const TRANSLATIONS = {
     'footer.col.services':    'Services',
     'footer.col.company':     'Company',
     'footer.col.support':     'Support',
-    'footer.copy':            '© 2026 Endless Line. All rights reserved.',
+    'footer.copy':            '© 2026 OdysseyTour. All rights reserved.',
 
     /* HERO */
     'hero.badge':   'New tours every week',
     'hero.title1':  'Your next',
     'hero.accent':  'adventure',
     'hero.title2':  'awaits you',
-    'hero.sub':     'From Kazakhstan to the Maldives — explore the world with Endless Line.<br>50+ countries, 3 200 routes, best price guarantee.',
+    'hero.sub':     'From Kazakhstan to the Maldives — explore the world with OdysseyTour.<br>50+ countries, 3 200 routes, best price guarantee.',
 
     /* SEARCH TABS */
     'search.tab.tours':   '🌍 Tours',
@@ -196,7 +196,7 @@ const TRANSLATIONS = {
     'section.deals.sub':     'Limited offers — book now',
     'section.why.tag':       'Our advantages',
     'section.why.title1':    'Why',
-    'section.why.title2':    'Endless Line',
+    'section.why.title2':    'OdysseyTour',
     'section.reviews.tag':   'Reviews',
     'section.reviews.title1':'What our',
     'section.reviews.title2':'clients say',
@@ -239,14 +239,14 @@ const TRANSLATIONS = {
     'footer.col.services':    'Leistungen',
     'footer.col.company':     'Unternehmen',
     'footer.col.support':     'Support',
-    'footer.copy':            '© 2026 Endless Line. Alle Rechte vorbehalten.',
+    'footer.copy':            '© 2026 OdysseyTour. Alle Rechte vorbehalten.',
 
     /* HERO */
     'hero.badge':   'Neue Touren jede Woche',
     'hero.title1':  'Ihr nächstes',
     'hero.accent':  'Abenteuer',
     'hero.title2':  'wartet auf Sie',
-    'hero.sub':     'Von Kasachstan auf die Malediven — entdecken Sie die Welt mit Endless Line.<br>50+ Länder, 3 200 Routen, Bestpreisgarantie.',
+    'hero.sub':     'Von Kasachstan auf die Malediven — entdecken Sie die Welt mit OdysseyTour.<br>50+ Länder, 3 200 Routen, Bestpreisgarantie.',
 
     /* SEARCH TABS */
     'search.tab.tours':   '🌍 Touren',
@@ -306,7 +306,7 @@ const TRANSLATIONS = {
     'section.deals.sub':     'Begrenzte Angebote — jetzt buchen',
     'section.why.tag':       'Unsere Vorteile',
     'section.why.title1':    'Warum',
-    'section.why.title2':    'Endless Line',
+    'section.why.title2':    'OdysseyTour',
     'section.reviews.tag':   'Bewertungen',
     'section.reviews.title1':'Was unsere',
     'section.reviews.title2':'Kunden sagen',

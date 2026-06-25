@@ -92,15 +92,15 @@ export default function Register() {
     <div className="auth-page">
       <div className="auth-card auth-card--wide">
         <Link to="/" className="auth-logo">
-          <img src="/logo.png" alt="Endless Line" className="logo-img" />
+          <img src="/logo.png" alt="OdysseyTour" className="logo-img" />
           <div className="logo-text">
-            <span className="logo-name">Endless</span>
-            <span className="logo-name-accent">Line</span>
+            <span className="logo-name">Odyssey</span>
+            <span className="logo-name-accent">Tour</span>
           </div>
         </Link>
 
         <h1 className="auth-title">Создать аккаунт</h1>
-        <p className="auth-subtitle">Начните путешествовать с Endless Line уже сегодня</p>
+        <p className="auth-subtitle">Начните путешествовать с OdysseyTour уже сегодня</p>
 
         {errors.global && <div className="form-error-global">{errors.global}</div>}
 

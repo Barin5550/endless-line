@@ -186,7 +186,7 @@ export default function Reviews() {
                     <label className="field-label-dark">Ваш отзыв</label>
                     <textarea className={`field-input field-textarea ${errors.text ? 'field-input--error' : ''}`}
                       id="review-text" rows="4"
-                      placeholder="Расскажите о вашем путешествии с Endless Line..."
+                      placeholder="Расскажите о вашем путешествии с OdysseyTour..."
                       value={form.text}
                       onChange={e => { setForm(f => ({...f, text: e.target.value})); setErrors(p => ({...p, text: null})) }} />
                     <div className="field-hint" style={{ color: form.text.trim().length >= 10 ? '#27ae60' : undefined }}>

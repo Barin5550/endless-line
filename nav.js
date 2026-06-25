@@ -42,11 +42,11 @@ function buildHeader(activePage) {
 <header class="site-header" id="site-header">
   <div class="header-inner">
     <a href="index.html" class="logo-link" id="logo-home">
-      <img src="assets/logo.png" alt="Endless Line" class="logo-img">
+      <img src="assets/logo.png" alt="OdysseyTour" class="logo-img">
       <div class="logo-text">
         <div class="logo-brand-row">
-          <span class="logo-name">Endless</span>
-          <span class="logo-name-accent">Line</span>
+          <span class="logo-name">Odyssey</span>
+          <span class="logo-name-accent">Tour</span>
         </div>
         <span class="logo-tagline">Travel · 50+ стран</span>
       </div>
@@ -81,11 +81,11 @@ function buildFooter() {
     <div class="footer-top">
       <div class="footer-brand">
         <a href="index.html" class="logo-link">
-          <img src="assets/logo.png" alt="Endless Line" class="logo-img" style="height:40px">
+          <img src="assets/logo.png" alt="OdysseyTour" class="logo-img" style="height:40px">
           <div class="logo-text">
             <div class="logo-brand-row">
-              <span class="logo-name">Endless</span>
-              <span class="logo-name-accent">Line</span>
+              <span class="logo-name">Odyssey</span>
+              <span class="logo-name-accent">Tour</span>
             </div>
             <span class="logo-tagline">Путешествие без границ</span>
           </div>
@@ -160,7 +160,7 @@ function buildFooter() {
       </div>
     </div>
     <div class="footer-bottom">
-      <p class="footer-copy" data-i18n="footer.copy">© 2026 Endless Line. Все права защищены.</p>
+      <p class="footer-copy" data-i18n="footer.copy">© 2026 OdysseyTour. Все права защищены.</p>
       <div class="footer-legal">
         <a href="refund.html">Политика конфиденциальности</a>
         <a href="refund.html">Пользовательское соглашение</a>

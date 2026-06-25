@@ -324,10 +324,10 @@ export default function Dashboard() {
     <div className="dashboard-page">
       <header className="dashboard-header">
         <Link to="/" className="logo-link">
-          <img src="/logo.png" alt="Endless Line" className="logo-img" />
+          <img src="/logo.png" alt="OdysseyTour" className="logo-img" />
           <div className="logo-text">
-            <span className="logo-name">Endless</span>
-            <span className="logo-name-accent">Line</span>
+            <span className="logo-name">Odyssey</span>
+            <span className="logo-name-accent">Tour</span>
           </div>
         </Link>
         <div className="dashboard-user">

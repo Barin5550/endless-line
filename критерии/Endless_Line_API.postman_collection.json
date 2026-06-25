@@ -1,8 +1,8 @@
 {
   "info": {
-    "name": "Endless Line API",
+    "name": "OdysseyTour API",
     "_postman_id": "endless-line-api-collection",
-    "description": "Полное тестирование REST API туристической компании Endless Line",
+    "description": "Полное тестирование REST API туристической компании OdysseyTour",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
   },
   "variable": [
