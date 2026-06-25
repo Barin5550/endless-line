@@ -1,15 +1,15 @@
 @echo off
-title Endless Line — Запуск сайта
+title OdysseyTour — Запуск сайта
 echo.
 echo  ================================
-echo   Endless Line — Запуск сайта
+echo   OdysseyTour — Запуск сайта
 echo  ================================
 echo.
 
 cd /d "%~dp0"
 
 echo  [1/2] Запуск сервера (порт 5000)...
-start "Endless Line Server" cmd /k "cd /d %~dp0server && node server.js"
+start "OdysseyTour Server" cmd /k "cd /d %~dp0 && node api/index.js"
 
 timeout /t 2 /nobreak >nul
 
@@ -18,6 +18,6 @@ start "" "http://localhost:5000"
 
 echo.
 echo  Сайт запущен: http://localhost:5000
-echo  Для остановки закройте окно "Endless Line Server"
+echo  Для остановки закройте окно "OdysseyTour Server"
 echo.
 pause

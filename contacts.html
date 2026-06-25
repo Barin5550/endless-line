@@ -4,8 +4,8 @@
   <meta charset="UTF-8">
   <link rel="icon" type="image/x-icon" href="assets/favicon.ico">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Связаться с нами | Endless Line</title>
-  <meta name="description" content="Контакты туристической компании Endless Line. Телефон, WhatsApp, офис в Алматы.">
+  <title>Связаться с нами | OdysseyTour</title>
+  <meta name="description" content="Контакты туристической компании OdysseyTour. Телефон, WhatsApp, офис в Алматы.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -50,27 +50,27 @@
               <span>Ответ за 5–10 минут</span>
             </div>
           </a>
-          <a href="https://t.me/endlessline_kz" target="_blank" class="sp-contact-card">
+          <a href="https://t.me/odysseytour_kz" target="_blank" class="sp-contact-card">
             <div class="sp-c-icon">✈️</div>
             <div class="sp-c-info">
               <strong>Telegram</strong>
-              <em>@endlessline_kz</em>
+              <em>@odysseytour_kz</em>
               <span>Бот-помощник 24/7</span>
             </div>
           </a>
-          <a href="mailto:info@endlessline.kz" class="sp-contact-card">
+          <a href="mailto:info@odysseytour.kz" class="sp-contact-card">
             <div class="sp-c-icon">✉️</div>
             <div class="sp-c-info">
               <strong>Email</strong>
-              <em>info@endlessline.kz</em>
+              <em>info@odysseytour.kz</em>
               <span>Ответ за 2 часа</span>
             </div>
           </a>
-          <a href="https://instagram.com/endlessline.kz" target="_blank" class="sp-contact-card">
+          <a href="https://instagram.com/odysseytour.kz" target="_blank" class="sp-contact-card">
             <div class="sp-c-icon">📸</div>
             <div class="sp-c-info">
               <strong>Instagram</strong>
-              <em>@endlessline.kz</em>
+              <em>@odysseytour.kz</em>
               <span>Акции и вдохновение</span>
             </div>
           </a>
@@ -143,7 +143,7 @@ function submitContact(e) {
 
   if (!name) { if (typeof showToast==='function') showToast('Введите имя', 'error'); return; }
   if (!phone) { if (typeof showToast==='function') showToast('Введите телефон', 'error'); return; }
-  if (!msg || msg.length < 5) { if (typeof showToast==='function') showToast('Напишите сообщение (мин. 5 символов)', 'error'); return; }
+  if (!msg || msg.length < 10) { if (typeof showToast==='function') showToast('Напишите сообщение (мин. 10 символов)', 'error'); return; }
 
   const fullMsg = topic ? `[${topic}] ${msg}` : msg;
 
