@@ -1,7 +1,7 @@
 # CLAUDE.md — Проект OdysseyTour
 
 > Туристический портал (бывш. Endless Line). Курсовой проект, автор — Баринов Николай, гр. ПО2410.
-> Стек: HTML/CSS/Vanilla JS + React SPA (`react-tours.html`), backend Node.js/Express + NeDB, деплой на Vercel.
+> Стек: HTML/CSS/Vanilla JS, backend Node.js/Express + NeDB, деплой на Vercel.
 
 ## Главные задачи
 

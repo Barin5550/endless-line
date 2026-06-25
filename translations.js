@@ -10,7 +10,6 @@ const TRANSLATIONS = {
     'nav.about':      'О нас',
     'nav.login':      'Войти',
     'nav.find-tour':  'Найти тур',
-    'nav.react':      '⚛️ React',
     'nav.notif':      '🔥 Горячие скидки до −40%! <a href="deals.html">Смотреть акции →</a>',
 
     /* FOOTER */
@@ -120,7 +119,6 @@ const TRANSLATIONS = {
     'nav.about':      'About',
     'nav.login':      'Sign In',
     'nav.find-tour':  'Find Tour',
-    'nav.react':      '⚛️ React',
     'nav.notif':      '🔥 Hot deals up to −40%! <a href="deals.html">View deals →</a>',
 
     /* FOOTER */
@@ -230,7 +228,6 @@ const TRANSLATIONS = {
     'nav.about':      'Über uns',
     'nav.login':      'Anmelden',
     'nav.find-tour':  'Tour finden',
-    'nav.react':      '⚛️ React',
     'nav.notif':      '🔥 Heiße Rabatte bis −40%! <a href="deals.html">Angebote ansehen →</a>',
 
     /* FOOTER */
