@@ -361,6 +361,13 @@ function applyLang(lang) {
   }
 }
 
+// Robust delegated handler for language buttons — срабатывает даже если шапка
+// перерисовывается после загрузки (прямые слушатели при этом теряются, делегирование — нет).
+document.addEventListener('click', function (e) {
+  const btn = e.target.closest && e.target.closest('.lang-btn')
+  if (btn && btn.getAttribute('data-lang')) applyLang(btn.getAttribute('data-lang'))
+})
+
 // Apply saved language on load
 document.addEventListener('DOMContentLoaded', () => {
   const saved = localStorage.getItem('el_lang') || 'ru'

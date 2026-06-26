@@ -575,3 +575,15 @@
   .ac-grid { grid-template-columns: 1fr; }
   .map-svg-wrap { height: 300px; }
 }
+
+/* ── ROUND-3: СВЕТЛАЯ КАРТА (был тёмный навигационный океан) ── */
+.map-svg-wrap { background: #e7ecf7; }                       /* светлый океан */
+.country-base { fill: #d2d0e4; stroke: #bdbad4; }            /* светлая суша */
+.country-active { fill: rgba(124,58,237,0.32); stroke: rgba(124,58,237,0.9); }
+.country-active:hover, .country-active.hovered { fill: rgba(124,58,237,0.55); }
+.country-active.selected { fill: rgba(124,58,237,0.72); }
+.lbl-text { fill: #20243e; text-shadow: 0 1px 2px rgba(255,255,255,0.9); }
+.lbl-shadow { fill: #ffffff; stroke: #ffffff; }
+.map-tooltip-html { background: var(--c-bg-glass); color: var(--c-text); border: 1px solid rgba(124,58,237,0.45); box-shadow: 0 6px 20px rgba(124,58,237,0.18); }
+.zoom-btn { background: var(--glass-85); border: 1px solid var(--c-border); color: var(--c-text-2); }
+.map-tip { background: var(--glass-85); color: var(--c-text-2); border: 1px solid var(--c-border); }

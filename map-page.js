@@ -69,16 +69,16 @@ function initD3Map() {
   /* Ocean gradient — smooth deep navy, no harsh bands */
   const rg = defs.append('radialGradient')
     .attr('id','ocean-glow').attr('cx','50%').attr('cy','40%').attr('r','60%');
-  rg.append('stop').attr('offset','0%').attr('stop-color','#0d2240').attr('stop-opacity','1');
-  rg.append('stop').attr('offset','60%').attr('stop-color','#091a30').attr('stop-opacity','1');
-  rg.append('stop').attr('offset','100%').attr('stop-color','#050d1a').attr('stop-opacity','1');
+  rg.append('stop').attr('offset','0%').attr('stop-color','#eef2fc').attr('stop-opacity','1');
+  rg.append('stop').attr('offset','60%').attr('stop-color','#e6ecf8').attr('stop-opacity','1');
+  rg.append('stop').attr('offset','100%').attr('stop-color','#dde6f4').attr('stop-opacity','1');
 
   const og = defs.append('linearGradient')
     .attr('id','ocean-grad').attr('x1','0').attr('y1','0').attr('x2','0').attr('y2','1');
-  og.append('stop').attr('offset','0%').attr('stop-color','#0d2240');
-  og.append('stop').attr('offset','35%').attr('stop-color','#0a1c36');
-  og.append('stop').attr('offset','70%').attr('stop-color','#081528');
-  og.append('stop').attr('offset','100%').attr('stop-color','#050d1a');
+  og.append('stop').attr('offset','0%').attr('stop-color','#eef2fc');
+  og.append('stop').attr('offset','35%').attr('stop-color','#e7edf9');
+  og.append('stop').attr('offset','70%').attr('stop-color','#e1e8f5');
+  og.append('stop').attr('offset','100%').attr('stop-color','#dae3f2');
 
   /* Graticule (lat/lon grid) */
   d3Projection = d3.geoNaturalEarth1()
